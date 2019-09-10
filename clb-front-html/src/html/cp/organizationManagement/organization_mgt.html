@@ -1,0 +1,248 @@
+
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="modal-body wrapper-lg no-padder" ng-controller="OrganizationPageCtrl">
+
+
+
+    <div class="panel panel-default m-b-none">
+        <!--标题-->
+        <div class="bg-light lter b-b wrapper-md">
+            <h1 class="m-n font-thin h3" translate="pages.cp.ORG_PARAM">Organization Parameter</h1>
+        </div>
+
+
+        <div class="panel-body" >
+
+            <div class="well b bg-light lt wrapper-sm m-t" translate="pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N">
+            </div>
+
+
+            <form name="formOrgFilter" id="formOrgFilter">
+                <!--<fieldset ng-disabled="isFormDisabled">-->
+
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-3" >
+                            <div>
+                                <label for="org_id"
+                                       translate="pages.cp.ORG_MGT_FIELDS.ORG_ID">
+                                        orgID
+                                </label>
+
+                                <input id="org_id" name="param_org_id" type="text"
+                                       class="form-control"
+                                       ng-model="fields.param_org_id" ng-minlength="3"
+                                       required placeholder='{{"pages.cp.ORG_MGT_FIELDS.ORG_ID_PLACEHOLDER" | translate}}'>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-3">
+                            <!--系統管理-機構名稱-->
+                            <label for="orgName"
+                                   translate="pages.cp.ORG_MGT_FIELDS.ORG_NAME">
+                                orgName
+                            </label>
+                            <input id="orgName" name="orgName" type="text" readonly="readonly"
+                                   class="form-control"
+                                   ng-model="org_name" ng-minlength="40"
+                                   placeholder='{{"pages.cp.ORG_MGT_FIELDS.ORG_NAME_PLACEHOLDER" | translate}}'>
+
+                        </div>
+
+
+                        <div class="col-lg-3">
+                            <!--系統管理-機構名稱-->
+                            <label for="orgName1"
+                                   translate="pages.cp.ORG_TABLE.PROCESS_WITH_SYSTEM">
+                                orgName
+                            </label>
+                            <input id="orgName1" name="orgName" type="text" readonly="readonly"
+                                   class="form-control"  ng-blur="blur()"
+                                   ng-model="orgName" ng-blur="ctrl.fn()" ng-minlength="40">
+
+                        </div>
+
+                    </div>
+
+
+                    <!--以后可能用到的列-->
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-3" >
+                            <div>
+                                <label for="org_id1"
+                                       translate="pages.cp.ORG_TABLE.WORK_OF_WEEK">
+                                    orgID
+                                </label>
+
+                                <input id="org_id1" name="org_id1" type="text" readonly="readonly"
+                                       class="form-control"  ng-blur="blur()"
+                                       ng-model="orgID1" ng-blur="ctrl.fn()" ng-minlength="3"
+                                       required>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-3">
+
+                            <label for="orgName3"
+                                   translate="pages.cp.ORG_TABLE.EOM_EOY_FLAG">
+                                orgName
+                            </label>
+                            <input id="orgName3" name="orgName" type="text" readonly="readonly"
+                                   class="form-control"  ng-blur="blur()"
+                                   ng-model="orgName" ng-blur="ctrl.fn()" ng-minlength="40">
+
+                        </div>
+
+
+                        <div class="col-lg-3">
+                            <!--系統管理-機構名稱-->
+                            <label for="orgName4"
+                                   translate="pages.cp.ORG_TABLE.LAST_MAINT_DATE">
+                                orgName
+                            </label>
+                            <input id="orgName4" name="orgName" type="text" readonly="readonly"
+                                   class="form-control"  ng-blur="blur()"
+                                   ng-model="orgName" ng-blur="ctrl.fn()" ng-minlength="40">
+
+                        </div>
+
+                    </div>
+
+
+
+
+                <div class="row">
+                            <div class="form-group">
+
+
+                                <div class="col-lg-10"> </div>
+                                <!--<div class="col-lg-2"> </div>-->
+                                <div class="col-lg-1">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnQuery" style="width:100px" ng-click="queryOrg()">
+                                        {{'pages.cp.ORG_MGT_FIELDS.QUERY_BUTTON' | translate}}
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+
+                                <div class="col-lg-1">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnReset" style="width:100px" ng-click="clear()"
+                                            type="reset">
+                                        {{'pages.cp.ORG_MGT_FIELDS.RESET_BUTTON' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                <!--</fieldset>-->
+            </form>
+
+        </div>
+    </div>
+
+
+    <!-- Action buttons -->
+    <div class="row" id="orgTable" name="orgTable">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+
+                <div class="panel-heading font-bold">
+                    <!-- See this controller in add_org_modal_ctrl.js -->
+                    <span ng-controller="AddOrganizationModalInstanceCtrl">
+                        <!--添加新机构modal框-->
+                        <script type="text/ng-template" id="addOrganizationModal.html">
+                            <div ng-include="'html/cp/organizationManagement/organization_add_modal_form.html'"></div>
+                        </script>
+
+                        <!--添加新的机构按钮-->
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="addOrganization" ng-click="showAddOrganizationPopup()">
+                            {{'pages.cp.ORG_MGT_FIELDS.ORG_MGMT_BUTTON_ADD' | translate}}
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+
+                    <span ng-controller="EditOrganizationModalInstanceCtrl" ng-hide="isTableHidden">
+                        <!--修改机构的modal框-->
+                        <script type="text/ng-template" id="editOrganizationModal.html">
+                            <div ng-include="'html/cp/organizationManagement/organization_edit_modal_form.html'"></div>
+                        </script>
+
+
+                            <!--修改机构按钮-->
+                            <button class="btn m-b-xs btn-sm btn-default btn-addon" id="editOrganization" ng-click="showEditOrganizationPopup()">
+                                {{'pages.cp.ORG_MGT_FIELDS.ORG_MGMT_BUTTON_EDIT' | translate}}
+                                <i class="fa fa-pencil-square-o"></i>
+                            </button>
+
+                    </span>
+
+                    <span ng-controller="OrganizationDetailModalInstanceCtrl" ng-hide="isTableHidden">
+                        <!--机构詳情的modal框-->
+                        <script type="text/ng-template" id="organizationDetailModal.html">
+                            <div ng-include="'html/cp/organizationManagement/organization_detail_modal_form.html'"></div>
+                        </script>
+
+
+                            <!--机构詳情的按钮-->
+                            <button class="btn m-b-xs btn-sm btn-default btn-addon" id="organizationDetail" ng-click="showOrganizationDetailPopup()">
+                            {{'pages.cp.ORG_MGT_FIELDS.ORG_MGMT_BUTTON_DETAIL' | translate}}
+                            <i class="fa fa-bell-o"></i>
+                        </button>
+
+
+
+                    </span>
+                </div>
+
+
+                <div class="panel-body" ng-hide="isTableHidden">
+                    <div class="table-responsive">
+                        <table ui-jq="dataTable" ui-options="{{cpDataTableParms}}" class="table display" id="tblOrgs" style="width: 100%">
+                            <thead>
+                            <tr>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_SEQUENCE">
+                                    seq
+                                </th>
+                                <th translate="pages.cp.ORG_TABLE.ORG_ID">
+                                    Org ID
+                                </th>
+                                <th translate="pages.cp.ORG_TABLE.ORG_NAME">
+                                    Org Name
+                                </th>
+                                <th translate="pages.cp.ORG_TABLE.PROCESS_STATUS">
+                                    Process Status
+                                </th>
+                                <th translate="pages.cp.ORG_TABLE.PROCESS_WITH_SYSTEM">
+                                    Process With System
+                                </th>
+
+                                <th translate="pages.cp.ORG_TABLE.WORK_OF_WEEK">
+                                    Work Of Week
+                                </th>
+                                <th translate="pages.cp.ORG_TABLE.EOM_EOY_FLAG">
+                                    Eom Eoy Flag
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

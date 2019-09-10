@@ -1,0 +1,128 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.rm.CREAL.CREAL_BUTTONS.CREAL_BUTTON_DETAIL">客户关系详细信息1</div>
+        <div class="panel-body" id="addPerCustomerPanel">
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+             <form name="formCustomerRelationFilter" id="formCustomerRelationFilter">
+             	<fieldset ng-disabled="isFormDisabled">
+             	<div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-lg-4">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="creal_cus_num"
+                                	translate="pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_NUMBER">
+                                	 客户编号1
+                                </label>
+                                <div class="col-lg-8">
+                                    <input id="creal_cus_num" name="creal_cus_num" type="text" class="form-control" 
+                                    	   ng-model="fields.crealCusNum" readonly="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="creal_mark"
+                                	translate="pages.rm.CREAL.CREAL_MGMT_FORM_INPUTS.CREAL_MGMT_FORM_INPUT_MARK">
+                              		 事件描述1
+                                </label>
+                                <div class="col-lg-8">
+                                    <input id="creal_mark" name="creal_mark" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.CRDMN.CRDMN_MGMT_PLACEHOLDERS.CREAL_MGMT_PLACEHOLDER_DESC' | translate}}"
+                                           ng-model="fields.crealMark">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-4">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="creal_retype"
+                                	translate="pages.rm.CREAL.CREAL_MGMT_COLUMN_TITLES.CREAL_MGMT_COLUMN_TITLE_RETYPE">
+                              		 关联类型1
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="creal_retype" name="creal_retype" type="text" class="form-control" 
+                                           ng-model="fields.crealRetype" readonly="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="update_time"
+                                	translate="pages.rm.CREAL.CREAL_MGMT_FORM_INPUTS.CREAL_MGMT_FORM_INPUT_UPDATE_TIME">
+                              		维护时间1
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="update_time" name="update_time" type="text" class="form-control" 
+                                           ng-model="fields.updateTime" readonly="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column 3 -->
+                    <div class="col-lg-4">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="creal_rel_cus"
+                                	translate="pages.rm.CREAL.CREAL_MGMT_FORM_INPUTS.CREAL_MGMT_FORM_INPUT_REAL_NUMBER">
+                                	 关系客户编号1
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="creal_rel_cus" name="creal_rel_cus" type="text" class="form-control" 
+                                    	   ng-blur="blur()" ng-model="fields.crealRelCus" readonly="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="update_user"
+                                	translate="pages.rm.CREAL.CREAL_MGMT_FORM_INPUTS.CREAL_MGMT_FORM_INPUT_LAST_MAKER">
+                              		 上次维护人
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="update_user" name="update_user" type="text" class="form-control" 
+                                           ng-model="fields.updateUser" readonly="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- 按钮 -->
+                    <div class="row">
+                        <div class="form-horizontal"> 
+                            <div class="form-group">
+                               	<div class="col-lg-6"></div>
+                               	<div class="col-lg-6">
+	                                <div class="col-lg-4">
+	                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="addBtn" ng-click="editCustomerRelation()"
+	                                    	    ng-disabled="formAddPerCustomerFilter.$invalid">
+	                                 	  		{{'pages.rm.CREAL.CREAL_BUTTONS.CREAL_BUTTON_EDIT' | translate}}
+	                                        <i class="fa fa-pencil-square-o"></i>
+	                                    </button>
+	                                </div>
+	                                <div class="col-lg-4">
+	                                    <button class="btn m-b-xs btn-default btn-success btn-addon" ng-click="deleteCustomerRelation()"
+	                                    		id="adfadsfasd">
+	                                	       	 {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_REMOVE' | translate}}
+	                                        <i class="fa fa-minus"></i>
+	                                    </button>
+	                                </div>
+	                                <div class="col-lg-4">
+	                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" ng-click="cancel()">
+	                                	      	{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+	                                        <i class="fa fa-times"></i>
+	                                    </button>
+	                                </div>
+                               </div>
+                          </div>
+                      </div>
+                  </div>
+                  </fieldset>
+             </form>
+        </div>
+    </div>
+</div>

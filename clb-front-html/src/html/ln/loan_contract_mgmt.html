@@ -1,0 +1,129 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3" translate="pages.ln.LN_CONTRACT_MGMT">LoanContract
+		Management</h1>
+</div>
+
+<!-- toaster directive -->
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="wrapper-md" ng-controller="LoanContractListMgmtCtrl">
+
+	<div ng-controller="AccordionCtrl">
+		<accordion close-others="oneAtATime"> <accordion-group
+			heading="{{accordionTitle}}" is-open="status.isFirstOpen"
+			is-disabled="status.isFirstDisabled">
+		<form name="formLnFilter" id="formLnFilter">
+			<!-- Column 1 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="orgNbr"
+							translate="pages.ln.LOAN_CONTRACT_MGMT_FORM_INPUTS.CONTRACT_STATUS">合同状态 </label>
+						<div class="col-lg-7">
+						      <ui-select
+                                     id="param_lncntrct_cntrct_status"
+                                     ng-model="selectedParamLncntrctCntrctStatus.item"
+                                     on-select="paramLncntrctCntrctStatusSelectOnChange()"
+                                     ng-required="true"
+                                     theme="bootstrap">
+                                 <ui-select-match
+                                         placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                     {{$select.selected.value}}
+                                 </ui-select-match>
+                                 <ui-select-choices repeat="item in paramLncntrctCntrctStatus | filter: $select.search">
+                                     <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                 </ui-select-choices>
+                                 <ui-select-no-choice>
+                                     {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                     translate }}
+                                 </ui-select-no-choice>
+                               </ui-select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Column 2 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="orgNbr"
+							translate="pages.ln.LOAN_CONTRACT_MGMT_FORM_INPUTS.CONTRACT_NUMBER"> 合同编号 </label>
+						<div class="col-lg-7">
+							<input id="param_lncntrct_cntrct_no" name="param_lncntrct_cntrct_no" type="text"
+								class="form-control text-uppercase"
+								ng-model="fields.param_lncntrct_cntrct_no">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4" style="float:right;left: 15%">
+				<div class="col-lg-4">
+					<button class="btn m-b-xs btn-sm btn-success btn-addon"
+						ng-click="search()">
+						{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SEARCH' | translate}}
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+				<div class="col-lg-4">
+					<button class="btn m-b-xs btn-sm btn-default btn-addon"
+						type="reset" ng-click="clear()">
+						{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+						<i class="fa fa-times"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+
+		</accordion-group> </accordion>
+	</div>
+
+	<!-- Action buttons -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+						 		<div class="panel-heading font-bold">
+<!-- 				                    See this controller in org_add_modal_ctrl.js -->
+				                    <span ng-controller="ListLnContractModalControl">
+				                        <script type="text/ng-template" id="lnContractMgmt.html">
+				                             <div ng-include="'html/ln/loan_contract_mgmt_modal_form.html'"></div>
+				                         </script> 
+				                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="listLnContract" ng-click="listLnContract()">
+				                            {{'open' | translate}}
+				                            <i class="fa fa-edit"></i>
+				                        </button>
+				                    </span>
+				                </div>
+
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table ui-jq="dataTable" ui-options="{{dataTableParms}}"
+							class="table display" id="tblLoanContractMgmt">
+							<thead>
+								<tr>
+									<th translate="pages.ln.LN_CONTRACT_TITLES.CONTRACT_NO">
+										合同编号</th>
+									<th translate="pages.ln.LN_CONTRACT_TITLES.OPEN_DATE">
+										开户日期</th>
+									<th
+										translate="pages.ln.LN_CONTRACT_TITLES.CNTRCT_STATUS">
+										合同状态 </th>
+									<th
+										translate="pages.ln.LN_CONTRACT_TITLES.LOAN_NO">
+										贷款账户号</th>
+									<th
+										translate="pages.ln.LN_CONTRACT_TITLES.CUST_NO">
+										客户编号 </th>
+									<th translate="pages.ln.LN_CONTRACT_TITLES.CUST_NAME">
+										客户姓名</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

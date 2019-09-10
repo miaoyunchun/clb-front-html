@@ -1,0 +1,235 @@
+<!-- This page has been included in org_mgt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.user.USER_MGMT_FORM_TITLES.USER_MGMT_FORM_TITLE_ADD_USER"></div>
+        <div class="panel-body" id="addOrgPanel">
+            <div class="well b bg-warning bg lt text-dark wrapper-sm m-t">
+                <strong>{{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}</strong>
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <!-- Specify "novalidate" here to disable the browser default validation -->
+            <!-- so we can get rid of the Bootstrap notification -->
+            <form name="formAddUser" id="formAddUser" class="form-validation" novalidate>
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <!-- Username and password -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="username"
+                                       translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_USER_NAME">
+                                    Username
+                                </label>
+                                <input id="username" name="username" type="text" class="form-control"
+                                       placeholder="{{ placeholders.username }}"
+                                       popover="{{ 'pages.sm.user.USER_MGMT_PLACEHOLDERS.USER_MGMT_PLACEHOLDER_USERNAME_RULE' | translate }}"
+                                       popover-placement="bottom" popover-trigger="focus"
+                                       ng-model="fields.username"
+                                       ng-minlength="1" ng-maxlength="45" ng-pattern="regexUsername" required
+                                       ng-blur="chkUsernameExistence(formAddUser['username'])">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="password"
+                                       translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_USER_PASSWORD">
+                                    Password
+                                </label>
+                                <input id="password" name="password" type="password" class="form-control"
+                                       placeholder="{{ placeholders.password }}"
+                                       popover="{{ 'pages.sm.user.USER_MGMT_PLACEHOLDERS.USER_MGMT_PLACEHOLDER_PASSWORD_RULE' | translate }}"
+                                       popover-placement="bottom" popover-trigger="focus"
+                                       ng-model="fields.password" ng-minlength="6" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tel number and status -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="telnbr"
+                                       translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_USER_TELEPHONE">
+                                    Telephone
+                                </label>
+                                <input id="telnbr" name="telnbr" type="text" class="form-control"
+                                       placeholder="{{ placeholders.telNbr }}"
+                                       ng-model="fields.phoneNumber"
+                                       ng-minlength="1" ng-pattern="regexTelNbr" required>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label for="status"
+                                   translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_USER_ACTIVE">
+                                Status
+                            </label>
+                            <ui-select
+                                    id="status"
+                                    ng-model="selectedStatus.selected"
+                                    on-select="statusSelectOnChange()"
+                                    theme="bootstrap"
+                                    ng-required="true">
+                                <ui-select-match
+                                        placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                    {{$select.selected.active}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in status | filter: $select.search">
+                                    <span ng-bind-html="item.active | highlight: $select.search"></span>
+                                </ui-select-choices>
+                                <ui-select-no-choice>
+                                    {{ 'pages.sm.user.USER_MGMT_PLACEHOLDERS.USER_MGMT_NO_RECORD' | translate }}
+                                </ui-select-no-choice>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <!-- Organization, department, position -->
+                    <div class="row">
+                        <fieldset ng-disabled="isOrgSelectDisabled || isDepSelectDisabled || isPosSelectDisabled">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="orgId"
+                                           translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_ORG_ID">
+                                        Organization
+                                    </label>
+                                    <div class="input-group">
+                                        <ui-select
+                                                id="orgId"
+                                                ng-model="selectedOrg.selected"
+                                                on-select="orgIdSelectOnChange()"
+                                                theme="bootstrap"
+                                                ng-required="true">
+                                            <ui-select-match
+                                                    placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                                {{$select.selected.orgName}}
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item in organizations | filter: $select.search">
+                                                <span ng-bind-html="item.orgName | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                            <ui-select-no-choice>
+                                                {{ 'pages.sm.user.USER_MGMT_PLACEHOLDERS.USER_MGMT_NO_RECORD' | translate }}
+                                            </ui-select-no-choice>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button ng-click="clearSelect()" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="depId"
+                                           translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_DEP_ID">
+                                        Department
+                                    </label>
+                                    <div class="input-group">
+                                        <ui-select
+                                                id="depId"
+                                                ng-model="selectedDep.selected"
+                                                on-select="depIdSelectOnChange()"
+                                                theme="bootstrap"
+                                                ng-required="true">
+                                            <ui-select-match
+                                                    placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                                {{$select.selected.depName}}
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item in departments | filter: $select.search">
+                                                <span ng-bind-html="item.depName | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                            <ui-select-no-choice>
+                                                {{ 'pages.sm.user.USER_MGMT_PLACEHOLDERS.USER_MGMT_NO_RECORD' | translate }}
+                                            </ui-select-no-choice>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button ng-click="clearSelect()" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="posId"
+                                           translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_POS_ID">
+                                        Org #
+                                    </label>
+                                    <div class="input-group">
+                                        <ui-select
+                                                id="posId"
+                                                ng-model="selectedPos.selected"
+                                                on-select="posIdSelectOnChange()"
+                                                theme="bootstrap"
+                                                ng-required="true">
+                                            <ui-select-match
+                                                    placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                                {{$select.selected.posName}}
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item in positions | filter: $select.search">
+                                                <span ng-bind-html="item.posName | highlight: $select.search"></span>
+                                            </ui-select-choices>
+                                            <ui-select-no-choice>
+                                                {{ 'pages.sm.user.USER_MGMT_PLACEHOLDERS.USER_MGMT_NO_RECORD' | translate }}
+                                            </ui-select-no-choice>
+                                        </ui-select>
+                                        <span class="input-group-btn">
+                                            <button ng-click="clearSelect()" class="btn btn-default">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <!-- A hidden row for hidden fields -->
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgCreateUser"></label>
+                                <input type="text" class="form-control" id="orgCreateUser"
+                                       name="orgRequiredVo.userOperatorId"
+                                       ng-model="fields.userOperatorId">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnSave"
+                                        ng-click="add()" ng-disabled="formAddUser.$invalid">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose"
+                                        ng-click="cancel()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

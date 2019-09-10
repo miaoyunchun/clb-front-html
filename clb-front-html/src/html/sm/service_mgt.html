@@ -1,0 +1,396 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3" translate="pages.sm.service.SERVICE_MGMT">Service Management</h1>
+</div>
+
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="wrapper-md" ng-controller="SvcMgtControl">
+    <div ng-controller="AccordionCtrl">
+        <accordion close-others="oneAtATime">
+            <accordion-group heading="{{accordionTitle}}"
+                             is-open="status.isFirstOpen"
+                             is-disabled="status.isFirstDisabled">
+                <form name="formServiceFilter" id="formServiceFilter">
+
+                    <div class="row">
+                        <div class="form-horizontal">
+                            <div class="form-group col-lg-3">
+                                <label class="col-lg-3 control-label" for="status"
+                                       translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_ORGANIZATION">
+                                    Organization
+                                </label>
+                                <div class="input-group">
+                                    <ui-select
+                                            id="status"
+                                            ng-model="selectedOrganization.id"
+                                            on-select="orgIdSelectOnChange()"
+                                            theme="bootstrap">
+                                        <ui-select-match
+                                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.orgName}}
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item.orgId as item in organizations | filter: $select.search">
+                                            <span ng-bind-html="item.orgName | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                            translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button ng-click="clearOrganizationSelect()" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-lg-3">
+                                <label class="col-lg-3 control-label"
+                                       translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_LATER_THAN">
+                                    Available From
+                                </label>
+                                <div ng-controller="DatePickerControl" class="input-group">
+                                    <!--
+                                      -- Specifying readonly makes this input box gray
+                                      -- specifying white background makes this input box white again
+                                      -->
+                                    <input id="laterThan" type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="dates.laterThan" placeholder="{{placeholders.availDate}}"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           ng-change="earlierThanOnChange()" ng-readonly="true"
+                                           style="background: #ffffff"
+                                           clear-text="{{ 'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate }}"
+                                           current-text="{{ 'pages.common.COMMON_BUTTONS.COMMON_BUTTON_TODAY' | translate }}"
+                                           close-text="{{ 'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLOSE' | translate }}"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event)">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-lg-3">
+                                <label class="col-lg-3 control-label"
+                                       translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_EARLIER_THAN">
+                                    Available From
+                                </label>
+                                <div ng-controller="DatePickerControl" class="input-group">
+                                    <!--
+                                      -- Specifying readonly makes this input box gray
+                                      -- specifying white background makes this input box white again
+                                      -->
+                                    <input id="earlierThan" type="text" class="form-control"
+                                           datepicker-popup="{{format}}"
+                                           ng-model="dates.earlierThan" placeholder="{{placeholders.availDate}}"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           ng-change="laterThanOnChange()" ng-readonly="true"
+                                           style="background: #ffffff"
+                                           clear-text="{{ 'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate }}"
+                                           current-text="{{ 'pages.common.COMMON_BUTTONS.COMMON_BUTTON_TODAY' | translate }}"
+                                           close-text="{{ 'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLOSE' | translate }}"/>
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-lg-3">
+                                <label class="col-lg-3 control-label" for="updateUser"
+                                       translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_UPDATED_BY">
+                                    Is Enabled?
+                                </label>
+                                <div class="input-group">
+                                    <ui-select
+                                            id="updateUser"
+                                            ng-model="selectedUser.id"
+                                            on-select="userIdSelectOnChange()"
+                                            theme="bootstrap">
+                                        <ui-select-match
+                                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.username}}
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item.userId as item in users | filter: $select.search">
+                                            <span ng-bind-html="item.username | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                            translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button ng-click="clearUserIdSelect()" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-horizontal">
+                            <div class="form-group col-lg-3">
+                                <label class="col-lg-3 control-label" for="system"
+                                       translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_SYSTEM">
+                                    System
+                                </label>
+                                <div class="input-group">
+                                    <ui-select
+                                            id="system"
+                                            ng-model="selectedSystem.svcSysName"
+                                            on-select="systemSelectOnChange()"
+                                            theme="bootstrap">
+                                        <ui-select-match
+                                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.svcSysName}}
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item.svcSysName as item in systems | filter: $select.search">
+                                            <span ng-bind-html="item.svcSysName | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                            translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button ng-click="clearSystemSelect()" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label class="col-lg-3 control-label" for="module"
+                                       translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_MODULE">
+                                    Module
+                                </label>
+                                <div class="input-group">
+                                    <ui-select
+                                            id="module"
+                                            ng-model="selectedModule.svcModuleName"
+                                            on-select="moduleSelectOnChange()"
+                                            theme="bootstrap">
+                                        <ui-select-match
+                                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.svcModuleName}}
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item.svcModuleName as item in modules | filter: $select.search">
+                                            <span ng-bind-html="item.svcModuleName | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                            translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button ng-click="clearModuleSelect()" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label class="col-lg-3 control-label" for="alias"
+                                       translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_ALIAS">
+                                    Alias
+                                </label>
+                                <div class="input-group">
+                                    <ui-select
+                                            id="alias"
+                                            ng-model="selectedAlias.svcSysAlias"
+                                            on-select="aliasSelectOnChange()"
+                                            theme="bootstrap">
+                                        <ui-select-match
+                                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.svcSysAlias}}
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item.svcSysAlias as item in aliases | filter: $select.search">
+                                            <span ng-bind-html="item.svcSysAlias | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                            translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button ng-click="clearAliasSelect()" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-3">
+                                <label class="col-lg-3 control-label" for="function"
+                                       translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_FUNCTION">
+                                    Function
+                                </label>
+                                <div class="input-group">
+                                    <ui-select
+                                            id="function"
+                                            ng-model="selectedFunction.svcFunctionName"
+                                            on-select="functionSelectOnChange()"
+                                            theme="bootstrap">
+                                        <ui-select-match
+                                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.svcFunctionName}}
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                                repeat="item.svcFunctionName as item in functions | filter: $select.search">
+                                            <span ng-bind-html="item.svcFunctionName | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                            translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button ng-click="clearFunctionSelect()" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4"></div>
+                        <div class="col-lg-4">
+                            <div class="col-lg-6 col-lg-offset-3">
+                                <div class="col-lg-6 ">
+                                    <button class="btn m-b-xs btn-success btn-addon" ng-click="search()">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SEARCH' | translate}}
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <button class="btn m-b-xs btn-default btn-addon" type="reset" ng-click="clear()">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">
+                    <span ng-controller="AddServiceModalInstanceCtrl">
+                        <script type="text/ng-template" id="addServiceModal.html">
+                            <div ng-include="'html/sm/service_add_modal_form.html'"></div>
+                        </script>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="addService"
+                                ng-click="showAddServicePopup()">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+                    <span ng-controller="EditServiceInfoModalInstanceCtrl">
+                        <script type="text/ng-template" id="editServiceInfoModal.html">
+                            <div ng-include="'html/sm/service_info_edit_modal_form.html'"></div>
+                        </script>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="editService"
+                                ng-click="showEditServiceInfoPopup()">
+                            {{'pages.sm.service.SERVICE_MGMT_BUTTONS.SERVICE_MGMT_BUTTON_EDIT_SERVICE_INFO' | translate}}
+                            <i class="fa fa-pencil-square-o"></i>
+                        </button>
+                    </span>
+                    <span ng-controller="EditServiceFieldsModalInstanceCtrl">
+                        <script type="text/ng-template" id="editServiceFieldsModal.html">
+                            <div ng-include="'html/sm/service_edit_fields_modal_form.html'"></div>
+                        </script>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="editServiceFields"
+                                ng-click="showEditServiceFieldsPopup()">
+                            {{'pages.sm.service.SERVICE_MGMT_BUTTONS.SERVICE_MGMT_BUTTON_EDIT_SERVICE_FIELDS' | translate}}
+                            <i class="fa fa-pencil-square-o"></i>
+                        </button>
+                    </span>
+                    <button class="btn m-b-xs btn-sm btn-default btn-addon" id="deleteService"
+                            ng-click="deleteService()">
+                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_REMOVE' | translate}}
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="tblServices"
+                               ui-jq="dataTable"
+                               ui-options="{{dataTableParms}}"
+                               class="table display">
+                            <thead>
+                            <tr>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_SEQUENCE">
+                                    Seq.
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_SERVICE_ID">
+                                    Service ID
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_SERVICE_NAME">
+                                    Service Name
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_SYS_NAME">
+                                    System
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_MODULE_NAME">
+                                    Module
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_ALIAS_NAME">
+                                    Alias
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_FUNCTION_NAME">
+                                    Function
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_DESCRIPTION_ZH_CN">
+                                    Description in Chinese
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_DESCRIPTION_EN">
+                                    Description in English
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_ORGANIZATION_ID">
+                                    Org. ID
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_ORGANIZATION_NAME">
+                                    Organization
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_UPDATE_USER_ID">
+                                    Update user ID
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_UPDATE_USER">
+                                    Updated By
+                                </th>
+                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_UPDATE_DATE">
+                                    Date updated
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

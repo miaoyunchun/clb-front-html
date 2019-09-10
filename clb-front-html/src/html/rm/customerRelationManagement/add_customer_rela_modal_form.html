@@ -1,0 +1,142 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.rm.CREAL.CREAL_MGMT_FORM_INPUTS.CREAL_MGMT_FORM_INPUT_ADD">
+        </div>
+        <div class="panel-body" id="customerEventPanel">
+        
+            <div class="well b bg-light lt wrapper-sm m-t" translate="pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_PROMPT">
+                	请填写数据
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+             <form name="formAddCustomerRelaFilter" id="formAddCustomerRelaFilter" class="form-validation">
+             	<fieldset ng-disabled="isFormDisabled">
+                 <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-lg-5">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="creal_cus_num">
+                                	    {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_NUMBER' | translate}}
+                                	 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="creal_cus_num" name="creal_cus_num" type="text" class="form-control" 
+                                    	   ng-model="fields.crealCusNum" ng-maxlength="19" required
+                                           placeholder="{{'pages.rm.CRDMN.CRDMN_MGMT_PLACEHOLDERS.CRDMN_MGMT_PLACEHOLDER_CUST_NUMBER' | translate}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="creal_rel_cus">
+                                	 {{'pages.rm.CREAL.CREAL_MGMT_FORM_INPUTS.CREAL_MGMT_FORM_INPUT_REAL_NUMBER' | translate}}
+                                	<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="creal_rel_cus" name="creal_rel_cus" type="text" class="form-control" 
+                                    	   ng-model="fields.crealRelCus" ng-maxlength="19" required
+                                           placeholder="{{'pages.rm.CREAL.CREAL_MGMT_PLACEHOLDERS.CREAL_MGMT_PLACEHOLDER_REAL_CUST' | translate}}">
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-lg-5 control-label" translate="pages.rm.CREAL.CREAL_MGMT_FORM_INPUTS.CREAL_MGMT_FORM_INPUT_UPDATE_TIME">
+                         		           维护时间1
+                                </label>
+                                <div ng-controller="AvailDateCtrl" class="col-lg-7">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="fields.crealMainDate"
+                                               placeholder="{{'pages.rm.CREAL.CRDMN_MGMT_PLACEHOLDERS.CREAL_MGMT_PLACEHOLDER_UPDATE_TIME' | translate}}"
+                                               id="creal_main_date" name="creal_main_date" required
+                                               is-open="opened" datepicker-options="dateOptions" 
+                                               close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="creal_retype">
+                              		 {{'pages.rm.CREAL.CREAL_MGMT_COLUMN_TITLES.CREAL_MGMT_COLUMN_TITLE_RETYPE' | translate}}
+                              		<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="creal_retype" name="creal_retype" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.CREAL.CREAL_MGMT_PLACEHOLDERS.CREAL_MGMT_PLACEHOLDER_CUST_RETYPE' | translate}}"
+                                           ng-model="fields.crealRetype" ng-maxlength="4" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="creal_mark">
+                                	    {{'pages.rm.CREAL.CREAL_MGMT_FORM_INPUTS.CREAL_MGMT_FORM_INPUT_MARK' | translate}}
+                                	 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="creal_mark" name="creal_mark" type="text" class="form-control" 
+                                    	   ng-model="fields.crealMark" ng-maxlength="200" required
+                                           placeholder="{{'pages.rm.CREAL.CREAL_MGMT_PLACEHOLDERS.CREAL_MGMT_PLACEHOLDER_DESC' | translate}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="creal_maker">
+                                	 {{'pages.rm.CREAL.CREAL_MGMT_FORM_INPUTS.CREAL_MGMT_FORM_INPUT_MAKER' | translate}}
+                                	<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="creal_maker" name="creal_maker" type="text" class="form-control" ng-model="fields.crealMaker"
+                                           placeholder="{{'pages.rm.CREAL.CREAL_MGMT_PLACEHOLDERS.CREAL_MGMT_PLACEHOLDER_MAKER' | translate}}"
+                                           ng-maxlength="9" required>
+                                </div>
+                            </div>
+                            <input name="func" value='a' type="hidden">
+                        </div>
+                    </div>
+                 </div>
+                 <!-- 按钮 -->
+                 <div class="row">
+                 	<div class="col-lg-6"></div>
+                    <div class="col-lg-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="customerRelaBtn" 
+                                    		ng-click="addCustomerRelation()" ng-disabled="formAddCustomerRelaFilter.$invalid">
+                                 	   {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" ng-click="clear()">
+                                	       {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+                                        <i class="glyphicon glyphicon-repeat"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" ng-click="cancel()">
+                                	      {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+                </fieldset>    
+           </form>
+        </div>
+    </div>
+</div>

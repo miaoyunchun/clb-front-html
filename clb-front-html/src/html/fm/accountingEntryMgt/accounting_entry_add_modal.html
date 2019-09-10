@@ -1,0 +1,210 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+
+        <!--modal框标题-->
+        <div class="panel-heading font-bold"
+             translate="pages.fm.TITLES.ADD_ACCT_ENTRY"></div>
+
+        <div class="panel-body" id="addAcctEntryPanel">
+
+            <div class="well b bg-light lt wrapper-sm m-t">
+                {{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <form name="formAddAcctEntry" id="formAddAcctEntry" class="form-validation">
+
+                <fieldset ng-disabled="isFormDisabled">
+                    <!--column 1-->
+                    <div class="row">
+                        <!--交易代号（查询用）-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="tran_id"
+                                       translate="pages.fm.ACCOUNTING_ENTRY.TRAN_ID">
+                                    Item Key
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="tran_id" name="tran_id" type="text"
+                                       class="form-control" ng-blur="ifExisted1()"
+                                       ng-maxlength="4" ng-model="tran_id"
+                                       required>
+
+                            </div>
+                        </div>
+
+                        <!--会计科目-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="acct_item"
+                                       translate="pages.fm.ACCOUNTING_ENTRY.ACCT_ITEM">
+                                    Acct Item
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="acct_item" name="acct_item" type="text"
+                                       class="form-control"
+                                       ng-maxlength="8" ng-model="acct_item"
+                                       required>
+
+                            </div>
+                        </div>
+
+                        <!--分录序号-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="cond_seq"
+                                       translate="pages.fm.ACCOUNTING_ENTRY.COND_SEQ">
+                                    Cond Seq
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="cond_seq" name="cond_seq" type="text"
+                                       class="form-control"
+                                       ng-maxlength="4" ng-model="cond_seq"
+                                       required>
+
+                            </div>
+                        </div>
+                        <!--借贷标识下拉框-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="dc_flag"
+                                       translate="pages.fm.ACCOUNTING_ENTRY.DC_FLAG">
+                                    DC Flag
+                                </label>
+                                <span style="color:red">*</span>
+                                <ui-select
+			                            id="dc_flag"
+			                            ng-model="selectedDcFlag.item"
+			                            on-select="dcFlagSelectOnChange()"
+			                            ng-required="true"
+			                            theme="bootstrap">
+			                        <ui-select-match
+			                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+			                            {{$select.selected.value}}
+			                        </ui-select-match>
+			                        <ui-select-choices repeat="item in dcFlag | filter: $select.search">
+			                            <span ng-bind-html="item.value | highlight: $select.search"></span>
+			                        </ui-select-choices>
+			                        <ui-select-no-choice>
+			                            {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+			                            translate }}
+			                        </ui-select-no-choice>
+			                    </ui-select>
+                                <!-- <select ui-jq="chosen"
+                                        id="dc_flag"
+                                        name="dc_flag"
+                                        class="form-control"
+                                        ng-model="dc_flag">
+                                    <option value></option>
+                                    <option ng-repeat="x in dcFlags" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select> -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--column 2-->
+                    <div class="row">
+                        <!--记账机构-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="acct_org"
+                                       translate="pages.fm.ACCOUNTING_ENTRY.ACCT_ORG">
+                                    Acct Org
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="acct_org" name="acct_org" type="text"
+                                       class="form-control"
+                                       ng-maxlength="9" ng-model="acct_org"
+                                       required>
+
+                            </div>
+                        </div>
+                        <!--交易指针-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="tran_amt_point"
+                                       translate="pages.fm.ACCOUNTING_ENTRY.TRAN_AMT_POINT">
+                                    Tran Amt Point
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="tran_amt_point" name="tran_amt_point" type="text"
+                                       class="form-control"
+                                       ng-maxlength="2" ng-model="tran_amt_point"
+                                       required>
+
+                            </div>
+                        </div>
+                        <!--内部分账户序号-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="item_seq"
+                                       translate="pages.fm.ACCOUNTING_ENTRY.ITEM_SEQ">
+                                    Item Seq
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="item_seq" name="item_seq" type="text"
+                                       class="form-control"
+                                       ng-maxlength="6" ng-model="item_seq"
+                                       required>
+
+                            </div>
+                        </div>
+                        <!--交易描述-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="tran_desp"
+                                       translate="pages.fm.ACCOUNTING_ENTRY.TRAN_DESP">
+                                    Tran Desp
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="tran_desp" name="tran_desp" type="text"
+                                       class="form-control"
+                                       ng-maxlength="40" ng-model="tran_desp"
+                                       required>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--按钮-->
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="form-group">
+
+                                <div class="col-lg-2">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:100px;margin-top:10px;margin-left: 550px"
+                                            ng-click="addAcctEntry()" ng-disabled="formAddAcctEntry.$invalid">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-2">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" style="width:100px;margin-top:10px;margin-left: 650px"
+                                            ng-click="cancelAcctEntry()">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

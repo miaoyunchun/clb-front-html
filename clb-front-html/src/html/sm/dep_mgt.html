@@ -1,0 +1,246 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3" translate="pages.sm.dep.DEP_MGMT">Organization Management</h1>
+</div>
+
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="wrapper-md" ng-controller="DepMgmtCtrl">
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+
+                <!-- Buttons -->
+                <div class="panel-heading">
+                    <form id="buttons">
+                        <fieldset>
+
+                            <button class="btn m-b-xs btn-sm btn-default btn-addon" id="addDep"
+                                    ng-click="enableAdd()" ng-disabled="isButtonsDisabled">
+                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                                <i class="fa fa-plus"></i>
+                            </button>
+
+                            <button class="btn m-b-xs btn-sm btn-default btn-addon" id="deleteDep"
+                                    ng-click="enableRemove()" ng-disabled="isButtonsDisabled">
+                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_REMOVE' | translate}}
+                                <i class="fa fa-minus"></i>
+                            </button>
+
+                            <button class="btn m-b-xs btn-sm btn-default btn-addon" id="editDep"
+                                    ng-click="enableEdit()" ng-disabled="isButtonsDisabled">
+                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_EDIT' | translate}}
+                                <i class="fa fa-pencil-square-o"></i>
+                            </button>
+
+                            <button class="btn m-b-xs btn-sm btn-default btn-addon" id="addRootDep"
+                                    ng-click="enableAddRootNode()" ng-disabled="isButtonsDisabled">
+                                {{'pages.sm.dep.DEP_MGMT_BUTTONS.DEP_MGMT_BUTTON_ADD_ROOT_NODE' | translate}}
+                                <i class="fa fa-plus"></i>
+                            </button>
+
+                            <ui-select id="orgSelector"
+                                       ng-model="selectedOrg.orgId"
+                                       theme="bootstrap"
+                                       style="width: 40%; float: right;"
+                                       on-select="fetchDepTree($item, $model)"
+                                       ng-disabled="isSelectDisabled"
+                                       reset-search-input="false">
+                                <ui-select-match
+                                        placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                    {{$select.selected.value.orgName}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="org.value.orgId as (key, org) in organizations | filter: $select.search"
+                                                   refresh="fetchOrganizations()"
+                                                   refresh-delay="0">
+                                    <div ng-bind-html="org.value.orgName | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+
+                        </fieldset>
+                    </form>
+                </div>
+
+                <!-- The tree -->
+                <div class="panel-body">
+                    <!-- Display a progress bar when loading data -->
+                    <progressbar
+                            ng-hide="!doingAsync"
+                            class="progress-striped active m-b-sm"
+                            value="progressBarValue"
+                            type="success">
+                        <i>{{ 'pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_PROCESSING' | translate }}</i>
+                    </progressbar>
+
+                    <!-- The tree -->
+                    <abn-tree
+                            id="depTree"
+                            tree-data="treeData"
+                            tree-control="treeCtrl"
+                            on-select="selectedItemHandler(branch)"
+                            expand-level="1"
+                            icon-leaf="icon-users"
+                            icon-expand="fa fa-plus"
+                            icon-collapse="fa fa-minus">
+                    </abn-tree>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">
+                    {{ 'pages.sm.dep.DEP_MGMT_FORM_TITLES.DEP_MGMT_FORM_DEP_INFO' | translate }}
+                </div>
+
+                <div class="panel-body">
+                    <form id="frmDepInfo" name="frmDepInfo" class="form-validation">
+                        <fieldset ng-disabled="isFormDisabled">
+
+                            <div class="form-group col-lg-12">
+                                <label for="depParentName"
+                                       translate="pages.sm.dep.DEP_MGMT_FIELDS.DEP_MGMT_FIELD_DEP_PARENT_NAME"></label>
+                                <input id="depParentName" name="depParentName" type="text" class="form-control"
+                                       ng-readonly="true"
+                                       ng-model="depInfo['depParentName']">
+                            </div>
+
+                            <div>
+                                <div class="form-group col-lg-6">
+                                    <label for="depCode"
+                                           translate="pages.sm.dep.DEP_MGMT_FIELDS.DEP_MGMT_FIELD_DEP_CODE"></label>
+                                    <input id="depCode" name="depCode" type="text" class="form-control text-uppercase"
+                                           ng-readonly="isFormReadonly" ng-minlength="6" ng-maxlength="6"
+                                           ng-pattern="/^[A-Za-z0-9]+/" required
+                                           placeholder="{{ 'pages.sm.dep.DEP_MGMT_PLACEHOLDERS.DEP_MGMT_PLACEHOLDER_DEP_NO_RULE' | translate }}"
+                                           ng-blur="chkDepCodeExistence(frmDepInfo['depCode'])"
+                                           ng-model="depInfo['forSending']['depRequiredVo.depCode']">
+                                </div>
+
+                                <div class="form-group col-lg-6">
+                                    <label for="depName"
+                                           translate="pages.sm.dep.DEP_MGMT_FIELDS.DEP_MGMT_FIELD_DEP_NAME"></label>
+                                    <input id="depName" name="depName" type="text" class="form-control"
+                                           placeholder="{{ 'pages.sm.dep.DEP_MGMT_PLACEHOLDERS.DEP_MGMT_PLACEHOLDER_DEP_NAME_RULE' | translate }}"
+                                           ng-readonly="isFormReadonly" ng-minlength="1" ng-maxlength="45"
+                                           ng-pattern="/^[\u4E00-\u9FA5A-Za-z0-9\s.()]+/" required
+                                           ng-model="depInfo['forSending']['depRequiredVo.depName']">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <label for="depDescription"
+                                       translate="pages.sm.dep.DEP_MGMT_FIELDS.DEP_MGMT_FIELD_DEP_DESCRIPTION"></label>
+                                <textarea id="depDescription" name="depDescription"
+                                          style="max-width: 100%; min-width: 100%; min-height: fit-content;"
+                                          class="form-control" ng-readonly="isFormReadonly"
+                                          ng-minlength="1" ng-maxlength="200" required
+                                          placeholder="{{ 'pages.sm.dep.DEP_MGMT_PLACEHOLDERS.DEP_MGMT_PLACEHOLDER_DEP_DESC_RULE' | translate }}"
+                                          ng-model="depInfo['forSending']['depRequiredVo.depDescription']"></textarea>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="stakeholder"
+                                           translate="pages.sm.dep.DEP_MGMT_FIELDS.DEP_MGMT_FIELD_DEP_PRINCIPAL_NAME"></label>
+                                    <ui-select id="stakeholder" ng-disabled="isFormReadonly"
+                                               ng-model="selectedName.principalId"
+                                               on-select="stakeholderSelectChanged()"
+                                               theme="bootstrap" reset-search-input="false" required>
+                                        <ui-select-match
+                                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.value.username}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="selectedName.value.userId as (key, selectedName) in names | filter: $select.search"
+                                                           refresh="fetchStakeHolder()"
+                                                           refresh-delay="0">
+                                            <div ng-bind-html="selectedName.value.username | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label for="depActive"
+                                           translate="pages.sm.dep.DEP_MGMT_FIELDS.DEP_MGMT_FIELD_DEP_ACTIVE_STATUS"></label>
+                                    <ui-select id="depActive" ng-disabled="isFormReadonly"
+                                               ng-model="selectedActiveStatus.activeId"
+                                               on-select="activeStatusSelectChanged()"
+                                               theme="bootstrap" reset-search-input="false" required>
+                                        <ui-select-match
+                                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.value.active}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="selectedActiveStatus.value.value as (key, selectedActiveStatus) in activeStatus | filter: $select.search"
+                                                           refresh="fetchActiveStatus()"
+                                                           refresh-delay="0">
+                                            <div ng-bind-html="selectedActiveStatus.value.active | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <label for="depEmail"
+                                       translate="pages.sm.dep.DEP_MGMT_FIELDS.DEP_MGMT_FIELD_DEP_EMAIL"></label>
+                                <input id="depEmail" name="depEmail" type="email" class="form-control"
+                                       ng-model="depInfo['forSending']['depRequiredVo.depEmail']"
+                                       ng-minlength="1" ng-maxlength="254" required>
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <label for="depTel"
+                                       translate="pages.sm.dep.DEP_MGMT_FIELDS.DEP_MGMT_FIELD_DEP_TEL"></label>
+                                <input id="depTel" name="depTel" type="text" class="form-control"
+                                       ng-model="depInfo['forSending']['depRequiredVo.depTel']"
+                                       ng-minlength="1" ng-maxlength="20" required>
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <label for="depLeafTxt"
+                                       translate="pages.sm.dep.DEP_MGMT_FIELDS.DEP_MGMT_FIELD_DEP_IS_LEAF"></label>
+                                <input id="depLeafTxt" name="depLeafTxt" type="text" class="form-control"
+                                       ng-readonly="true"
+                                       ng-model="depInfo['depLeafTxt']">
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <label for="depCreateTime"
+                                       translate="pages.sm.dep.DEP_MGMT_FIELDS.DEP_MGMT_FIELD_DEP_CREATE_TIME"></label>
+                                <input id="depCreateTime" name="depCreateTime" type="text" class="form-control"
+                                       ng-readonly="true"
+                                       ng-model="depInfo['depCreateTime']">
+                            </div>
+
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4">
+                                <div class="col-lg-6">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnSubmit"
+                                            ng-click="this['submitBtnMethod']()"
+                                            ng-disabled="frmDepInfo.$invalid" ng-hide="isSubmitButtonHided">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                        <i class="fa fa-send"></i>
+                                    </button>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <button class="btn m-b-xs btn-default btn-addon" id="btnCancel"
+                                            ng-click="this['cancelBtnMethod']()" ng-hide="isCancelButtonHided">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

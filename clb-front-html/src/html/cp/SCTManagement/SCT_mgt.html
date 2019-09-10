@@ -1,0 +1,1353 @@
+
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="modal-body wrapper-lg no-padder" ng-controller="SCTPageCtrl">
+
+
+
+    <div class="panel panel-default m-b-none">
+        <!--标题-->
+        <div class="bg-light lter b-b wrapper-md">
+            <h1 class="m-n font-thin h3" translate="pages.cp.SCT_PARAM">SCT Parameter Management</h1>
+        </div>
+
+
+        <div class="panel-body" >
+            <div class="well b bg-light lt wrapper-sm m-t" translate="pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N">
+            </div>
+
+            <!--查询的表单-->
+            <form name="formSCTFilter" id="formSCTFilter">
+                <!--<fieldset ng-disabled="isFormDisabled">-->
+                <!--//表单内容-->
+                <div class="row">
+                    <!-- Column 1 表id-->
+                    <div class="col-lg-4" >
+                        <div>
+                            <label for="sct_id"
+                                   translate="pages.cp.SCT_TABLE.SCT_ID">
+                                SCTID
+                            </label>
+
+                            <input id="sct_id" name="sct_id" type="text"
+                                   class="form-control"
+                                   ng-model="sct_id" ng-minlength="3"
+                                   required placeholder='{{"pages.cp.SCT_TABLE.SCT_ID" | translate}}'>
+                        </div>
+
+                    </div>
+
+                    <!--表类型 下拉框-->
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="table_types"
+                                   translate="pages.cp.SCT_TABLE.TABLE_TYPES">
+                                Table Types
+                            </label>
+                            <select ui-jq="chosen"
+                                    id="table_types"
+                                    name="table_types"
+                                    class="form-control"
+                                    ng-model="table_types">
+                                <option value></option>
+                                <option ng-repeat="x in tables" value="{{x.value}}">
+                                    {{x.name}}
+                                </option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!--//按钮-->
+                <div class="row">
+                    <div class="form-group">
+
+
+                        <div class="col-lg-10"> </div>
+                        <!--<div class="col-lg-2"> </div>-->
+                        <div class="col-lg-1">
+                            <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnQuery" style="width:100px" ng-click="querySCT()">
+                                {{'pages.cp.ORG_MGT_FIELDS.QUERY_BUTTON' | translate}}
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+
+                        <div class="col-lg-1">
+                            <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnReset" style="width:100px"
+                                    type="reset" ng-click="resetTable()">
+                                {{'pages.cp.ORG_MGT_FIELDS.RESET_BUTTON' | translate}}
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!--</fieldset>-->
+            </form>
+        </div>
+
+        <div class="row" id="SCTTables" name="SCTTables">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <div class="panel-body" ng-hide="isAcctHidden">
+                            <!--//账户表-->
+                            <form name="formSCTAcct" id="formSCTAcct">
+                                <div class="row">
+                                    <!--column 1-->
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <label for="acct_sct_id"
+                                                   translate="pages.cp.SCT_TABLE.ACCT.SCT_ID">
+                                                SCT ID
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="acct_sct_id" name="sct_id" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.ACCT.SCT_ID' | translate}}"
+                                                   ng-model="acct_sct_id" ng-maxlength="8"
+                                                   required ng-readonly="keyEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <label for="acct_sct_name"
+                                                   translate="pages.cp.SCT_TABLE.ACCT.SCT_NAME">
+                                                SCT Name
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="acct_sct_name" name="sct_name" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.ACCT.SCT_NAME' | translate}}"
+                                                   ng-model="acct_sct_name" ng-maxlength="40"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <label for="acct_associate_org_id"
+                                                   translate="pages.cp.SCT_TABLE.ACCT.ASSOCIATE_ORG_ID">
+                                                Associate Org ID
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="acct_associate_org_id" name="associate_org_id" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.ACCT.ASSOCIATE_ORG_ID' | translate}}"
+                                                   ng-model="acct_associate_org_id" ng-maxlength="3"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="acct_sct_type"
+                                                   translate="pages.cp.SCT_TABLE.ACCT.SCT_TYPE">
+                                                SCT Type
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <select ui-jq="chosen"
+                                                    id="acct_sct_type"
+                                                    name="sct_type"
+                                                    class="form-control"
+                                                    ng-model="acct_sct_type" ng-readonly='commonEnabled'>
+                                                <option value></option>
+                                                <option ng-repeat="x in accts" value="{{x.value}}">
+                                                    {{x.name}}
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label for="acct_account_start_nbr"
+                                               translate="pages.cp.SCT_TABLE.ACCT.ACCOUNT_START_NBR">
+                                            Account Start Nbr
+                                        </label>
+                                        <span style="color:red">*</span>
+                                        <input id="acct_account_start_nbr" name="account_start_nbr" type="text"
+                                               class="form-control"
+                                               placeholder="{{'pages.cp.PLACEHOLDERS.SCT.ACCT.ACCOUNT_START_NBR' | translate}}"
+                                               ng-model="acct_account_start_nbr" ng-maxlength="19"
+                                               required ng-readonly="commonEnabled">
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label for="acct_acct_end_nbr"
+                                               translate="pages.cp.SCT_TABLE.ACCT.ACCT_END_NBR">
+                                            Acct End Nbr
+                                        </label>
+                                        <span style="color:red">*</span>
+                                        <input id="acct_acct_end_nbr" name="acct_end_nbr" type="text"
+                                               class="form-control"
+                                               placeholder="{{'pages.cp.PLACEHOLDERS.SCT.ACCT.ACCOUNT_END_NBR' | translate}}"
+                                               ng-model="acct_acct_end_nbr" ng-maxlength="19"
+                                               required ng-readonly="commonEnabled">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!--column 3-->
+                                    <div class="col-lg-4">
+                                        <label for="acct_account_current"
+                                               translate="pages.cp.SCT_TABLE.ACCT.ACCOUNT_CURRENT">
+                                            Account Current
+                                        </label>
+                                        <span style="color:red">*</span>
+                                        <input id="acct_account_current" name="account_current" type="text"
+                                               class="form-control"
+                                               placeholder="{{'pages.cp.PLACEHOLDERS.SCT.ACCT.ACCOUNT_CURRENT' | translate}}"
+                                               ng-model="acct_account_current" ng-maxlength="19"
+                                               required ng-readonly="commonEnabled">
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label for="acct_account_next"
+                                               translate="pages.cp.SCT_TABLE.ACCT.ACCOUNT_NEXT">
+                                            Account Next
+                                        </label>
+                                        <span style="color:red">*</span>
+                                        <input id="acct_account_next" name="account_next" type="text"
+                                               class="form-control"
+                                               placeholder="{{'pages.cp.PLACEHOLDERS.SCT.ACCT.ACCOUNT_NEXT' | translate}}"
+                                               ng-model="acct_account_next" ng-maxlength="19"
+                                               required ng-readonly="commonEnabled">
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label for="acct_last_maint_date"
+                                               translate="pages.cp.SCT_TABLE.ACCT.LAST_MAINT_DATE">
+                                            Last Maint Date
+                                        </label>
+                                        <span style="color:red">*</span>
+                                        <input id="acct_last_maint_date" name="last_maint_date" type="text"
+                                               class="form-control"
+                                               ng-model="acct_last_maint_date" ng-maxlength="10"
+                                               required readonly="readonly">
+                                    </div>
+                                </div>
+
+
+                                <!--//按钮所在的div-->
+                                <div class="row" style="margin-top: 2%">
+                                    <div class="form-group">
+
+
+                                        <div class="col-lg-8"> </div>
+                                        <!--<div class="col-lg-2"> </div>-->
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="editForm()" ng-hide="editBtnHide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_EDIT' | translate}}
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="addForm()" ng-hide="addBtnHide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="commitForm()" ng-hide="commitBtnhide" ng-disabled="formSCTAcct.$invalid">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                                <i class="fa fa-book"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="cancelForm()" ng-hide="cancelBtnhide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="panel-body" ng-hide="isCardHidden">
+                            <!--//卡片表-->
+                            <form name="formSCTCart" id="formSCTCard">
+                                <!--column 1-->
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="card_sct_id"
+                                                   translate="pages.cp.SCT_TABLE.CARD.SCT_ID">
+                                                SCT ID
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="card_sct_id" name="sct_id" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.CARD.SCT_ID' | translate}}"
+                                                   ng-model="card_sct_id" ng-maxlength="8"
+                                                   required ng-readonly="keyEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="card_sct_name"
+                                                   translate="pages.cp.SCT_TABLE.CARD.SCT_NAME">
+                                                SCT Name
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="card_sct_name" name="sct_name" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.CARD.SCT_NAME' | translate}}"
+                                                   ng-model="card_sct_name" ng-maxlength="40"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="card_associate_org_id"
+                                                   translate="pages.cp.SCT_TABLE.CARD.ASSOCIATE_ORG_ID">
+                                                Associate Org ID
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="card_associate_org_id" name="associate_org_id" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.CARD.ASSOCIATE_ORG_ID' | translate}}"
+                                                   ng-model="card_associate_org_id" ng-maxlength="3"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="card_sct_type"
+                                                   translate="pages.cp.SCT_TABLE.CARD.SCT_TYPE">
+                                                SCT Type
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <select ui-jq="chosen"
+                                                    id="card_sct_type"
+                                                    name="sct_type"
+                                                    class="form-control"
+                                                    ng-model="card_sct_type" ng-readonly='commonEnabled'>
+                                                <option value></option>
+                                                <option ng-repeat="x in cards" value="{{x.value}}">
+                                                    {{x.name}}
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--column 2-->
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="card_card_bin"
+                                                   translate="pages.cp.SCT_TABLE.CARD.CARD_BIN">
+                                                Card Bin
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="card_card_bin" name="card_bin" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.CARD.CARD_BIN' | translate}}"
+                                                   ng-model="card_card_bin" ng-maxlength="8"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="card_card_type"
+                                                   translate="pages.cp.SCT_TABLE.CARD.CARD_TYPE">
+                                                Card Type
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <select ui-jq="chosen"
+                                                    id="card_card_type"
+                                                    name="card_type"
+                                                    class="form-control"
+                                                    data-placeholder="{{'pages.cp.PLACEHOLDERS.SCT.CARD.CARD_TYPE' | translate}}"
+                                                    ng-model="card_card_type">
+                                                <option value></option>
+                                                <option ng-repeat="x in cardTypes" value="{{x.value}}">
+                                                    {{x.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="card_card_start_nbr"
+                                                   translate="pages.cp.SCT_TABLE.CARD.CARD_START_NBR">
+                                                Card Start Nbr
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="card_card_start_nbr" name="card_start_nbr" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.CARD.CARD_START_NBR' | translate}}"
+                                                   ng-model="card_card_start_nbr" ng-maxlength="19"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="card_card_end_nbr"
+                                                   translate="pages.cp.SCT_TABLE.CARD.CARD_END_NBR">
+                                                Card End Nbr
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="card_card_end_nbr" name="card_end_nbr" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.CARD.CARD_END_NBR' | translate}}"
+                                                   ng-model="card_card_end_nbr" ng-maxlength="19"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--column 3-->
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="card_card_current"
+                                                   translate="pages.cp.SCT_TABLE.CARD.CARD_CURRENT">
+                                                Card Current
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="card_card_current" name="card_current" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.CARD.CARD_CURRENT' | translate}}"
+                                                   ng-model="card_card_current" ng-maxlength="19"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="card_card_next"
+                                                   translate="pages.cp.SCT_TABLE.CARD.CARD_NEXT">
+                                                Card Next
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="card_card_next" name="card_next" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.CARD.CARD_NEXT' | translate}}"
+                                                   ng-model="card_card_next" ng-maxlength="19"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="card_last_maint_date"
+                                                   translate="pages.cp.SCT_TABLE.CARD.LAST_MAINT_DATE">
+                                                Last Maint Date
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="card_last_maint_date" name="last_maint_date" type="text"
+                                                   class="form-control"
+                                                   ng-model="card_last_maint_date" ng-maxlength="10"
+                                                   required readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!--//按钮所在的div-->
+                                <div class="row" style="margin-top: 2%">
+                                    <div class="form-group">
+
+
+                                        <div class="col-lg-8"> </div>
+                                        <!--<div class="col-lg-2"> </div>-->
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="editForm()" ng-hide="editBtnHide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_EDIT' | translate}}
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="addForm()" ng-hide="addBtnHide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="commitForm()" ng-hide="commitBtnhide" ng-disabled="formSCTCard.$invalid">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                                <i class="fa fa-book"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="cancelForm()" ng-hide="cancelBtnhide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="panel-body" ng-hide="isDepositHidden">
+                            <!--//存款表-->
+                            <form name="formSCTDeposit" id="formSCTDeposit">
+                                <!--column 1-->
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="deposit_sct_id"
+                                                   translate="pages.cp.SCT_TABLE.DEPOSIT.SCT_ID">
+                                                SCT ID
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="deposit_sct_id" name="sct_id" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.DEPOSIT.SCT_ID' | translate}}"
+                                                   ng-model="deposit_sct_id" ng-maxlength="8"
+                                                   required ng-readonly="keyEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="deposit_sct_name"
+                                                   translate="pages.cp.SCT_TABLE.DEPOSIT.SCT_NAME">
+                                                SCT Name
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="deposit_sct_name" name="sct_name" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.DEPOSIT.SCT_NAME' | translate}}"
+                                                   ng-model="deposit_sct_name" ng-maxlength="40"
+                                                   required ng-readonly='commonEnabled'>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="deposit_associate_org_id"
+                                                   translate="pages.cp.SCT_TABLE.DEPOSIT.ASSOCIATE_ORG_ID">
+                                                Associate Org ID
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="deposit_associate_org_id" name="associate_org_id" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.DEPOSIT.ASSOCIATE_ORG_ID' | translate}}"
+                                                   ng-model="deposit_associate_org_id" ng-maxlength="3"
+                                                   required ng-readonly='commonEnabled'>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="deposit_trans_deposite"
+                                                   translate="pages.cp.SCT_TABLE.DEPOSIT.TRANS_DEPOSITE">
+                                                Trans Deposit
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <select ui-jq="chosen"
+                                                    id="deposit_trans_deposite"
+                                                    name="trans_deposite"
+                                                    class="form-control"
+                                                    data-placeholder="{{'pages.cp.PLACEHOLDERS.SCT.DEPOSIT.TRANS_DEPOSIT' | translate}}"
+                                                    ng-model="deposit_trans_deposite" ng-readonly='commonEnabled'>
+                                                <option value></option>
+                                                <option ng-repeat="x in transFlags" value="{{x.value}}">
+                                                    {{x.name}}
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <!--column 2-->
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="deposit_max_amt"
+                                                   translate="pages.cp.SCT_TABLE.DEPOSIT.MAX_AMT">
+                                                Max Amt
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="deposit_max_amt" name="max_amt" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.DEPOSIT.MAX_AMT' | translate}}"
+                                                   ng-model="deposit_max_amt" ng-maxlength="11"
+                                                   required ng-readonly='commonEnabled'>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="deposit_deposite_period"
+                                                   translate="pages.cp.SCT_TABLE.DEPOSIT.DEPOSIT_PERIOD">
+                                                Deposit Period
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="deposit_deposite_period" name="deposite_period" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.DEPOSIT.DEPOSIT_PERIOD' | translate}}"
+                                                   ng-model="deposit_deposite_period" ng-maxlength="2"
+                                                   required ng-readonly='commonEnabled'>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="deposit_withdraw_period"
+                                                   translate="pages.cp.SCT_TABLE.DEPOSIT.WITHDRAW_PERIOD">
+                                                Withdraw Period
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="deposit_withdraw_period" name="withdraw_period" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.DEPOSIT.WITHDRAW_PERIOD' | translate}}"
+                                                   ng-model="deposit_withdraw_period" ng-maxlength="2"
+                                                   required ng-readonly='commonEnabled'>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="deposit_withdraw_times"
+                                                   translate="pages.cp.SCT_TABLE.DEPOSIT.WITHDRAW_TIMES">
+                                                Withdraw Times
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="deposit_withdraw_times" name="withdraw_times" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.DEPOSIT.WITHDRAW_TIMES' | translate}}"
+                                                   ng-model="deposit_withdraw_times" ng-maxlength="2"
+                                                   required ng-readonly='commonEnabled'>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!--column 3-->
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="deposit_cmp_ints_time"
+                                                   translate="pages.cp.SCT_TABLE.DEPOSIT.CMP_INTS_TIME">
+                                                Cmp Ints Time
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="deposit_cmp_ints_time" name="cmp_ints_time" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.DEPOSIT.CMP_INTS_TIME' | translate}}"
+                                                   ng-model="deposit_cmp_ints_time" ng-maxlength="2"
+                                                   required ng-readonly='commonEnabled'>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="deposit_withdraw_amt"
+                                                   translate="pages.cp.SCT_TABLE.DEPOSIT.WITHDRAW_AMT">
+                                                Withdraw Amt
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="deposit_withdraw_amt" name="withdraw_amt" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.DEPOSIT.WITHDRAW_AMT' | translate}}"
+                                                   ng-model="deposit_withdraw_amt" ng-maxlength="21"
+                                                   required ng-readonly='commonEnabled'>
+                                        </div>
+                                    </div>
+
+
+                                    <!---->
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="deposit_min_amt"
+                                                   translate="pages.cp.SCT_TABLE.DEPOSIT.MIN_AMT">
+                                                Min Amt
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="deposit_min_amt" name="min_amt" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.DEPOSIT.MIN_AMT' | translate}}"
+                                                   ng-model="deposit_min_amt" ng-maxlength="11"
+                                                   required ng-readonly='commonEnabled'>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="deposit_last_maint_date"
+                                                   translate="pages.cp.SCT_TABLE.DEPOSIT.LAST_MAINT_DATE">
+                                                Last Maint Date
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="deposit_last_maint_date" name="last_maint_date" type="text"
+                                                   class="form-control"
+                                                   ng-model="deposit_last_maint_date" ng-maxlength="21"
+                                                   required readonly="readonly">
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                                <!--//按钮所在的div-->
+                                <div class="row" style="margin-top: 2%">
+                                    <div class="form-group">
+
+
+                                        <div class="col-lg-8"> </div>
+                                        <!--<div class="col-lg-2"> </div>-->
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="editForm()" ng-hide="editBtnHide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_EDIT' | translate}}
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="addForm()" ng-hide="addBtnHide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="commitForm()" ng-hide="commitBtnhide" ng-disabled="formSCTDeposit.$invalid">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                                <i class="fa fa-book"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="cancelForm()" ng-hide="cancelBtnhide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="panel-body" ng-hide="isFeeHidden">
+                            <!--//费用表-->
+                            <form name="formSCTFee" id="formSCTFee">
+                                <!--column 1-->
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_sct_id"
+                                                   translate="pages.cp.SCT_TABLE.FEE.SCT_ID">
+                                                SCT ID
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_sct_id" name="sct_id" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.SCT_ID' | translate}}"
+                                                   ng-model="fee_sct_id" ng-maxlength="8"
+                                                   required ng-readonly="keyEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_sct_name"
+                                                   translate="pages.cp.SCT_TABLE.FEE.SCT_NAME">
+                                                SCT Name
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_sct_name" name="sct_name" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.SCT_NAME' | translate}}"
+                                                   ng-model="fee_sct_name" ng-maxlength="40"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_associate_org_id"
+                                                   translate="pages.cp.SCT_TABLE.FEE.ASSOCIATE_ORG_ID">
+                                                Associate Org ID
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_associate_org_id" name="associate_org_id" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.ASSOCIATE_ORG_ID' | translate}}"
+                                                   ng-model="fee_associate_org_id" ng-maxlength="3"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="fee_sct_type"
+                                                   translate="pages.cp.SCT_TABLE.FEE.SCT_TYPE">
+                                                SCT Type
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <select ui-jq="chosen"
+                                                    id="fee_sct_type"
+                                                    name="sct_type"
+                                                    class="form-control"
+                                                    ng-model="acct_sct_type" ng-readonly='commonEnabled'>
+                                                <option value></option>
+                                                <option ng-repeat="x in fees" value="{{x.value}}">
+                                                    {{x.name}}
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--column 2-->
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="fee_fee_tag"
+                                                   translate="pages.cp.SCT_TABLE.FEE.FEE_TAG">
+                                                Fee Tag
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <select ui-jq="chosen"
+                                                    id="fee_fee_tag"
+                                                    name="fee_tag"
+                                                    class="form-control"
+                                                    data-placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.FEE_TAG' | translate}}"
+                                                    ng-model="fee_fee_tag" ng-readonly="commonEnabled">
+                                                <option value></option>
+                                                <option ng-repeat="x in feeTags" value="{{x.value}}">
+                                                    {{x.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label for="fee_fee_type"
+                                                   translate="pages.cp.SCT_TABLE.FEE.FEE_TYPE">
+                                                Fee Type
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <select ui-jq="chosen"
+                                                    id="fee_fee_type"
+                                                    name="fee_type"
+                                                    class="form-control"
+                                                    data-placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.FEE_TYPE' | translate}}"
+                                                    ng-model="fee_fee_type" style="width: 100%" ng-readonly="commonEnabled">
+                                                <option value></option>
+                                                <option ng-repeat="x in feeTypes" value="{{x.value}}">
+                                                    {{x.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_fee_amt"
+                                                   translate="pages.cp.SCT_TABLE.FEE.FEE_AMT">
+                                                Fee Amt
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_fee_amt" name="fee_amt" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.FEE_AMT' | translate}}"
+                                                   ng-model="fee_fee_amt" ng-maxlength="11"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_fee_precent"
+                                                   translate="pages.cp.SCT_TABLE.FEE.FEE_PERCENT">
+                                                Fee Percent
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_fee_precent" name="fee_precent" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.FEE_PERCENT' | translate}}"
+                                                   ng-model="fee_fee_precent" ng-maxlength="8"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--column 3-->
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_fee_discount"
+                                                   translate="pages.cp.SCT_TABLE.FEE.FEE_DISCOUNT">
+                                                Fee Discount
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_fee_discount" name="fee_discount" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.FEE_DISCOUNT' | translate}}"
+                                                   ng-model="fee_fee_discount" ng-maxlength="8"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_fee_txn_amt"
+                                                   translate="pages.cp.SCT_TABLE.FEE.FEE_TXN_AMT">
+                                                Fee Txn Amt
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_fee_txn_amt" name="fee_txn_amt" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.FEE_TXN_AMT' | translate}}"
+                                                   ng-model="fee_fee_txn_amt" ng-maxlength="9"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_fee_txn_timed"
+                                                   translate="pages.cp.SCT_TABLE.FEE.FEE_TXN_TIMED">
+                                                Fee Txn Timed
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_fee_txn_timed" name="fee_txn_timed" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.FEE_TXN_TIMED' | translate}}"
+                                                   ng-model="fee_fee_txn_timed" ng-maxlength="3"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_fee_txn_timem"
+                                                   translate="pages.cp.SCT_TABLE.FEE.FEE_TXN_TIMEM">
+                                                Fee Txn Timem
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_fee_txn_timem" name="fee_txn_timem" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.FEE_TXN_TIMEM' | translate}}"
+                                                   ng-model="fee_fee_txn_timem" ng-maxlength="3"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--column 4-->
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_last_maint_date"
+                                                   translate="pages.cp.SCT_TABLE.FEE.LAST_MAINT_DATE">
+                                                Last Maint Date
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_last_maint_date" name="last_maint_date" type="text"
+                                                   class="form-control"
+                                                   ng-model="fee_last_maint_date" ng-maxlength="10"
+                                                   required readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_fee_check_account"
+                                                   translate="pages.cp.SCT_TABLE.FEE.FEE_CHECK_ACCOUNT">
+                                                Fee Check Account
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_fee_check_account" name="fee_check_account" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.FEE_CHECK_ACCOUNT' | translate}}"
+                                                   ng-model="fee_fee_check_account" ng-maxlength="19"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_def_fee_tag"
+                                                   translate="pages.cp.SCT_TABLE.FEE.DEF_FEE_TAG">
+                                                Def Fee Tag
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_def_fee_tag" name="def_fee_tag" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.DEF_FEE_TAG' | translate}}"
+                                                   ng-model="fee_def_fee_tag" ng-maxlength="1"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_def_fee_type"
+                                                   translate="pages.cp.SCT_TABLE.FEE.DEF_FEE_TYPE">
+                                                Def Fee Type
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_def_fee_type" name="def_fee_type" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.DEF_FEE_TYPE' | translate}}"
+                                                   ng-model="fee_def_fee_type" ng-maxlength="1"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--column 5-->
+                                <div class="row">
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_def_fee_amt"
+                                                   translate="pages.cp.SCT_TABLE.FEE.DEF_FEE_AMT">
+                                                Def Fee Amt
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_def_fee_amt" name="def_fee_amt" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.DEF_FEE_AMT' | translate}}"
+                                                   ng-model="fee_def_fee_amt" ng-maxlength="11"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_def_fee_percent"
+                                                   translate="pages.cp.SCT_TABLE.FEE.DEF_FEE_PERCENT">
+                                                Def Fee Percent
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_def_fee_percent" name="def_fee_percent" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.DEF_FEE_PERCENT' | translate}}"
+                                                   ng-model="fee_def_fee_percent" ng-maxlength="8"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div>
+                                            <label for="fee_def_fee_check_account"
+                                                   translate="pages.cp.SCT_TABLE.FEE.DEF_FEE_CHECK_ACCOUNT">
+                                                Def Fee Check Account
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="fee_def_fee_check_account" name="def_fee_check_account" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.FEE.DEF_FEE_CHECK_ACCOUNT' | translate}}"
+                                                   ng-model="fee_def_fee_check_account" ng-maxlength="19"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!--//按钮所在的div-->
+                                <div class="row" style="margin-top: 2%">
+                                    <div class="form-group">
+
+
+                                        <div class="col-lg-8"> </div>
+                                        <!--<div class="col-lg-2"> </div>-->
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="editForm()" ng-hide="editBtnHide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_EDIT' | translate}}
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="addForm()" ng-hide="addBtnHide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="commitForm()" ng-hide="commitBtnhide" ng-disabled="formSCTFee.$invalid">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                                <i class="fa fa-book"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="cancelForm()" ng-hide="cancelBtnhide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                        <div class="panel-body" ng-hide="isInterestHidden">
+                            <!--//利率表-->
+                            <form name="formSCTInterest" id="formSCTInterest">
+                                <!--column 1-->
+                                <div class="row">
+
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <label for="interest_sct_id"
+                                                   translate="pages.cp.SCT_TABLE.CARD.SCT_ID">
+                                                SCT ID
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="interest_sct_id" name="sct_id" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.INTEREST.SCT_ID' | translate}}"
+                                                   ng-model="interest_sct_id" ng-maxlength="8"
+                                                   required ng-readonly="keyEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <label for="interest_sct_name"
+                                                   translate="pages.cp.SCT_TABLE.INTEREST.SCT_NAME">
+                                                SCT Name
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="interest_sct_name" name="sct_name" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.INTEREST.SCT_NAME' | translate}}"
+                                                   ng-model="interest_sct_name" ng-maxlength="40"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <label for="interest_associate_org_id"
+                                                   translate="pages.cp.SCT_TABLE.INTEREST.ASSOCIATE_ORG_ID">
+                                                Associate Org ID
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="interest_associate_org_id" name="associate_org_id" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.INTEREST.ASSOCIATE_ORG_ID' | translate}}"
+                                                   ng-model="interest_associate_org_id" ng-maxlength="3"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!--column 2-->
+                                <div class="row">
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="interest_sct_type"
+                                                   translate="pages.cp.SCT_TABLE.INTEREST.SCT_TYPE">
+                                                SCT Type
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <select ui-jq="chosen"
+                                                    id="interest_sct_type"
+                                                    name="sct_type"
+                                                    class="form-control"
+
+                                                    ng-model="interest_sct_type" ng-readonly='commonEnabled'>
+                                                <option value></option>
+                                                <option ng-repeat="x in interests" value="{{x.value}}">
+                                                    {{x.name}}
+                                                </option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <label for="interest_interest_type"
+                                                   translate="pages.cp.SCT_TABLE.INTEREST.INTEREST_TYPE">
+                                                Interest Type
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <select ui-jq="chosen"
+                                                    id="interest_interest_type"
+                                                    name="interest_type"
+                                                    class="form-control"
+                                                    data-placeholder="{{'pages.cp.PLACEHOLDERS.SCT.INTEREST.INTEREST_TYPE' | translate}}"
+                                                    ng-model="interest_interest_type">
+                                                <option value></option>
+                                                <option ng-repeat="x in interestTypes" value="{{x.value}}">
+                                                    {{x.name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <label for="interest_interest_rate"
+                                                   translate="pages.cp.SCT_TABLE.INTEREST.INTEREST_RATE">
+                                                Interest Rate
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="interest_interest_rate" name="interest_rate" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.INTEREST.INTEREST_RATE' | translate}}"
+                                                   ng-model="interest_interest_rate" ng-maxlength="8"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--column 3-->
+                                <div class="row">
+
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <label for="interest_floating_percent"
+                                                   translate="pages.cp.SCT_TABLE.INTEREST.FLOATING_PERCENT">
+                                                Floating Percent
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="interest_floating_percent" name="floating_percent" type="text"
+                                                   class="form-control"
+                                                   placeholder="{{'pages.cp.PLACEHOLDERS.SCT.INTEREST.FLOATING_PERCENT' | translate}}"
+                                                   ng-model="interest_floating_percent" ng-maxlength="6"
+                                                   required ng-readonly="commonEnabled">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div>
+                                            <label for="interest_last_maint_date"
+                                                   translate="pages.cp.SCT_TABLE.INTEREST.LAST_MAINT_DATE">
+                                                Last Maint Date
+                                            </label>
+                                            <span style="color:red">*</span>
+                                            <input id="interest_last_maint_date" name="last_maint_date" type="text"
+                                                   class="form-control"
+                                                   ng-model="interest_last_maint_date" ng-maxlength="10"
+                                                   required readonly="readonly">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!--//按钮所在的div-->
+                                <div class="row" style="margin-top: 2%">
+                                    <div class="form-group">
+
+
+                                        <div class="col-lg-8"> </div>
+                                        <!--<div class="col-lg-2"> </div>-->
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="editForm()" ng-hide="editBtnHide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_EDIT' | translate}}
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="addForm()" ng-hide="addBtnHide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="commitForm()" ng-hide="commitBtnhide" ng-disabled="formSCTInterest.$invalid">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                                <i class="fa fa-book"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="col-lg-1">
+                                            <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:120px"
+                                                    ng-click="cancelForm()" ng-hide="cancelBtnhide">
+                                                {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+</div>
+
+
+

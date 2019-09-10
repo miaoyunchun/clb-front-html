@@ -1,0 +1,101 @@
+<div class="modal-body wrapper-lg no-padder">
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.rm.HIST.HIST_MGMT_COLUMN_TITLES.HIST_MGMT_COLUMN_TITLE_DETAIL">
+        </div>
+        <div class="panel-body" id="customerEventPanel">
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+             <form name="formCustomerTaleFilter" id="formCustomerTaleFilter">
+                 <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-lg-4">
+                        <div class="form-horizontal">
+                        	<div class="form-group">
+                                <label class="col-lg-3 control-label" for="his_cust_num"
+                                		translate="pages.rm.HIST.HIST_MGMT_COLUMN_TITLES.HIST_MGMT_COLUMN_TITLE_NUMBER">
+                              		  客户编号1
+                                </label>
+                                <div class="col-lg-9">
+                                    <input id="his_cust_num" name="his_cust_num" type="text" class="form-control" 
+                                           placeholder="客户编号" ng-model="fields.hisCustNum" readonly="true" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-4">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="time_stamp"
+                                	translate="pages.rm.HIST.HIST_MGMT_COLUMN_TITLES.HIST_MGMT_COLUMN_TITLE_TIME_STAMP">
+                                	   时间戳1
+                                </label>
+                                <div class="col-lg-9">
+                                    <input id="time_stamp" name="time_stamp" type="text" class="form-control" 
+                                    	   ng-model="fields.timeStamp" readonly="true"
+                                           placeholder="时间戳" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column 3 -->
+                    <div class="col-lg-4">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-3 control-label" for="trans_name"
+                                	translate="pages.rm.HIST.HIST_MGMT_COLUMN_TITLES.HIST_MGMT_COLUMN_TITLE_TRANS_NAME">
+                              		  交易名1
+                                </label>
+                                <div class="col-lg-9">
+                                    <input id="trans_name" name="trans_name" type="text" class="form-control" 
+                                           placeholder="交易名" ng-model="fields.transName" readonly="true" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+           </form>
+        </div>
+    </div>
+    <div class="panel-body">
+          <div class="table-responsive" >
+               <table class="table table table-striped table-bordered table-hover table-condensed">
+					<caption>维护历史详情</caption>
+					<thead>
+						<tr>
+							<th translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_SEQUENCE">序号1</th>
+							<th translate="pages.rm.HIST.HIST_MGMT_FORM_INPUTS.HIST_MGMT_FORM_INPUT_ITEM">维护条目1</th>
+							<th translate="pages.rm.HIST.HIST_MGMT_FORM_INPUTS.HIST_MGMT_FORM_INPUT_ORIGIN">原数据1</th>
+							<th translate="pages.rm.HIST.HIST_MGMT_FORM_INPUTS.HIST_MGMT_FORM_INPUT_NEW">新数据1</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="x in MaintenanceHistorys">
+							<td readonly="true">{{$index + 1}}</td>
+							<td readonly="true">{{x.item}}</td>
+							<td readonly="true">{{x.origin}}</td>
+							<td readonly="true">{{x.revise}}</td>
+						</tr>
+					</tbody>
+			</table>
+        </div>
+   </div>
+   <div class="row">
+   		<div class="col-lg-8"></div>
+	   <div class="col-lg-4">
+	         <div class="form-group">
+	         	 <div class="col-lg-6"></div>
+	             <div class="col-lg-6">
+	                 <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" ng-click="cancel()">
+	                       	{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+	                      <i class="fa fa-times"></i>
+	                 </button>
+		         </div>
+	        </div>
+	   </div>
+   </div>
+</div>

@@ -1,0 +1,760 @@
+<!--总账科目明细添加的modal框-->
+
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+
+        <!--modal框标题-->
+        <div class="panel-heading font-bold"
+             translate="pages.fm.TITLES.GENERAL_ACCTING_ADD"></div>
+
+        <div class="panel-body" id="addAcctEntryPanel">
+
+            <div class="well b bg-light lt wrapper-sm m-t">
+                {{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <form name="formAddGeneralAcct" id="formAddGeneralAcct" class="form-validation">
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <!--column 1-->
+                    <div class="row">
+                        <!--本位币币别-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="second_bill_type"
+                                       translate="pages.fm.LGITEM_DETAIL.SECOND_BILL_TYPE">
+                                    second_bill_type
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="second_bill_type"
+                                        name="second_bill_type"
+                                        class="form-control"
+                                        ng-model="second_bill_type">
+                                    <option value></option>
+                                    <option ng-repeat="x in billTypes" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--科目号-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="item_key"
+                                       translate="pages.fm.LGITEM_DETAIL.ITEM_KEY">
+                                    ITEM_KEY
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="item_key" name="item_key" type="text"
+                                       class="form-control" ng-blur="generalAcctIfExisted1()"
+                                       ng-maxlength="28" ng-model="item_key"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--业务类别-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="buss_type"
+                                       translate="pages.fm.LGITEM_DETAIL.BUSS_TYPE">
+                                    ITEM_KEY
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="buss_type" name="buss_type" type="text"
+                                       class="form-control"
+                                       ng-maxlength="3" ng-model="buss_type"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--科目名称-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="item_name"
+                                       translate="pages.fm.LGITEM_DETAIL.ITEM_NAME">
+                                    ITEM_NAME
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="item_name" name="item_name" type="text"
+                                       class="form-control"
+                                       ng-maxlength="40" ng-model="item_name"
+                                       required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--column 2-->
+                    <div class="row">
+
+                        <!--账面余额-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="face_bal"
+                                       translate="pages.fm.LGITEM_DETAIL.FACE_BAL">
+                                    FACE_BAL
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="face_bal" name="face_bal" type="text"
+                                       class="form-control"
+                                       ng-maxlength="16" ng-model="face_bal"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--有效余额-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="afc_bal"
+                                       translate="pages.fm.LGITEM_DETAIL.AFC_BAL">
+                                    AFC_BAL
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="afc_bal" name="afc_bal" type="text"
+                                       class="form-control"
+                                       ng-maxlength="16" ng-model="afc_bal"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--余额方向标志-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="bal_dire_flg"
+                                       translate="pages.fm.LGITEM_DETAIL.BAL_DIRE_FLG">
+                                    bal_dire_flg
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="bal_dire_flg"
+                                        name="bal_dire_flg"
+                                        class="form-control"
+                                        ng-model="bal_dire_flg">
+                                    <option value></option>
+                                    <option ng-repeat="x in balDireFlgs" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--借方利率种类-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="dr_gl_intr_typ"
+                                       translate="pages.fm.LGITEM_DETAIL.DR_GL_INTR_TYP">
+                                    dr_gl_intr_typ
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="dr_gl_intr_typ" name="dr_gl_intr_typ" type="text"
+                                       class="form-control"
+                                       ng-maxlength="2" ng-model="dr_gl_intr_typ"
+                                       required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--column 3-->
+                    <div class="row">
+
+                        <!--借方大额级距-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="dr_gl_mass_amt_rang"
+                                       translate="pages.fm.LGITEM_DETAIL.DR_GL_MASS_AMT_RANG">
+                                    DR_GL_MASS_AMT_RANG
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="dr_gl_mass_amt_rang" name="dr_gl_mass_amt_rang" type="text"
+                                       class="form-control"
+                                       ng-maxlength="2" ng-model="dr_gl_mass_amt_rang"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--贷方利率种类-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="cr_gl_intr_typ"
+                                       translate="pages.fm.LGITEM_DETAIL.CR_GL_INTR_TYP">
+                                    CR_GL_INTR_TYP
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="cr_gl_intr_typ" name="cr_gl_intr_typ" type="text"
+                                       class="form-control"
+                                       ng-maxlength="2" ng-model="cr_gl_intr_typ"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--贷方大额级距-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="cr_gl_mass_amt_rang"
+                                       translate="pages.fm.LGITEM_DETAIL.CR_GL_MASS_AMT_RANG">
+                                    CR_GL_MASS_AMT_RANG
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="cr_gl_mass_amt_rang" name="cr_gl_mass_amt_rang" type="text"
+                                       class="form-control"
+                                       ng-maxlength="2" ng-model="cr_gl_mass_amt_rang"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--借方浮动利率-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="dr_flt_intr"
+                                       translate="pages.fm.LGITEM_DETAIL.DR_FIT_INTR">
+                                    DR_FIT_INTR
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="dr_flt_intr" name="dr_flt_intr" type="text"
+                                       class="form-control"
+                                       ng-maxlength="7" ng-model="dr_flt_intr"
+                                       required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--column 4-->
+                    <div class="row">
+
+                        <!--贷方浮动利率-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="cr_flt_intr"
+                                       translate="pages.fm.LGITEM_DETAIL.CR_FIT_INTR">
+                                    cr_flt_intr
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="cr_flt_intr" name="cr_flt_intr" type="text"
+                                       class="form-control"
+                                       ng-maxlength="7" ng-model="cr_flt_intr"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--本段积数-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="tprd_acc_bal"
+                                       translate="pages.fm.LGITEM_DETAIL.TPRD_ACC_BAL">
+                                    tprd_acc_bal
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="tprd_acc_bal" name="tprd_acc_bal" type="text"
+                                       class="form-control"
+                                       ng-maxlength="17" ng-model="tprd_acc_bal"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--本段积数借贷别-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="crnt_prd_cd"
+                                       translate="pages.fm.LGITEM_DETAIL.CRNT_PRD_CD">
+                                    CRNT_PRD_CD
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="crnt_prd_cd"
+                                        name="crnt_prd_cd"
+                                        class="form-control"
+                                        ng-model="crnt_prd_cd">
+                                    <option value></option>
+                                    <option ng-repeat="x in crntPrdCDs" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--协定账户余额限-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="acct_largst_bal"
+                                       translate="pages.fm.LGITEM_DETAIL.ACCT_LARGST_BAL">
+                                    tprd_acc_bal
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="acct_largst_bal" name="acct_largst_bal" type="text"
+                                       class="form-control"
+                                       ng-maxlength="16" ng-model="acct_largst_bal"
+                                       required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--column 5-->
+                    <div class="row">
+
+                        <!--透支限额-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="over_draw_lagst_amt"
+                                       translate="pages.fm.LGITEM_DETAIL.OVER_DRAW_LAGST_AMT">
+                                    OVER_DRAW_LAGST_AMT
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="over_draw_lagst_amt" name="over_draw_lagst_amt" type="text"
+                                       class="form-control"
+                                       ng-maxlength="16" ng-model="over_draw_lagst_amt"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--透支起始日期-->
+                        <div class="col-lg-3">
+                            <label for="over_draw_start_dt"
+                                   translate="pages.fm.LGITEM_DETAIL.OVER_DRAW_START_DT">
+                                over_draw_start_dt
+                            </label>
+                            <span style="color:red">*</span>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="over_draw_start_dt"
+                                           is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                           id="over_draw_start_dt"	name="over_draw_start_dt"
+                                           close-text="Close"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--末次计息日期-->
+                        <div class="col-lg-3">
+                            <label for="last_acc_int_dt"
+                                   translate="pages.fm.LGITEM_DETAIL.LAST_ACC_INT_DT">
+                                last_acc_int_dt
+                            </label>
+                            <span style="color:red">*</span>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="last_acc_int_dt"
+                                           is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                           id="last_acc_int_dt"	name="last_acc_int_dt"
+                                           close-text="Close"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--末次转积数历史日期-->
+                        <div class="col-lg-3">
+                            <label for="last_tsf_accbal_dt"
+                                   translate="pages.fm.LGITEM_DETAIL.LAST_TSF_ACCBAL_DT">
+                                LAST_TSF_ACCBAL_DT
+                            </label>
+                            <span style="color:red">*</span>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="last_tsf_accbal_dt"
+                                           is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                           id="last_tsf_accbal_dt"	name="last_tsf_accbal_dt"
+                                           close-text="Close"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--column 6-->
+                    <div class="row">
+
+                        <!--最后修改日期-->
+                        <div class="col-lg-3">
+                            <label for="last_acc_dt"
+                                   translate="pages.fm.LGITEM_DETAIL.LAST_ACC_DT">
+                                last_acc_dt
+                            </label>
+                            <span style="color:red">*</span>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="last_acc_dt"
+                                           is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                           id="last_acc_dt"	name="last_acc_dt"
+                                           close-text="Close"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--开户日期-->
+                        <div class="col-lg-3">
+                            <label for="opac_dt"
+                                   translate="pages.fm.LGITEM_DETAIL.OPAC_DT">
+                                opac_dt
+                            </label>
+                            <span style="color:red">*</span>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="opac_dt"
+                                           is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                           id="opac_dt"	name="opac_dt"
+                                           close-text="Close"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--关户日期-->
+                        <div class="col-lg-3">
+                            <label for="close_dt"
+                                   translate="pages.fm.LGITEM_DETAIL.CLOSE_DT">
+                                close_dt
+                            </label>
+                            <span style="color:red">*</span>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="close_dt"
+                                           is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                           id="close_dt"	name="close_dt"
+                                           close-text="Close"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--冻结状态-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="frz_sts"
+                                       translate="pages.fm.LGITEM_DETAIL.FRZ_STS">
+                                    FRZ_STS
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="frz_sts"
+                                        name="frz_sts"
+                                        class="form-control"
+                                        ng-model="frz_sts">
+                                    <option value></option>
+                                    <option ng-repeat="x in frezzStaus" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--column 7-->
+                    <div class="row">
+
+                        <!--账户状态-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="acct_sts"
+                                       translate="pages.fm.LGITEM_DETAIL.ACCT_STS">
+                                    acct_sts
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="acct_sts"
+                                        name="acct_sts"
+                                        class="form-control"
+                                        ng-model="acct_sts">
+                                    <option value></option>
+                                    <option ng-repeat="x in acctstatus" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--计息标志-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="intc_flg"
+                                       translate="pages.fm.LGITEM_DETAIL.INTC_FLAG">
+                                    intc_flg
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="intc_flg"
+                                        name="intc_flg"
+                                        class="form-control"
+                                        ng-model="intc_flg">
+                                    <option value></option>
+                                    <option ng-repeat="x in intcFlgs" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--计息周期-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="intc_cycle"
+                                       translate="pages.fm.LGITEM_DETAIL.INTC_CYCLE">
+                                    intc_cycle
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="intc_cycle"
+                                        name="intc_cycle"
+                                        class="form-control"
+                                        ng-model="intc_cycle">
+                                    <option value></option>
+                                    <option ng-repeat="x in intcCycles" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--付息帐号-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="pay_int_acct_no"
+                                       translate="pages.fm.LGITEM_DETAIL.PAY_INT_ACCT_NO">
+                                    pay_int_acct_no
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="pay_int_acct_no" name="pay_int_acct_no" type="text"
+                                       class="form-control"
+                                       ng-maxlength="28" ng-model="pay_int_acct_no"
+                                       required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--column 8-->
+                    <div class="row">
+
+                        <!--收息帐号-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="cola_int_acct_no"
+                                       translate="pages.fm.LGITEM_DETAIL.COLA_INT_ACCT_NO">
+                                    cola_int_acct_no
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="cola_int_acct_no" name="cola_int_acct_no" type="text"
+                                       class="form-control"
+                                       ng-maxlength="28" ng-model="cola_int_acct_no"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--期限数量-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="gl_peroid_nums_n"
+                                       translate="pages.fm.LGITEM_DETAIL.GL_PEROID_NUMS_N">
+                                    cola_int_acct_no
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="gl_peroid_nums_n" name="gl_peroid_nums_n" type="text"
+                                       class="form-control"
+                                       ng-maxlength="3" ng-model="gl_peroid_nums_n"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--期限单位-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="gl_peroid_unit"
+                                       translate="pages.fm.LGITEM_DETAIL.GL_PEROID_UNIT">
+                                    GL_PEROID_UNIT
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="gl_peroid_unit"
+                                        name="gl_peroid_unit"
+                                        class="form-control"
+                                        ng-model="gl_peroid_unit">
+                                    <option value></option>
+                                    <option ng-repeat="x in glPeroidUnits" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--责任中心-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="respon_cent"
+                                       translate="pages.fm.LGITEM_DETAIL.RESPON_CENT">
+                                    respon_cent
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="respon_cent" name="respon_cent" type="text"
+                                       class="form-control"
+                                       ng-maxlength="3" ng-model="respon_cent"
+                                       required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--column 9-->
+                    <div class="row">
+
+                        <!--机构查询权限-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="gl_instn_inq_lmt"
+                                       translate="pages.fm.LGITEM_DETAIL.GL_INSTN_INQ_LMT">
+                                    gl_instn_inq_lmt
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="gl_instn_inq_lmt"
+                                        name="gl_instn_inq_lmt"
+                                        class="form-control"
+                                        ng-model="gl_instn_inq_lmt">
+                                    <option value></option>
+                                    <option ng-repeat="x in glInstnInpLmt" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--机构核算权限-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="gl_instn_rcrd_lmt"
+                                       translate="pages.fm.LGITEM_DETAIL.GL_INSTN_RCRD_LMT">
+                                    gl_instn_rcrd_lmt
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="gl_instn_rcrd_lmt"
+                                        name="gl_instn_rcrd_lmt"
+                                        class="form-control"
+                                        ng-model="gl_instn_rcrd_lmt">
+                                    <option value></option>
+                                    <option ng-repeat="x in glInstnRcrdLmt" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--机构销户权限-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="gl_instn_clsacc_lmt"
+                                       translate="pages.fm.LGITEM_DETAIL.GL_INSTN_CLSACC_LMT">
+                                    gl_instn_clsacc_lmt
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="gl_instn_clsacc_lmt"
+                                        name="gl_instn_clsacc_lmt"
+                                        class="form-control"
+                                        ng-model="gl_instn_clsacc_lmt">
+                                    <option value></option>
+                                    <option ng-repeat="x in glInstnClsaccLmt" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--账户权限保留-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="gl_acct_lmt_rsv"
+                                       translate="pages.fm.LGITEM_DETAIL.GL_ACCT_LMT_RSV">
+                                    gl_acct_lmt_rsv
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="gl_acct_lmt_rsv"
+                                        name="gl_acct_lmt_rsv"
+                                        class="form-control"
+                                        ng-model="gl_acct_lmt_rsv">
+                                    <option value></option>
+                                    <option ng-repeat="x in glAcctLmtRsv" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--按钮-->
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="form-group">
+
+                                <div class="col-lg-2">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:100px;margin-top:10px;margin-left: 550px"
+                                            ng-click="addGeneralAccting()" ng-disabled="formAddGeneralAcct.$invalid">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-2">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" style="width:100px;margin-top:10px;margin-left: 650px"
+                                            ng-click="cancelGeneralAccting()">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

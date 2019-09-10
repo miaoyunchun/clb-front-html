@@ -1,0 +1,310 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_EXPLAIN">个人客户开立</div>
+        <div class="panel-body" id="addPerCustomerPanel">
+        
+            <div class="well b bg-light lt wrapper-sm m-t" translate="pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_PROMPT">
+           	   	红星为必输项
+           </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+             <form name="formAddPerCustomerFilter" id="formAddPerCustomerFilter" class="form-validation">
+             	<fieldset ng-disabled="isFormDisabled">
+             	<div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-lg-5">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_number">
+                                	 {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_CUSTNUMBER' | translate}}
+                                	 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="add_cust_number" name="cust_number" type="text" class="form-control" 
+                                    	   ng-blur="blur()" ng-model="fields.custNumber" ng-maxlength="19" ng-minlength="19"
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_NUMBER' | translate}}" 
+                                           required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_name">
+                              		 {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_NAME' | translate}}
+                              		 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_name" name="cust_name" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_NAME' | translate}}"
+                                           ng-model="fields.custName" ng-maxlength="40" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_id_no">
+                                	 {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_IDNUMBER' | translate}}
+                                	 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_id_no" name="cust_id_no" type="text" class="form-control" ng-model="fields.custIDNo"
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_ID_NUMBER' | translate}}" ng-maxlength="18" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_hand_phone">
+                                	 {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_HANDPHONE' | translate}}
+                                	 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_hand_phone" name="cust_hand_phone" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_HAND_PHONE' | translate}}"
+                                           ng-model="fields.handPhone" ng-maxlength="20" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_phone_number">
+                              		 {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_PHONENUMBER' | translate}}
+                              		<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_phone_number" name="cust_phone_number" type="text" class="form-control"
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_PHONE_NUMBER' | translate}}" 
+                                           ng-model="fields.phoneNumber" ng-maxlength="20" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_nationality">
+                                	 {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_NATIONALITY' | translate}}
+                                	 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_nationality" name="cust_nationality" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_NATIONALITY' | translate}}"
+                                           ng-model="fields.nationality" ng-maxlength="20" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_address">
+                              		 {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_ADDRESS1' | translate}}
+                              		 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_address" name="cust_address" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_ADDRESS' | translate}}"
+                                           ng-model="fields.address" ng-maxlength="40" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_address3">
+                              		   {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_ADDRESS3' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_address3" name="cust_address3" type="text" class="form-control" 
+                                           ng-model="fields.adress3" ng-maxlength="40"
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_ADDRESS3' | translate}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_cred_assess">
+                              		  {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_ASSESS' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_cred_assess" name="cust_cred_assess" type="text" class="form-control"
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_ASSESS' | translate}}"
+                                           ng-model="fields.assess" ng-maxlength="30">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-5">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_org_id">
+                              		 {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_ORGID' | translate}}
+                              		 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_org_id" name="cust_org_id" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_ORG_ID' | translate}}"
+                                           ng-model="fields.orgID" ng-maxlength="3" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_gender">
+                              		  {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_GENDER' | translate}}
+                              		  <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+									<ui-select
+                                           id="cust_gender"
+                                           ng-model="selectedIDGenders.item"
+                                           on-select="IDGendersSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in id_genders | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_id_type" 
+                                translate="pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_IDTYPE">
+                                   	 {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_IDTYPE' | translate}}
+                                   	<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+										<ui-select
+                                           id="cust_id_type"
+                                           ng-model="selectedIDType.item"
+                                           on-select="IDTypeSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in cust_id_types | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_email">
+                                	  {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_EMAIL' | translate}}
+                                	 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_email" name="cust_email" type="text" class="form-control"
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_EMAIL' | translate}}"
+                                           ng-model="fields.email" ng-maxlength="60" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_post_code code">
+                                	 {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_POST' | translate}}
+                                	 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_post_code" name="cust_post_code" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_POST' | translate}}"
+                                           ng-model="fields.postCode" ng-maxlength="8" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_city">
+                                	 {{'pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_CITY' | translate}}
+                                	 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_city" name="cust_city" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_CITY' | translate}}"
+                                           ng-model="fields.city" ng-maxlength="40" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_address2"
+                                translate="pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_ADDRESS2">
+                                	   地址2
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="cust_address2" name="cust_address2" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_ADDRESS2' | translate}}" ng-model="fields.address2"
+                                           ng-maxlength="40">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="cust_open_date"
+                                translate="pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_OPENTIME">
+                         		           开户时间
+                                </label>
+                                <div ng-controller="AvailDateCtrl" class="col-lg-7">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="fields.openingTime" id="cust_open_date" name="cust_open_date"
+                                               is-open="opened" datepicker-options="dateOptions" 
+                                               close-text="Close" placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_OPENING_TIME' | translate}}" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-lg-5 control-label"
+                                translate="pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_UPDATETIME">
+                         		           上次维护时间
+                                </label>
+                                <div ng-controller="AvailDateCtrl" class="col-lg-7">
+                                    <div class="input-group">
+                                        <input id="update_time" name="update_time" type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="fields.maintenanceTime" close-text="Close"
+                                               is-open="opened" datepicker-options="dateOptions" 
+                                               placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_UPDATE_TIME' | translate}}"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <!-- 按钮 -->
+                    <div class="row">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                               	<div class="col-lg-5"></div>
+                               	<div class="col-lg-6">
+	                                <div class="col-lg-4">
+	                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="addBtn" ng-click="addPerCustomer()"
+	                                    	    ng-disabled="formAddPerCustomerFilter.$invalid">
+	                                 	  		{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+	                                        <i class="fa fa-plus"></i>
+	                                    </button>
+	                                </div>
+	                                <div class="col-lg-4">
+	                                    <button class="btn m-b-xs btn-default btn-success btn-addon" ng-click="resetAddForm()">
+	                                	        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+	                                        <i class="glyphicon glyphicon-repeat"></i>
+	                                    </button>
+	                                </div>
+	                                <div class="col-lg-4">
+	                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" ng-click="cancel()">
+	                                	      	{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+	                                        <i class="fa fa-times"></i>
+	                                    </button>
+	                                </div>
+                               </div>
+                          </div>
+                      </div>
+                  </div>
+                  </fieldset>
+             </form>
+        </div>
+    </div>
+</div>

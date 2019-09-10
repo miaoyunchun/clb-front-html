@@ -1,0 +1,335 @@
+<!-- This page has been included in org_mgt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.cp.TITLE.EDT_PRODUCT"></div>
+        <div class="panel-body" id="addOrgPanel">
+            <div class="well b bg-light lt wrapper-sm m-t">
+                {{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <form name="formEditProduct" id="formEditProduct" class="form-validation">
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <!-- Organization basic info -->
+
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="product_id"
+                                       translate="pages.cp.PRODUCT_TABLE.PRODUCT_ID">
+                                    Product ID
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="product_id" name="product_id" type="text"
+                                       class="form-control"
+                                       ng-maxlength="8" ng-model="product_id"
+                                       required readonly="readonly">
+
+                            </div>
+
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="product_name"
+                                       translate="pages.cp.PRODUCT_TABLE.PRODUCT_NAME">
+                                    Product Name
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="product_name" name="product_name" type="text"
+                                       class="form-control"
+                                       ng-model="product_name" ng-maxlength="40"
+                                       required>
+                            </div>
+                        </div>
+
+
+                        <!-- Column 3 关联的机构id-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="associate_org_id"
+                                       translate="pages.cp.PRODUCT_TABLE.ASSOCIATE_ORG_ID">
+                                    associate_org_id
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="associate_org_id" name="associate_org_id" type="text"
+                                       class="form-control"
+                                       ng-maxlength="3" ng-model="associate_org_id"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 4 科目号-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="subject_number"
+                                       translate="pages.cp.PRODUCT_TABLE.SUBJECT_NUMBER">
+                                    subject_number
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="subject_number" name="subject_number" type="text"
+                                       class="form-control"
+                                       ng-maxlength="19" ng-model="subject_number"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Column 5 产品类型-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="product_type"
+                                       translate="pages.cp.PRODUCT_TABLE.PRODUCT_TYPE">
+                                    product_type
+                                </label>
+                                <span style="color:red">*</span>
+                                <!--<input id="product_type" name="product_type" type="text"-->
+                                       <!--class="form-control"-->
+                                       <!--ng-maxlength="1" ng-model="product_type"-->
+                                       <!--required>-->
+                                <select ui-jq="chosen"
+                                        id="product_type"
+                                        name="product_type"
+                                        class="form-control"
+                                        ng-model="product_type">
+                                    <option value></option>
+                                    <option ng-repeat="x in productTypes" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Column 6 产品代码-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="product_code"
+                                       translate="pages.cp.PRODUCT_TABLE.PRODUCT_CODE">
+                                    product_code
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="product_code" name="product_code" type="text"
+                                       class="form-control"
+                                       ng-maxlength="10" ng-model="product_code"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 7 产品币种下拉框-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="product_ccy"
+                                       translate="pages.cp.PRODUCT_TABLE.PRODUCT_CCY">
+                                    product_ccy
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="product_ccy"
+                                        name="product_ccy"
+                                        class="form-control"
+                                        ng-model="product_ccy">
+                                    <option value></option>
+                                    <option ng-repeat="x in proCcys" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Column 8 币种支持下拉框-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="currency_support"
+                                       translate="pages.cp.PRODUCT_TABLE.CURRENCY_SUPPORT">
+                                    currency_support
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="currency_support"
+                                        name="currency_support"
+                                        class="form-control"
+                                        ng-model="currency_support">
+                                    <option value></option>
+                                    <option ng-repeat="x in currencySups" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <!-- Column 9 进程执行通过日期-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="multi_nstance"
+                                       translate="pages.cp.PRODUCT_TABLE.MULTI_NSTANCE">
+                                    multi_nstance
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="multi_nstance" name="multi_nstance" type="text"
+                                       class="form-control"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-maxlength="255" ng-model="multi_nstance"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 10 是否需要卡下拉框-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="card_issurance"
+                                       translate="pages.cp.PRODUCT_TABLE.CARD_ISSURANCE">
+                                    card_issurance
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="card_issurance"
+                                        name="card_issurance"
+                                        class="form-control"
+                                        ng-model="card_issurance">
+                                    <option value></option>
+                                    <option ng-repeat="x in cardIssurances" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Column 11 账户控制表-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="account_control"
+                                       translate="pages.cp.PRODUCT_TABLE.ACCOUNT_CONTROL">
+                                    account_control
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="account_control" name="account_control" type="text"
+                                       class="form-control"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-maxlength="8" ng-model="account_control"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 12 卡片控制表-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="card_control"
+                                       translate="pages.cp.PRODUCT_TABLE.CARD_CONTROL">
+                                    card_control
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="card_control" name="card_control" type="text"
+                                       class="form-control"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-maxlength="8" ng-model="card_control"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Column 13 费率控制表-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="fee_control"
+                                       translate="pages.cp.PRODUCT_TABLE.FEE_CONTROL">
+                                    fee_control
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="fee_control" name="fee_control" type="text"
+                                       class="form-control"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-maxlength="8" ng-model="fee_control"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 14 利息控制表-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="interest_control"
+                                       translate="pages.cp.PRODUCT_TABLE.INTEREST_CONTROL">
+                                    interest_control
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="interest_control" name="interest_control" type="text"
+                                       class="form-control"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-maxlength="8" ng-model="interest_control"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 15 存款控制表-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="dp_control"
+                                       translate="pages.cp.PRODUCT_TABLE.DP_CONTROL">
+                                    dp_control
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="dp_control" name="dp_control" type="text"
+                                       class="form-control"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-maxlength="8" ng-model="dp_control"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!--Column 16 最后执行日期-->
+                        <div class="col-lg-3">
+                            <label for="last_maint_date"
+                                   translate="pages.cp.ORG_TABLE.LAST_MAINT_DATE">
+                                last_maint_date
+                            </label>
+                            <span style="color:red">*</span>
+                            <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                   ng-model="last_maint_date"
+                                   is-open="opened" ng-required="true"
+                                   id="last_maint_date"	name="last_maint_date"
+                                   close-text="Close" readonly="readonly"/>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="form-group">
+
+                                <div class="col-lg-2">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnSave" style="width:100px;margin-top:10px;margin-left: 550px"
+                                            ng-click="edit()" ng-disabled="formEditProduct.$invalid">
+                                        {{'pages.cp.ORG_MGT_FIELDS.ORG_MGMT_BUTTON_EDIT' | translate}}
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-2">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" style="width:100px;margin-top:10px;margin-left: 650px"
+                                            ng-click="cancel()">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

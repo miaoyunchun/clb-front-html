@@ -1,0 +1,226 @@
+<!-- This page has been included in org_mgmt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder"  >
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.dp.DP_INTRA_TRANSFER">
+        </div>
+        <div class="panel-body" ng-controller="CardOpenController">
+        <!-- toaster directive -->
+		<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+            <div class="well b bg-light lt wrapper-sm m-t">
+                {{"pages.sm.ORG_MGMT_NOTIFICATION_TEXTS.ORG_MGMT_NOTIFICATION_I18N" | translate}}
+            </div>
+
+           
+            
+			<!-- 账户开卡表单1 -->
+            <form name="formCardOpen" id="formCardOpen" class="form-validation">
+	 			<!-- alert -->
+		            <div class="m-b-md">
+		                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+		                </alert>
+		            </div>
+                <fieldset ng-disabled="isFormDisabled">
+                    <!-- Organization basic info -->
+                    <div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-4" >
+                            <div class="form-group" >
+                                <label for="CardTpye"
+                                       translate="卡号类型">
+                                       	卡号类型
+                                </label>
+                                <input id="CardTpye" name="CardTpye" type="text" readonly
+                                       class="form-control" value="自动生成"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="cardNo"
+                                       translate="卡片号码">
+                                    	卡片号码
+                                </label>
+                               <input id="cardNo" name="cardNo"  type="text" readonly
+                                       class="form-control"  
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="custNo"
+                                       translate="客户号码">
+                                    	客户号码
+                                </label>
+                               <input id="custNo" name="custNo" type="text"
+                                       class="form-control" ng-model="fields.idType" 
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+
+					<div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-4" >
+                            <div class="form-group" >
+                                <label for="acctNo"
+                                       translate="账户号码">
+                                       	账户号码
+                                </label>
+                                <input id="acctNo" name="acctNo" type="text"
+                                       class="form-control" ng-model="fields.acctNo"
+                                        required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgId"
+                                       translate="机构号码">
+                                    	机构号码
+                                </label>
+                               <input id="orgId" name="orgId"  type="text" 
+                                       class="form-control" value="888" readonly
+                                       ng-model="fields.orgId" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Column 3 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="cardLevel"
+                                       translate="卡片级别">
+                                    	卡片级别
+                                </label>
+                               <input id="cardLevel" name="cardLevel" type="text"
+                                       class="form-control" ng-model="fields.cardLevel" 
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-4" >
+                            <div class="form-group" >
+                                <label for="setPwd"
+                                       translate="设置密码">
+                                       	设置密码
+                                </label>
+                                <input id="setPwd" name="setPwd" type="text"
+                                       class="form-control" ng-model="fields.setPwd"
+                                        required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="cardPwd"
+                                       translate="卡片密码">
+                                    	卡片密码
+                                </label>
+                               <input id="cardPwd" name="cardPwd"  type="password" 
+                                       class="form-control" 
+                                       ng-model="fields.cardPwd" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Column 3 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="cardOpenDate"
+                                       translate="开卡日期">
+                                    	开卡日期
+                                </label>
+                               <input id="cardOpenDate" name="cardOpenDate" type="text"
+                                       class="form-control" ng-model="fields.cardOpenDate" 
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-4" >
+                            <div class="form-group" >
+                                <label for="prodId"
+                                       translate="产品号码">
+                                       	产品号码
+                                </label>
+                                <input id="prodId" name="prodId" type="text"
+                                       class="form-control" ng-model="fields.prodId"
+                                        required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="confirmPwd"
+                                       translate="确认密码">
+                                    	确认密码
+                                </label>
+                               <input id="confirmPwd" name="confirmPwd"  type="text" 
+                                       class="form-control" 
+                                       ng-model="fields.confirmPwd" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Column 3 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="expireDate"
+                                       translate="卡过期日">
+                                    	卡过期日
+                                </label>
+                               <input id="expireDate" name="expireDate" type="text"
+                                       class="form-control" ng-model="fields.expireDate" 
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- A hidden row for hidden fields -->
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgCreateUser"></label>
+                                <input type="text" class="form-control" id="orgCreateUser"
+                                       name="gx.orgCreateUser"
+                                       ng-model="fields.orgCreateUser">
+                            </div>
+                        </div>
+                    </div>
+  					
+                    <div class="row" >
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2"  >
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:130px" id="btnNext"  ng-click="next()" ng-disabled="formCardOpen.$invalid">
+                                    {{'pages.dp.DP_MGMT_BUTTONS.DP_MGMT_BUTTON_NEXT' | translate}}
+                                    <i class="fa fa-share"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClear" style="width:130px" 
+                                        ng-click="goback()">
+                                    {{'pages.dp.DP_MGMT_BUTTONS.DP_MGMT_BUTTON_RETURN' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            
+        </div>
+    </div>
+</div>

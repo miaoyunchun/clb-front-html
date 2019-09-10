@@ -1,0 +1,107 @@
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="modal-body wrapper-lg no-padder" ng-controller="MaintenanceHistoryPageCtrl">
+    <div class="panel panel-default m-b-none">
+        <!--标题-->
+        <div class="bg-light lter b-b wrapper-md">
+            <h1 class="m-n font-thin h3" translate="pages.rm.HIST.HIST_MGMT">维护历史1</h1>
+        </div>
+        <div class="panel-body" >
+            <div class="well b bg-light lt wrapper-sm m-t" translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_QUERYCONTENT">
+            </div>
+            <form name="formMaintenanceHistoryFilter" id="formMaintenanceHistoryFilter">
+                <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-lg-5" >
+                        <div>
+                            <label for="his_cust_num" translate="pages.rm.HIST.HIST_MGMT_COLUMN_TITLES.HIST_MGMT_COLUMN_TITLE_NUMBER">
+                                	 客户编号1
+                            </label>
+                            <input id="his_cust_num" name="his_cust_num" type="text" class="form-control"
+                            	placeholder="{{'pages.rm.CRDMN.CRDMN_MGMT_PLACEHOLDERS.CRDMN_MGMT_PLACEHOLDER_CUST_NUMBER' | translate}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                   <div class="form-group">
+                         <div class="col-lg-3">
+                               <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnQuery" style="width:150px;margin-top: 10px;
+                               			margin-left: 1450px" ng-click="queryMaintHistory()">
+                                   {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SEARCH' | translate}}
+                                   <i class="fa fa-search"></i>
+                               </button>
+                         </div>
+                         <div class="col-lg-2">
+                               <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnReset" style="width:150px;margin-top: 10px;
+                               		margin-left: 1500px"
+                                       type="reset">
+                                   {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+                                   <i class="fa fa-times"></i>
+                               </button>
+                         </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Action buttons -->
+    <div class="row" id="CustomerEventTable" name="CustomerEventTable">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">
+                    <span>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="maintHistoryNext" 
+                        		ng-click="maintHistoryNextPopup()" ng-hide="isTableHidden">
+                            	{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_NEXT_PAGE' | translate}}
+                            <i class="glyphicon glyphicon-share-alt"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="panel-body" ng-hide="isTableHidden" ng-controller="maintenanceHistoryDetailModalCtrl">
+          <div class="table-responsive" >
+               <table class="table table table-striped table-bordered table-hover table-condensed">
+					<caption translate="pages.rm.HIST.HIST_MGMT_COLUMN_TITLES.HIST_MGMT_COLUMN_TITLE_HISTORY_LIST">维护历史列表</caption>
+					<thead>
+						<tr>
+							<th translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_SEQUENCE">序号1</th>
+							<th translate="pages.rm.HIST.HIST_MGMT_COLUMN_TITLES.HIST_MGMT_COLUMN_TITLE_TIME_STAMP">时间戳1</th>
+							<th translate="pages.rm.HIST.HIST_MGMT_COLUMN_TITLES.HIST_MGMT_COLUMN_TITLE_TRANS_NAME">交易名1</th>
+							<th translate="pages.rm.HIST.HIST_MGMT_COLUMN_TITLES.HIST_MGMT_COLUMN_TITLE_EXECUTOR">执行人1</th>
+							<th translate="pages.rm.HIST.HIST_MGMT_COLUMN_TITLES.HIST_MGMT_COLUMN_TITLE_DESC">交易描述1</th>
+							<th translate="pages.rm.CTALE.CTALE_MGMT_COLUMN_TITLES.CTALE_MGMT_COLUMN_TITLE_VIEW">查看1</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="x in MaintenanceHistory">
+							<td>{{$index + 1}}</td>
+							<td>{{x.time_stamp}}</td>
+							<td>{{x.trans_name}}</td>
+							<td>{{x.update_user}}</td>
+							<td>{{x.mark}}</td>
+							<td>
+								<span>
+                        			<!--维护客户事件modal框-->
+		                       		<script type="text/ng-template" id="maintenanceHistoryModalForm.html">
+                            			<div ng-include="'html/rm/maintenanceHistory/maintenance_history_modal_form.html'"></div>
+                        			</script>
+                       				<!--详情按钮-->
+                       				<button class="btn m-b-xs btn-sm btn-default btn-addon" id="customerEvent" ng-click="getHistoryInformation($index)"
+                       						translate="pages.rm.HIST.HIST_MGMT_COLUMN_TITLES.HIST_MGMT_COLUMN_TITLE_DETAIL">
+                         		 			 维护历史详情1
+                        			</button>
+                    			</span>
+							</td>
+						</tr>
+					</tbody>
+			</table>
+        </div>
+   </div>
+</div>
+
+
+

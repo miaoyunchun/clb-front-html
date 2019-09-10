@@ -1,0 +1,353 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.service.SERVICE_MGMT_FORM_TITLES.SERVICE_MGMT_FORM_TITLE_ADD_SERVICE"></div>
+        <div class="panel-body" id="addServicePanel">
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index, false)">
+                    {{alert.msg}}
+                </alert>
+            </div>
+
+            <!-- Specify "novalidate" here to disable the browser default validation -->
+            <!-- so we can get rid of the Bootstrap notification -->
+            <form name="formAddService" id="formAddService" class="form-validation" novalidate>
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <!-- rolename and password -->
+                    <div class="row">
+                        <div class="col-lg-2-4 form-group">
+                            <label for="sysname"
+                                   translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_SYSTEM">
+                                System
+                            </label>
+                            <input id="sysname" name="sysname" type="text" class="form-control text-uppercase"
+                                   popover="{{ 'pages.sm.service.SERVICE_MGMT_PLACEHOLDERS.SYSTEM_MGMT_PLACEHOLDER_SYS_NAME_RULE' | translate }}"
+                                   popover-placement="bottom" popover-trigger="focus"
+                                   ng-model="fields.svcSysName"
+                                   ng-blur="fields.svcSysName = fields.svcSysName.toUpperCase()"
+                                   ng-minlength="3" ng-maxlength="3" ng-pattern="regexCharactersOnly" required>
+                        </div>
+
+                        <div class="col-lg-2-4 form-group">
+                            <label for="modulename"
+                                   translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_MODULE">
+                                Module
+                            </label>
+                            <input id="modulename" name="modulename" type="text" class="form-control text-uppercase"
+                                   popover="{{ 'pages.sm.service.SERVICE_MGMT_PLACEHOLDERS.SYSTEM_MGMT_PLACEHOLDER_MODULE_NAME_RULE' | translate }}"
+                                   popover-placement="bottom" popover-trigger="focus"
+                                   ng-model="fields.svcModuleName"
+                                   ng-blur="fields.svcModuleName = fields.svcModuleName.toUpperCase()"
+                                   ng-minlength="2" ng-maxlength="2" ng-pattern="regexCharactersOnly" required>
+                        </div>
+
+                        <div class="col-lg-2-4 form-group">
+                            <label for="aliasname"
+                                   translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_ALIAS">
+                                Alias
+                            </label>
+                            <input id="aliasname" name="aliasname" type="text" class="form-control text-uppercase"
+                                   popover="{{ 'pages.sm.service.SERVICE_MGMT_PLACEHOLDERS.SYSTEM_MGMT_PLACEHOLDER_ALIAS_NAME_RULE' | translate }}"
+                                   popover-placement="bottom" popover-trigger="focus"
+                                   ng-model="fields.svcSysAlias"
+                                   ng-blur="fields.svcSysAlias = fields.svcSysAlias.toUpperCase()"
+                                   ng-minlength="1" ng-maxlength="8" ng-pattern="regexCharactersOnly" required>
+                        </div>
+
+                        <div class="col-lg-2-4 form-group">
+                            <label for="functionname"
+                                   translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_FUNCTION">
+                                Alias
+                            </label>
+                            <input id="functionname" name="functionname" type="text" class="form-control text-uppercase"
+                                   popover="{{ 'pages.sm.service.SERVICE_MGMT_PLACEHOLDERS.SYSTEM_MGMT_PLACEHOLDER_FUNCTION_NAME_RULE' | translate }}"
+                                   popover-placement="bottom" popover-trigger="focus"
+                                   ng-model="fields.svcFunctionName"
+                                   ng-blur="fields.svcFunctionName = fields.svcFunctionName.toUpperCase()"
+                                   ng-minlength="3" ng-maxlength="3" ng-pattern="regexCharactersOnly" required>
+                        </div>
+
+                        <div class="col-lg-2-4 form-group">
+                            <label for="status"
+                                   translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_ORGANIZATION">
+                                Organization
+                            </label>
+                            <ui-select
+                                    id="status"
+                                    ng-model="selectedOrganization.orgId"
+                                    on-select="orgSelectOnChange()"
+                                    ng-required="true"
+                                    theme="bootstrap">
+                                <ui-select-match
+                                        placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                    {{$select.selected.orgName}}
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="item.orgId as item in organizations | filter: $select.search">
+                                    <span ng-bind-html="item.orgName | highlight: $select.search"></span>
+                                </ui-select-choices>
+                                <ui-select-no-choice>
+                                    {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' | translate
+                                    }}
+                                </ui-select-no-choice>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="descriptionZhCn"
+                                       translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_DESCRIPTION_ZH_CN">
+                                    Description in Chinese
+                                </label>
+                                <textarea id="descriptionZhCn" name="descriptionZhCn"
+                                          ng-model="fields.svcDescriptionZhCn"
+                                          popover="{{ 'pages.sm.service.SERVICE_MGMT_PLACEHOLDERS.SYSTEM_MGMT_PLACEHOLDER_DESCRIPTION_RULE' | translate }}"
+                                          popover-placement="top" popover-trigger="focus"
+                                          style="max-width: 100%; min-width: 100%; min-height: fit-content;"
+                                          class="form-control"
+                                          ng-minlength="1" ng-maxlength="200" required>
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="descriptionEn"
+                                       translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_DESCRIPTION_EN">
+                                    Description in English
+                                </label>
+                                <textarea id="descriptionEn" name="descriptionEn"
+                                          ng-model="fields.svcDescriptionEn"
+                                          popover="{{ 'pages.sm.service.SERVICE_MGMT_PLACEHOLDERS.SYSTEM_MGMT_PLACEHOLDER_DESCRIPTION_RULE' | translate }}"
+                                          popover-placement="top" popover-trigger="focus"
+                                          style="max-width: 100%; min-width: 100%; min-height: fit-content;"
+                                          class="form-control"
+                                          ng-minlength="1" ng-maxlength="200" required>
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <form name="formAddFields" id="formAddFields" class="form-validation" novalidate>
+                <fieldset ng-hide="!formAddService.$valid" ng-disabled="isFormDisabled">
+                    <div class="panel panel-default">
+                        <div class="panel-heading font-bold"
+                             translate="pages.sm.service.SERVICE_MGMT_FORM_TITLES.SERVICE_MGMT_FORM_TITLE_ADD_FIELDS"></div>
+                        <div class="panel-body" id="addFieldPanel">
+                            <div class="well b bg-warning bg lt text-dark wrapper-sm m-t">
+                                <strong>{{"pages.sm.service.SERVICE_MGMT_NOTIFICATIONS.SERVICE_MGMT_NOTIFICATION_ADDING_LIST"
+                                    | translate}}</strong>
+                            </div>
+
+                            <!-- alert -->
+                            <div class="m-b-md">
+                                <alert ng-repeat="alert in alertsInAddingFields" type="{{alert.type}}"
+                                       close="closeAlert($index, true)">{{alert.msg}}
+                                </alert>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 form-group">
+                                    <label for="fieldname"
+                                           translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_FIELD_NAME">
+                                        Field Name
+                                    </label>
+                                    <input id="fieldname" name="fieldname" type="text"
+                                           class="form-control text-uppercase"
+                                           ng-model="svcFieldItem.fieldName"
+                                           ng-blur="svcFieldItem.fieldName = svcFieldItem.fieldName.toUpperCase()"
+                                           required>
+                                </div>
+
+                                <div class="col-lg-3 form-group">
+                                    <label for="fieldType"
+                                           translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_FIELD_TYPE">
+                                        Field Type
+                                    </label>
+                                    <ui-select
+                                            id="fieldType"
+                                            ng-model="selectedFieldType.item"
+                                            on-select="fieldTypeSelectOnChange()"
+                                            ng-required="true"
+                                            theme="bootstrap">
+                                        <ui-select-match
+                                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.value}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in fieldTypes | filter: $select.search">
+                                            <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                            translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                </div>
+
+                                <div class="col-lg-3 form-group">
+                                    <label for="dataType"
+                                           translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_DATA_TYPE">
+                                        Data Type
+                                    </label>
+                                    <ui-select
+                                            id="dataType"
+                                            ng-model="selectedDataType.item"
+                                            on-select="dataTypeSelectOnChange()"
+                                            ng-required="true"
+                                            theme="bootstrap">
+                                        <ui-select-match
+                                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.value}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in dataTypes | filter: $select.search">
+                                            <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                            translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                </div>
+
+                                <div class="col-lg-3 form-group">
+                                    <label for="fieldlength"
+                                           translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_FIELD_LENGTH">
+                                        Field Length
+                                    </label>
+                                    <input id="fieldlength" name="fieldlength" type="number" class="form-control"
+                                           ng-model="svcFieldItem.fieldLength" min="1" max="1024" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="fieldDescriptionZhCn"
+                                               translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_DESCRIPTION_ZH_CN">
+                                            Description in Chinese
+                                        </label>
+                                        <textarea id="fieldDescriptionZhCn" name="fieldDescriptionZhCn"
+                                                  ng-model="svcFieldItem.fieldDescriptionZhCn"
+                                                  popover="{{ 'pages.sm.service.SERVICE_MGMT_PLACEHOLDERS.SYSTEM_MGMT_PLACEHOLDER_DESCRIPTION_RULE' | translate }}"
+                                                  popover-placement="top" popover-trigger="focus"
+                                                  style="max-width: 100%; min-width: 100%; min-height: fit-content;"
+                                                  class="form-control"
+                                                  ng-minlength="1" ng-maxlength="200" required>
+                                </textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="fieldDescriptionEn"
+                                               translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_DESCRIPTION_EN">
+                                            Description in English
+                                        </label>
+                                        <textarea id="fieldDescriptionEn" name="fieldDescriptionEn"
+                                                  ng-model="svcFieldItem.fieldDescriptionEn"
+                                                  popover="{{ 'pages.sm.service.SERVICE_MGMT_PLACEHOLDERS.SYSTEM_MGMT_PLACEHOLDER_DESCRIPTION_RULE' | translate }}"
+                                                  popover-placement="top" popover-trigger="focus"
+                                                  style="max-width: 100%; min-width: 100%; min-height: fit-content;"
+                                                  class="form-control"
+                                                  ng-minlength="1" ng-maxlength="200" required>
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-lg-3"></div>
+                                    <div class="col-lg-3"></div>
+                                    <div class="col-lg-3"></div>
+                                    <div class="col-lg-3">
+                                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnAddFld"
+                                                data-dismiss="modal"
+                                                ng-click="addField(formAddFields)" ng-disabled="formAddFields.$invalid">
+                                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD_FIELD' | translate}}
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table id="tblServiceFields"
+                                               ui-jq="dataTable"
+                                               ui-options="{{dataTableParms}}"
+                                               class="table display">
+                                            <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_SEQUENCE">
+                                                    Seq.
+                                                </th>
+                                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_FIELD_NAME">
+                                                    Field Name
+                                                </th>
+                                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_DATA_TYPE">
+                                                    Data Type
+                                                </th>
+                                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_FIELD_TYPE">
+                                                    Field Type <!-- ID -->
+                                                </th>
+                                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_FIELD_TYPE">
+                                                    Field Type
+                                                </th>
+                                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_FIELD_LENGTH">
+                                                    Field Length
+                                                </th>
+                                                <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_OPERATIONS">
+                                                    Operations
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-lg-6"></div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-2">
+                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnSave" data-dismiss="modal"
+                                ng-click="performAddService()"
+                                ng-disabled="formAddService.$invalid || svcFieldItems.length === 0">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose"
+                                ng-click="cancel()">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

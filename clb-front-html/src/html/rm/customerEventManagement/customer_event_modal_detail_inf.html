@@ -1,0 +1,100 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_DETAIL_EXPLAIN">
+        </div>
+        <div class="panel-body" id="customerEventPanel">
+
+            <!-- alert -->
+             <form name="formCustomerTaleDetailFilter" id="formCustomerTaleDetailFilter">
+                 <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-lg-5">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="ctale_cus_num">
+                              		  {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_NUMBER' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="ctale_cus_num" name="ctale_cus_num" type="text" class="form-control" 
+                                           ng-model="fields.ctaleCusNum" readonly="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="ctale_mark">
+                                	   {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_MARK' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="ctale_mark" name="ctale_mark" type="text" class="form-control" ng-model="fields.ctaleMark"
+                                           readonly="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="update_user">
+                                	    {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_USER' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="update_user" name="update_user" type="text" class="form-control" ng-model="fields.updateUser"
+                                           readonly="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="ctale_title_modal">
+                                	   {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_TITLE' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="ctale_title" name="ctale_title" type="text" class="form-control" 
+                                    	   ng-model="fields.ctaleTitle" readonly="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="ctale_hpn_date">
+                                	    {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_HPN_DATE' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="ctale_hpn_date" name="ctale_hpn_date" type="text" class="form-control" 
+                                    	   ng-model="fields.ctaleHpnDate" readonly="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="update_time">
+                                	    {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_UPDATE_TIME' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="update_time" name="update_time" type="text" class="form-control" 
+                                    	   ng-model="fields.updateTime" readonly="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				
+				<div class="row">
+					<div class="col-lg-6"></div>
+                    <div class="col-lg-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-lg-8"></div>
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" ng-click="cancel()">
+                                	     {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+           </form>
+            
+            
+        </div>
+    </div>
+</div>

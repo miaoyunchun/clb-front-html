@@ -1,0 +1,201 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3"  translate="pages.dp.DP_TRANS_HISTORY_TITLES">交易历史查询</h1>
+</div>
+
+<!-- toaster directive -->
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="wrapper-md" ng-controller="TransHistoryCtrl">
+		<form name="formTransInq" id="formTransInq" class="form-validation">
+ 			<div class="row"> 
+                        <!-- Column 1 -->
+                        <div class="col-lg-6">
+                            <div class="form-group" >
+                                <label for="loanNbr"
+                                       translate="pages.dp.DP_TRANS_HIST_FIELDS.DP_CARD_NUMBER">
+                                       	银行卡号
+                                </label>
+                                <input id="cardNbr" name="card_number" type="text"
+                                       class="form-control"  ng-minlength="15" ng-maxlength="18"
+                                        required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="ctryCode"
+                                       translate="pages.dp.DP_TRANS_HIST_FIELDS.DP_CARD_PIN">
+                                    	输入密码
+                                </label>
+                               <input id="cardPwd" name="card_pin"  type="password" 
+                                       class="form-control" 
+                                       required>
+                            </div>
+                        </div>                    
+             </div>
+             <div class="row" >
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2"  >
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:150px" id="btnInq"  ng-click="query()" ng-disabled="formTransInq.$invalid">
+                                        
+                                    {{'pages.dp.DP_MGMT_BUTTONS.DP_MGMT_BUTTON_INQUIRE' | translate}}
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClear" style="width:150px" 
+                                        ng-click="cancel()">
+                                    {{'pages.dp.DP_MGMT_BUTTONS.DP_MGMT_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+             </div>
+             </form>
+    
+	<div ng-controller="TransAccordionCtrl"  style="display: none" id="search"> 
+	<!-- ng-controller="TransAccordionCtrl" -->
+		<accordion close-others="oneAtATime"> <accordion-group
+			heading="{{accordionTitle}}" is-open="status.isFirstOpen"
+			is-disabled="status.isFirstDisabled">
+		<form name="formDpTrans" id="formDpTrans">
+			<!-- Column 1 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label"  
+							translate="交易卡号"> 交易卡号 </label>
+						<div class="col-lg-7">
+							<input id="trans_card" name="card_number" type="text"
+								class="form-control text-uppercase" readonly
+								ng-model="fields.trans_card">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Column 2 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label"  
+							translate="交易代码"> 交易代码 </label>
+						<div class="col-lg-7">
+							<input id="trans_code" name="trans_code" type="text"
+								class="form-control text-uppercase"
+								ng-model="fields.trans_code">
+						</div>
+					</div>
+				</div>				
+			</div>
+			
+			<!-- Column 3 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label"  
+							translate="开始日期"> 开始日期 </label>
+						<div class="col-lg-7">
+							<input id="start_date" name="begintime" type="text"
+								class="form-control text-uppercase"
+								ng-model="fields.start_date">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- Column 4 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label"  
+							translate="结束日期"> 结束日期 </label>
+						<div class="col-lg-7">
+							<input id="end_date" name="endtime" type="text"
+								class="form-control text-uppercase"
+								ng-model="fields.end_date">
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-lg-4" style="margin-top: 2%; left: 70%">
+				<div class="col-lg-4">
+					<button class="btn m-b-xs btn-sm btn-success btn-addon"
+						ng-click="search()">
+						{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SEARCH' | translate}}
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+				<div class="col-lg-4">
+					<button class="btn m-b-xs btn-sm btn-default btn-addon"
+						type="reset" ng-click="clear()">
+						{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+						<i class="fa fa-times"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+
+		</accordion-group> </accordion>
+	</div>
+	
+	
+
+	<!-- Action buttons -->
+	<div class="row" style="display: none" id="list">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+						 		<div class="panel-heading font-bold">
+				                    <span ng-controller="DpDetailModalControl">
+				                        <script type="text/ng-template" id="detailDpModal.html">
+				                             <div ng-include="'tpl/dp/trans_hist_details.html'"></div>
+				                         </script> 
+				                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="inqTransLog">
+				                            {{'Detail' | translate}}
+				                            <i class="fa fa-plus"></i>
+				                        </button>
+				                    </span>				                    			                   
+				                </div>
+
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table ui-jq="dataTable" ui-options="{{dataTableParms}}"
+							class="table display" id="dpTransList">
+							<thead>
+								<tr>
+									<th 
+										translate="pages.dp.DP_TRANS_HIST_FIELDS.DP_TRANS_JOUR_NUMBER">
+										交易流水号</th>
+									<th 
+										translate="pages.dp.DP_TRANS_HIST_FIELDS.DP_TRANS_CARD_NUMBER">
+										交易卡号</th>
+									<th
+										translate="pages.dp.DP_TRANS_HIST_FIELDS.DP_TRANS_TYPE">
+										交易类型</th>
+									<th
+										translate="pages.dp.DP_TRANS_HIST_FIELDS.DP_TRANS_BEFORE_BAL">
+										交易前余额</th>
+									<th
+										translate="pages.dp.DP_TRANS_HIST_FIELDS.DP_TRANS_AMT">
+										交易金额</th>
+									<th 
+										translate="pages.dp.DP_TRANS_HIST_FIELDS.DP_TRANS_AFTER_BAL">
+										交易后余额</th>
+									<th 
+										translate="pages.dp.DP_TRANS_HIST_FIELDS.DP_TRANS_DATE">
+										交易日期</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	</form>
+</div>

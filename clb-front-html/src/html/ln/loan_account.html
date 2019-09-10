@@ -1,0 +1,165 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3" translate="pages.ln.LN_ACCOUNT">LoanAccount
+		Management</h1>
+</div>
+
+<!-- toaster directive -->
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="wrapper-md" ng-controller="LoanAccountOpenMgmtCtrl">
+
+	<div ng-controller="AccordionCtrl">
+		<accordion close-others="oneAtATime"> <accordion-group
+			heading="{{accordionTitle}}" is-open="status.isFirstOpen"
+			is-disabled="status.isFirstDisabled">
+		<form name="formLnFilter" id="formLnFilter">
+		<div class="row">
+			<!-- Column 1 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="orgNbr"
+							translate="pages.ln.LOAN_ACCOUNT_FORM_INPUTS.DOCUMENT_TYPE">证件类型 </label>
+							
+						<div class="col-lg-7">
+							<ui-select
+	                                 id="param_lncappf_cust_type"
+	                                 ng-model="selectedParamLncappfCustType.item"
+	                                 on-select="paramLncappfCustTypeSelectOnChange()"
+	                                 ng-required="true"
+	                                 theme="bootstrap">
+	                             <ui-select-match
+	                                     placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+	                                 {{$select.selected.value}}
+	                             </ui-select-match>
+	                             <ui-select-choices repeat="item in paramLncappfCustType | filter: $select.search">
+	                                 <span ng-bind-html="item.value | highlight: $select.search"></span>
+	                             </ui-select-choices>
+	                             <ui-select-no-choice>
+	                                 {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+	                                 translate }}
+	                             </ui-select-no-choice>
+	                         </ui-select>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Column 2 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="param_lncappf_cust_no"
+							translate="pages.ln.LOAN_ACCOUNT_FORM_INPUTS.ID_MUMBER"> 证件号码 </label>
+						<div class="col-lg-7">
+							<input id="param_lncappf_cust_no" name="param_lncappf_cust_no" type="text"
+								class="form-control text-uppercase"
+								ng-model="fields.param_lncappf_cust_no">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Column 3 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="param_lncappf_status"
+							translate="pages.ln.LOAN_ACCOUNT_FORM_INPUTS.APPLICATION_STATUS">贷款申请状态 </label>
+						<div class="col-lg-7">
+						      <ui-select
+                                     id="param_lncappf_status"
+                                     ng-model="selectedParamLncappfStatus.item"
+                                     on-select="paramLncappfStatusSelectOnChange()"
+                                     ng-required="true"
+                                     theme="bootstrap">
+                                 <ui-select-match
+                                         placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                     {{$select.selected.value}}
+                                 </ui-select-match>
+                                 <ui-select-choices repeat="item in paramLncappfStatus | filter: $select.search">
+                                     <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                 </ui-select-choices>
+                                 <ui-select-no-choice>
+                                     {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                     translate }}
+                                 </ui-select-no-choice>
+                               </ui-select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4" style="float:right;left: 15%">
+				<div class="col-lg-4">
+					<button class="btn m-b-xs btn-sm btn-success btn-addon"
+						ng-click="search()">
+						{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SEARCH' | translate}}
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+				<div class="col-lg-4">
+					<button class="btn m-b-xs btn-sm btn-default btn-addon"
+						type="reset" ng-click="clear()">
+						{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+						<i class="fa fa-times"></i>
+					</button>
+				</div>
+			</div>
+			
+			</div>
+		</form>
+
+		</accordion-group> </accordion>
+	</div>
+
+	<!-- Action buttons -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+						 		<div class="panel-heading font-bold">
+<!-- 				                    See this controller in org_add_modal_ctrl.js -->
+				                    <span ng-controller="OpenAccoutModalControl">
+				                        <script type="text/ng-template" id="lnAccountOpen.html">
+				                             <div ng-include="'html/ln/loan_account_modal_form.html'"></div>
+				                         </script> 
+				                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="openLnAccount" ng-click="openLnAccount()">
+				                            {{'open' | translate}}
+				                            <i class="fa fa-edit"></i>
+				                        </button>
+				                    </span>
+				                </div>
+
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table ui-jq="dataTable" ui-options="{{dataTableParms}}"
+							class="table display" id="tblLoanAccount">
+							<thead>
+								<tr>
+									<th translate="pages.ln.LN_CHECK_TITLES.LNCAPPF_ID">
+										申请书编号</th>
+									<th translate="pages.ln.LN_CHECK_TITLES.LNCAPPF_CUST_TYPE">
+										证件类型</th>
+									<th
+										translate="pages.ln.LN_CHECK_TITLES.LNCAPPF_CUST_NO">
+										证件号码 </th>
+									<th
+										translate="pages.ln.LN_CHECK_TITLES.LNCAPPF_AMT">
+										金额 </th>
+									<th
+										translate="pages.ln.LN_CHECK_TITLES.LNCAPPF_IN_DATE">
+										录入日期 </th>
+									<th translate="pages.ln.LN_CHECK_TITLES.LNCAPPF_IN_TIME">
+										录入时间</th>
+									<th translate="pages.ln.LN_CHECK_TITLES.LNCAPPF_STATUS">
+										申请书状态 </th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

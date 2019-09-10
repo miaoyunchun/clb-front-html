@@ -1,0 +1,139 @@
+<div class="modal-body wrapper-lg no-padder">
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.pos.POS_MGMT_FORM_TITLES.POS_MGMT_FORM_TITLE_DELETE_POS">
+        </div>
+        <div class="panel-body" id="addPosPanel">
+            <div class="well b bg-warning bg lt text-dark wrapper-sm m-t">
+                <strong>{{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}</strong>
+            </div>
+            
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+            
+             <!-- Specify "novalidate" here to disable the browser default validation -->
+            <!-- so we can get rid of the Bootstrap notification -->
+            <form name="formDeletePos" id="formDeletePos" class="form-validation" novalidate>
+                <fieldset ng-disabled="isFormDisabled">
+                
+                    <!--PosName and PosCode  -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="posName" translate="pages.sm.pos.POS_MGMT_FIELDS.POS_MGMT_FIELD_POS_NAME">
+                                    PosName
+                                </label>
+                                <input id="posName" name="posName" type="text" class="form-control"
+                                        ng-model="fields.posName"ng-readonly="true" />
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                 <label for="posCode" translate="pages.sm.pos.POS_MGMT_FIELDS.POS_MGMT_FIELD_POS_CODE">
+                                    PosCode
+                                </label>
+                                <input id="posCode" name="posCode" type="text" class="form-control"
+                                        ng-model="fields.posCode"ng-readonly="true" 
+                                        />
+                           
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- OptDescription -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="OptDescription"
+                                       translate="pages.sm.pos.POS_MGMT_FIELDS.POS_MGMT_FIELD_POS_DESC">
+                                    OptDescription
+                                </label>
+                                <input id="posDescription" name="posDescription" type="text"
+                                       class="form-control" 
+                                       ng-model="fields.posDescription" ng-readonly="true" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                     <!-- Organization, department, ACTIVE -->
+                    <div class="row">
+                        <fieldset ng-disabled="isOrgSelectDisabled || isDepSelectDisabled || isPosSelectDisabled">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="orgId"
+                                           translate="pages.sm.pos.POS_MGMT_FIELDS.POS_MGMT_FIELD_ORG_NAME">
+                                        Organization
+                                    </label>
+                                    <input id="orgId" name="orgId" type="text"
+                                       class="form-control" 
+                                       ng-model="fields.orgId" ng-readonly="true" />
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="depId"
+                                           translate="pages.sm.pos.POS_MGMT_FIELDS.POS_MGMT_FIELD_DEP_NAME">
+                                        Department
+                                    </label>
+                                   <input id="depId" name="depId" type="text"
+                                       class="form-control" 
+                                       ng-model="fields.depId" ng-readonly="true" />
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="status" translate="pages.sm.pos.POS_MGMT_FIELDS.POS_MGMT_FIELD_POS_ENABLED">
+                                          Status
+                                    </label>
+                                    <input id="status" name="status" type="text"
+                                       class="form-control" 
+                                       ng-model="fields.depId" ng-readonly="true" />
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    
+                     <!-- A hidden row for hidden fields -->
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="posCreateUser"></label>
+                                <input type="text" class="form-control" id="posCreateUser"
+                                       name="posRequiredVo.posOperatorId"
+                                       ng-model="fields.posOperatorId">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-danger btn-addon" id="btnSave"
+                                        ng-click="delete()" >
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_REMOVE' | translate}}
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose"
+                                        ng-click="cancel()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            
+            
+        </div>
+        
+    </div>
+</div>

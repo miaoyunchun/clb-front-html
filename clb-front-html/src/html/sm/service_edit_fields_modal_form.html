@@ -1,0 +1,252 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.service.SERVICE_MGMT_FORM_TITLES.SERVICE_MGMT_FORM_TITLE_EDIT_SERVICE_FIELDS"></div>
+        <div class="panel-body" id="addServicePanel">
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index, false)">
+                    {{alert.msg}}
+                </alert>
+            </div>
+
+            <!-- Specify "novalidate" here to disable the browser default validation -->
+            <!-- so we can get rid of the Bootstrap notification -->
+            <form name="formFieldsTable" id="formFieldsTable" class="form-validation" novalidate>
+                <fieldset ng-disabled="isFormDisabled">
+                    <div class="well b bg-warning bg lt text-dark wrapper-sm m-t">
+                        <strong>{{"pages.sm.service.SERVICE_MGMT_NOTIFICATIONS.SERVICE_MGMT_NOTIFICATION_ADDING_LIST" |
+                            translate}}</strong>
+                    </div>
+
+                    <!-- alert -->
+                    <div class="m-b-md">
+                        <alert ng-repeat="alert in alertsInAddingFields" type="{{alert.type}}"
+                               close="closeAlert($index, true)">{{alert.msg}}
+                        </alert>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-2-4 form-group">
+                            <label for="fieldname"
+                                   translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_FIELD_NAME">
+                                Field Name
+                            </label>
+                            <input id="fieldname" name="fieldname" type="text"
+                                   class="form-control text-uppercase"
+                                   ng-model="fields.fieldName"
+                                   ng-blur="fields.fieldName = fields.fieldName.toUpperCase()"
+                                   required>
+                        </div>
+
+                        <div class="col-lg-2-4 form-group">
+                            <label for="fieldType"
+                                   translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_FIELD_TYPE">
+                                Field Type
+                            </label>
+                            <ui-select
+                                    id="fieldType"
+                                    ng-model="selectedFieldType.key"
+                                    on-select="fieldTypeSelectOnChange()"
+                                    ng-required="true"
+                                    theme="bootstrap">
+                                <ui-select-match
+                                        placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                    {{$select.selected.value}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="item.key as item in fieldTypes | filter: $select.search">
+                                    <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                </ui-select-choices>
+                                <ui-select-no-choice>
+                                    {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' | translate }}
+                                </ui-select-no-choice>
+                            </ui-select>
+                        </div>
+
+                        <div class="col-lg-2-4 form-group">
+                            <label for="dataType"
+                                   translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_DATA_TYPE">
+                                Data Type
+                            </label>
+                            <ui-select
+                                    id="dataType"
+                                    ng-model="selectedDataType.item"
+                                    on-select="dataTypeSelectOnChange()"
+                                    ng-required="true"
+                                    theme="bootstrap">
+                                <ui-select-match
+                                        placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                    {{$select.selected.value}}
+                                </ui-select-match>
+                                <ui-select-choices repeat="item in dataTypes | filter: $select.search">
+                                    <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                </ui-select-choices>
+                                <ui-select-no-choice>
+                                    {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' | translate }}
+                                </ui-select-no-choice>
+                            </ui-select>
+                        </div>
+
+                        <div class="col-lg-2-4 form-group">
+                            <label for="fieldlength"
+                                   translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_FIELD_LENGTH">
+                                Field Length
+                            </label>
+                            <input id="fieldlength" name="fieldlength" type="number" class="form-control"
+                                   ng-model="fields.fieldLength" min="1" max="1024" required>
+                        </div>
+
+                        <div class="col-lg-2-4 form-group">
+                            <label for="svcPosition"
+                                   translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_POSITION">
+                                Position
+                            </label>
+                            <ui-select
+                                    id="svcPosition"
+                                    ng-model="selectedSvcField.order"
+                                    on-select="svcFieldSelectOnChange()"
+                                    ng-required="true"
+                                    ng-disabled="isEditing"
+                                    theme="bootstrap">
+                                <ui-select-match
+                                        placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                    {{$select.selected.fieldName}}
+                                </ui-select-match>
+                                <ui-select-choices
+                                        repeat="item.fieldOrder as item in svcFields | filter: $select.search">
+                                    <span ng-bind-html="item.fieldName | highlight: $select.search"></span>
+                                </ui-select-choices>
+                                <ui-select-no-choice>
+                                    {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' | translate }}
+                                </ui-select-no-choice>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="fieldDescriptionZhCn"
+                                       translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_DESCRIPTION_ZH_CN">
+                                    Description in Chinese
+                                </label>
+                                <textarea id="fieldDescriptionZhCn" name="fieldDescriptionZhCn"
+                                          ng-model="fields.fieldDescriptionZhCn"
+                                          popover="{{ 'pages.sm.service.SERVICE_MGMT_PLACEHOLDERS.SYSTEM_MGMT_PLACEHOLDER_DESCRIPTION_RULE' | translate }}"
+                                          popover-placement="top" popover-trigger="focus"
+                                          style="max-width: 100%; min-width: 100%; min-height: fit-content;"
+                                          class="form-control"
+                                          ng-minlength="1" ng-maxlength="200" required>
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="fieldDescriptionEn"
+                                       translate="pages.sm.service.SERVICE_MGMT_FIELDS.SERVICE_MGMT_FIELD_DESCRIPTION_EN">
+                                    Description in English
+                                </label>
+                                <textarea id="fieldDescriptionEn" name="fieldDescriptionEn"
+                                          ng-model="fields.fieldDescriptionEn"
+                                          popover="{{ 'pages.sm.service.SERVICE_MGMT_PLACEHOLDERS.SYSTEM_MGMT_PLACEHOLDER_DESCRIPTION_RULE' | translate }}"
+                                          popover-placement="top" popover-trigger="focus"
+                                          style="max-width: 100%; min-width: 100%; min-height: fit-content;"
+                                          class="form-control"
+                                          ng-minlength="1" ng-maxlength="200" required>
+                                        </textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4" style="padding: 0;">
+                                <div class="col-lg-6"></div>
+                                <div class="col-lg-6">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnAddFld"
+                                            ng-click="addField(formFieldsTable)" ng-disabled="isEditing">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD_FIELD' | translate}}
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-lg-4" style="padding: 0;">
+                                <div class="col-lg-6">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnEditFld"
+                                            ng-click="editField(formFieldsTable)" ng-disabled="!isEditing">
+                                        {{'pages.sm.service.SERVICE_MGMT_BUTTONS.SERVICE_MGMT_BUTTON_EDIT_SERVICE_FIELDS'
+                                        | translate}}
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button class="btn m-b-xs btn-default btn-addon" id="btnClose"
+                                            ng-click="cancel()" ng-disabled="false">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLOSE' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table id="tblServiceFields"
+                                       ui-jq="dataTable"
+                                       ui-options="{{dataTableParms}}"
+                                       class="table display">
+                                    <thead>
+                                    <tr>
+                                        <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_SEQUENCE">
+                                            Seq.
+                                        </th>
+                                        <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_SERVICE_ID">
+                                            Service ID
+                                        </th>
+                                        <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_SERVICE_NAME">
+                                            Service Name
+                                        </th>
+                                        <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_FIELD_ID">
+                                            Field ID
+                                        </th>
+                                        <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_FIELD_NAME">
+                                            Field Name
+                                        </th>
+                                        <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_FIELD_TYPE">
+                                            Field Type <!-- ID -->
+                                        </th>
+                                        <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_FIELD_TYPE">
+                                            Field Type
+                                        </th>
+                                        <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_DATA_TYPE">
+                                            Data Type
+                                        </th>
+                                        <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_FIELD_LENGTH">
+                                            Field Length
+                                        </th>
+                                        <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_FIELD_ORDER">
+                                            Field Order
+                                        </th>
+                                        <th translate="pages.sm.service.SERVICE_MGMT_COLUMN_TITLES.SERVICE_MGMT_COLUMN_TITLE_OPERATIONS">
+                                            Operations
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

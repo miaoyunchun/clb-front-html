@@ -1,0 +1,179 @@
+<!-- This page has been included in org_mgt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.org.ORG_MGMT_FORM_TITLES.ORG_MGMT_FORM_TITLE_EDIT_ORG"></div>
+        <div class="panel-body" id="editOrgPanel">
+            <div class="well b bg-warning bg text-dark lt wrapper-sm m-t">
+                <strong>{{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}</strong>
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <form name="formEditOrg" id="formEditOrg" class="form-validation">
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <!-- Organization basic info -->
+                    <div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_ORG_NUMBER">
+                                    Org #
+                                </label>
+                                <input id="orgCode" name="orgRequiredVo.orgCode" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.orgCode" ng-minlength="6" ng-maxlength="6"
+                                       ng-change="chkOrgNameExistence(formEditOrg['orgRequiredVo.orgCode'])"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="orgPer"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_STAKEHOLDER">
+                                    Stakeholder
+                                </label>
+                                <select ui-jq="chosen"
+                                        id="orgPer"
+                                        name="orgRequiredVo.orgPrincipalId"
+                                        class="form-control"
+                                        data-placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}"
+                                        ng-model="fields.orgPrincipalId">
+                                    <option value></option>
+                                    <option ng-repeat="stakeholder in stakeholders" value="{{stakeholder.userId}}">
+                                        {{stakeholder.username}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="isEnabled"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_ORG_ENABLED">
+                                    Is Enabled?
+                                </label>
+                                <select ui-jq="chosen"
+                                        id="isEnabled"
+                                        name="orgRequiredVo.orgActive"
+                                        class="form-control"
+                                        data-placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}"
+                                        ng-model="fields.orgActive">
+                                    <option value></option>
+                                    <option ng-repeat="item in isEnabled" value="{{item.value}}">
+                                        {{item.active}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Column 4 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="companyId"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_CHOOSE_LOGO">
+                                    Logo
+                                </label>
+                                <select ui-jq="chosen"
+                                        id="companyId"
+                                        name="orgRequiredVo.orgCompanyId"
+                                        class="form-control"
+                                        data-placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}"
+                                        ng-model="fields.orgCompanyId">
+                                    <option value></option>
+                                    <option ng-repeat="item in company" value="{{item.companyInfoId}}">
+                                        {{item.companyName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Name and description -->
+                    <div class="row">
+                        <!-- Name and description in English -->
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="orgNameEn"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_ORG_NAME">
+                                    Organization Name
+                                </label>
+                                <input id="orgNameEn" name="orgRequiredVo.orgName" type="text"
+                                       class="form-control" placeholder="{{ placeholders.orgNameRule }}"
+                                       ng-model="fields.orgName" ng-minlength="1" ng-maxlength="100" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="orgDesEn"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_ORG_DESCRIPTION">
+                                    Description
+                                </label>
+                                <input type="text" class="form-control" id="orgDesEn"
+                                       name="orgRequiredVo.orgDescription"
+                                       placeholder="{{ placeholders.orgDescRule }}"
+                                       ng-model="fields.orgDescription" ng-minlength="1" ng-maxlength="100" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- A hidden row for hidden fields -->
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgUpdateUser"></label>
+                                <input type="text" class="form-control" id="orgUpdateUser"
+                                       name="orgRequiredVo.orgOperatorId"
+                                       ng-model="orgOperator">
+                            </div>
+                            <div class="form-group">
+                                <label for="orgId"></label>
+                                <input type="text" class="form-control" id="orgId"
+                                       name="orgId"
+                                       ng-model="fields.orgId">
+                            </div>
+                            <div class="form-group">
+                                <label for="isEdited"></label>
+                                <input type="text" class="form-control" id="isEdited"
+                                       name="isEdited"
+                                       ng-model="formEditOrg.$dirty">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnSave"
+                                        ng-click="edit()" ng-disabled="formEditOrg.$invalid || formEditOrg.$pristine">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose"
+                                        ng-click="cancel()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

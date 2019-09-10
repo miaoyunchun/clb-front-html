@@ -1,0 +1,184 @@
+<!--会计分录页面-->
+
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+
+<div class="modal-body wrapper-lg no-padder" ng-controller="fmAccountingEntriesMgtPageCtrl">
+
+    <div class="panel panel-default m-b-none">
+
+        <!--标题-->
+        <div class="bg-light lter b-b wrapper-md">
+            <h1 class="m-n font-thin h3" translate="pages.fm.ACCOUNTING_ENTRY_MGT">Accounting Entry Mgt</h1>
+        </div>
+
+        <div class="panel-body" >
+            <div class="well b bg-light lt wrapper-sm m-t" translate="pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N">
+            </div>
+        </div>
+
+        <!--搜索科目的条件表格-->
+        <form name="formAccountEntryFilter" id="formAccountEntryFilter">
+
+            <div class="row">
+
+                <!--交易代号-->
+                <div class="col-lg-3">
+                    <label for="tran_id"
+                           translate="pages.fm.ACCOUNTING_ENTRY.TRAN_ID">
+                        Tran ID
+                    </label>
+
+                    <input id="tran_id" name="param_tran_id" type="text"
+                           class="form-control"
+                           ng-model="fields.param_tran_id" ng-minlength="4" ng-maxlength="4"
+                           required placeholder='{{"pages.fm.PLACEHOLDERS.TRAN_ID" | translate}}'>
+                </div>
+
+                <!--分录序号（条件）-->
+                <div class="col-lg-3">
+                    <label for="cond_seq"
+                           translate="pages.fm.ACCOUNTING_ENTRY.COND_SEQ">
+                        Cond Seq
+                    </label>
+
+                    <input id="cond_seq" name="param_cond_seq" type="text"
+                           class="form-control"
+                           ng-model="fields.param_cond_seq" ng-minlength="4" ng-maxlength="4"
+                           required placeholder='{{"pages.fm.PLACEHOLDERS.TRAN_ID" | translate}}'>
+                </div>
+
+            </div>
+
+            <!--按钮-->
+            <div class="row">
+                <div class="form-group">
+
+                    <div class="col-lg-10"> </div>
+                    <!--<div class="col-lg-2"> </div>-->
+                    <div class="col-lg-1">
+                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnQuery" style="width:100px" ng-click="queryAcctEntry()">
+                            {{'pages.cp.ORG_MGT_FIELDS.QUERY_BUTTON' | translate}}
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-lg-1">
+                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnReset" style="width:100px" type="reset"
+                                ng-click="clearFilterTable()">
+                            {{'pages.cp.ORG_MGT_FIELDS.RESET_BUTTON' | translate}}
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+
+    </div>
+
+    <!-- Action buttons -->
+    <div class="row" id="orgTable" name="orgTable">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">
+                    <!-- See this controller in add_org_modal_ctrl.js -->
+                    <span ng-controller="AddAcctEntryModalCtrl">
+                        <!--添加新产品modal框-->
+                        <script type="text/ng-template" id="addAcctEntryModal.html">
+                            <div ng-include="'html/fm/accountingEntryMgt/accounting_entry_add_modal.html'"></div>
+                        </script>
+
+                        <!--添加新产品按钮-->
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="addProduct" ng-click="showAddAcctEntryModal()">
+                            {{'pages.cp.ORG_MGT_FIELDS.ORG_MGMT_BUTTON_ADD' | translate}}
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+
+                    <span ng-hide="isTableHidden" ng-controller="EditAcctEntryModalCtrl">
+                        <!--修改产品信息的modal框-->
+                        <script type="text/ng-template" id="editAcctEntryModal.html">
+                            <div ng-include="'html/fm/accountingEntryMgt/accounting_entry_edit_modal.html'"></div>
+                        </script>
+
+
+                        <!--修改信息按钮-->
+                            <button class="btn m-b-xs btn-sm btn-default btn-addon" id="editSubject" ng-click="showEditAcctEntryModal()">
+                                {{'pages.cp.ORG_MGT_FIELDS.ORG_MGMT_BUTTON_EDIT' | translate}}
+                                <i class="fa fa-pencil-square-o"></i>
+                            </button>
+
+                    </span>
+
+                    <span  ng-hide="isTableHidden" ng-controller="AcctEntryDetailModalCtrl">
+                        <!--产品詳情的modal框-->
+                        <script type="text/ng-template" id="acctEntryDetailModal.html">
+                            <div ng-include="'html/fm/accountingEntryMgt/accounting_entry_detail_modal.html'"></div>
+                        </script>
+
+
+                        <!--产品詳情的按钮-->
+                            <button class="btn m-b-xs btn-sm btn-default btn-addon" id="subjectDetail" ng-click="showAcctEntryDetailModal()">
+                            {{'pages.cp.ORG_MGT_FIELDS.ORG_MGMT_BUTTON_DETAIL' | translate}}
+                            <i class="fa fa-bell-o"></i>
+                        </button>
+
+                    </span>
+                </div>
+
+
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table ui-jq="dataTable" ui-options="{{fmAcctEntryDataTableParms}}" class="table display" id="tblAcctEntries">
+                            <thead>
+                            <tr>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_SEQUENCE">
+                                    seq
+                                </th>
+                                <th translate="pages.fm.ACCOUNTING_ENTRY.ACCT_ITEM">
+                                    Acct Item
+                                </th>
+                                <th translate="pages.fm.ACCOUNTING_ENTRY.TRAN_ID">
+                                    Tran ID
+                                </th>
+
+                                <th translate="pages.fm.ACCOUNTING_ENTRY.COND_SEQ">
+                                    Cond Seq
+                                </th>
+                                <th translate="pages.fm.ACCOUNTING_ENTRY.DC_FLAG">
+                                    DC Flag
+                                </th>
+
+                                <th translate="pages.fm.ACCOUNTING_ENTRY.ACCT_ORG">
+                                    Acct Org
+                                </th>
+
+                                <th translate="pages.fm.ACCOUNTING_ENTRY.TRAN_AMT_POINT">
+                                    Tran_amt_point
+                                </th>
+
+                                <th translate="pages.fm.ACCOUNTING_ENTRY.ITEM_SEQ">
+                                    Item Seq
+                                </th>
+
+                                <th translate="pages.fm.ACCOUNTING_ENTRY.TRAN_DESP">
+                                    Tran Desp
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

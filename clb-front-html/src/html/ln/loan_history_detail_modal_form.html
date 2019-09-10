@@ -1,0 +1,147 @@
+<!-- This page has been included in org_mgt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+	<div class="panel panel-default m-b-none">
+		<div class="panel-heading font-bold"
+			translate="pages.sm.org.ORG_MGMT_FORM_TITLES.ORG_MGMT_FORM_TITLE_EDIT_ORG"></div>
+		<div class="panel-body" id="editOrgPanel">
+<!-- 			<div class="well b bg-warning bg text-dark lt wrapper-sm m-t"> -->
+<!-- 				<strong>{{"pages.sm.org.ORG_MGMT_NOTIFICATION_TEXTS.ORG_MGMT_NOTIFICATION_I18N" -->
+<!-- 					| translate}}</strong> -->
+<!-- 			</div> -->
+
+			<!-- alert -->
+			<div class="m-b-md">
+				<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+					close="closeAlert($index)">{{alert.msg}} </alert>
+			</div>
+
+			<form name="formLoanHistoryQuery" id="formLoanHistoryQuery"
+				class="form-validation">
+
+				<fieldset ng-disabled="isFormDisabled">
+
+					<!-- Organization basic info -->
+					<div class="row">
+
+						<!-- Column 1 -->
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="lnctranf_id" translate="pages.ln.LOAN_HISTORY_DETAIL_FORM_INPUTS.LOAN_TRANSACTION_NUMBER"> 贷款交易流水号 </label> <input
+									id="lnctranf_id" name="lnctranf_id" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lnctranf_id }}"
+									ng-model="contract_fields.lnctranf_id"  readonly>
+							</div>
+							<div class="form-group">
+								<label for="lnctranf_account" translate="pages.ln.LOAN_HISTORY_DETAIL_FORM_INPUTS.LOAN_NO"> 贷款账户号</label> <input
+									id="lnctranf_account" name="lnctranf_account" type="text" class="form-control "
+									placeholder="{{ placeholders.lnctranf_account }}" readonly
+									ng-model="fields.lnctranf_account"  >
+							</div>
+							<div class="form-group">
+								<label for="lnctranf_amt_after_trans" translate="pages.ln.LOAN_HISTORY_DETAIL_FORM_INPUTS.REQUIRED_AMOUNT"> 交易后需还金额</label> <input
+									id="lnctranf_amt_after_trans" name="lnctranf_amt_after_trans" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lnctranf_amt_after_trans }}"
+									ng-model="fields.lnctranf_amt_after_trans"  readonly>
+							</div>
+						</div>
+
+						<!-- Column 2 -->
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="lnctranf_pay_way" translate="pages.ln.LOAN_HISTORY_DETAIL_FORM_INPUTS.TRAD_TYPE"> 交易类型 </label> <input
+									id="lnctranf_pay_way" name="lnctranf_pay_way" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lnctranf_pay_way }}"
+									ng-model="contract_fields.lnctranf_pay_way"   readonly>
+							</div>
+							<div class="form-group">
+								<label for="lnctranf_card_no" translate="pages.ln.LOAN_HISTORY_DETAIL_FORM_INPUTS.CARD_NUMBER"> 客户卡号 </label> <input
+									id="lnctranf_card_no" name="lnctranf_card_no" type="text" class="form-control "
+									placeholder="{{ placeholders.lnctranf_card_no }}" readonly
+									ng-model="fields.lnctranf_card_no" >
+							</div>
+							<div class="form-group">
+								<label for="lnctranf_date" translate="pages.ln.LOAN_HISTORY_DETAIL_FORM_INPUTS.TRAD_DATE"> 交易日期 </label> <input
+									id="lnctranf_date" name="lnctranf_date" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lnctranf_date }}"
+									ng-model="fields.lnctranf_date" readonly>
+							</div>
+							</div>
+						<!-- Column 3 -->
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="lnctranf_desc" translate="pages.ln.LOAN_HISTORY_DETAIL_FORM_INPUTS.TRAD_DESCRIPTION"> 交易描述 </label> <input
+									id="lnctranf_desc" name="lnctranf_desc" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lnctranf_desc }}"
+									ng-model="fields.lnctranf_desc"  readonly>
+							</div>
+							<div class="form-group">
+								<label for="lnctranf_amt_before_trans" translate="pages.ln.LOAN_HISTORY_DETAIL_FORM_INPUTS.REQUIRED_BEFORE_TRANSACTION"> 交易前需还金额 </label> <input
+									id="lnctranf_amt_before_trans" name="lnctranf_amt_before_trans" type="text"
+									class="form-control "  readonly
+									placeholder="{{ placeholders.lnctranf_amt_before_trans }}"
+									ng-model="fields.lnctranf_amt_before_trans" >
+							</div>
+							<div class="form-group">
+								<label for="lnctranf_time" translate="pages.ln.LOAN_HISTORY_DETAIL_FORM_INPUTS.TRAD_TIME"> 交易时间 </label> <input
+									id="lnctranf_time" name="lnctranf_time" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lnctranf_time }}"
+									ng-model="fields.lnctranf_time"   readonly>
+							</div>
+						</div>
+
+						<!-- Column 4 -->
+						<div class="col-lg-3">	
+							<div class="form-group">
+								<label for="lnctranf_account" translate="pages.ln.LOAN_HISTORY_DETAIL_FORM_INPUTS.LOAN_ACCOUNT"> 贷款账户</label> <input
+									id="lnctranf_account" name="lnctranf_account" type="text" class="form-control "
+									placeholder="{{ placeholders.lnctranf_account }}"  readonly
+									ng-model="fields.lnctranf_account"  >
+							</div>
+							<div class="form-group">
+								<label for="lnctranf_amt_in_trans" translate="pages.ln.LOAN_HISTORY_DETAIL_FORM_INPUTS.TRAD_AMT"> 交易金额 </label> <input
+									id="lnctranf_amt_in_trans" name="lnctranf_amt_in_trans" type="text" class="form-control "
+									placeholder="{{ placeholders.lnctranf_amt_in_trans }}"  readonly
+									ng-model="fields.lnctranf_amt_in_trans">
+							</div>
+							<div class="form-group">
+								<label for="lnctranf_remark" translate="pages.ln.LOAN_HISTORY_DETAIL_FORM_INPUTS.TRAD_INFO"> 交易信息</label> <input
+									id="lnctranf_remark" name="lnctranf_remark" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lnctranf_remark }}"
+									ng-model="fields.lnctranf_remark"  readonly>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-lg-6"></div>
+							<div class="col-lg-2"></div>
+							<div class="col-lg-2" id="div_check">
+								<button class="btn m-b-xs btn-default btn-success btn-addon"
+									id="btnSave" ng-click="check()" ng-disabled="formLoanContractMgmt.$invalid">
+									{{'pages.ln.GX_MGMT_BUTTON.GX_MGMT_BUTTON_CHECK' | translate}} <i class="fa fa-plus"></i>
+								</button>
+							</div>
+							<div class="col-lg-2">
+								<button class="btn m-b-xs btn-default btn-success btn-addon"
+									id="btnClear" ng-click="cancel()">
+									{{'pages.ln.GX_MGMT_BUTTON.GX_MGMT_BUTTON_CANCEL' | translate}}
+									<i class="fa fa-times"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>
