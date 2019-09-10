@@ -1,0 +1,97 @@
+<!-- This page has been included in org_mgt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.user.USER_MGMT_FORM_TITLES.USER_MGMT_FORM_TITLE_CHANGE_PASSWORD"></div>
+        <div class="panel-body" id="addOrgPanel">
+            <div class="well b bg-warning bg lt text-dark wrapper-sm m-t">
+                <strong>{{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}</strong>
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert type="danger" ng-hide="!showAlert || canSubmit">
+                    {{ 'pages.sm.user.USER_MGMT_ALERTS.USER_MGMT_ALERT_PASSWORD_DISAGREE' | translate }}
+                </alert>
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <!-- Specify "novalidate" here to disable the browser default validation -->
+            <!-- so we can get rid of the Bootstrap notification -->
+            <form name="formChangePswd" id="formChangePswd" class="form-validation" novalidate>
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="oldPassword"
+                                       translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_OLD_PSWD">
+                                    Old Password
+                                </label>
+                                <input id="oldPassword" name="oldPassword" type="password" class="form-control"
+                                       ng-model="fields.oldPassword" required>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6" style="display: none;">
+                            <div class="form-group">
+                                <label for="orgCreateUser"></label>
+                                <input type="text" class="form-control" id="orgCreateUser"
+                                       name="userOperatorId"
+                                       ng-model="fields.userOperatorId">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="newPassword"
+                                       translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_NEW_PSWD">
+                                    New Password
+                                </label>
+                                <input id="newPassword" name="newPassword" type="password" class="form-control"
+                                       ng-model="fields.newPassword" ng-minlength="6" required
+                                      >
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label for="newPasswordRepeat"
+                                   translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_NEW_PSWD_REPEAT">
+                                Repeat New Password
+                            </label>
+                            <input id="newPasswordRepeat" name="newPasswordRepeat" type="password" class="form-control"
+                                   ng-model="fields.newPasswordRepeat" ng-minlength="6" required
+                                   ng-change="chkIsPswdDisagree()">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnSave"
+                                        ng-click="changePassword()" ng-disabled="!formChangePswd.$valid && !canSubmit">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose"
+                                        ng-click="cancel()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

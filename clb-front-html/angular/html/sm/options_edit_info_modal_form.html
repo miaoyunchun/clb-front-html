@@ -1,0 +1,195 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.options.OPTION_MGMT_FORM_TITLES.OPTION_MGMT_FORM_TITLE_EDIT_OPTION"></div>
+        <div class="panel-body" id="addOptionPanel">
+            <div class="well b bg-warning bg lt text-dark wrapper-sm m-t">
+                <strong>
+                    {{ "pages.sm.options.OPTION_MGMT_NOTIFICATIONS.OPTION_MGMT_NOTIFICATION_SUBMIT_REMINDER" | translate
+                    }}
+                </strong>
+            </div>
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index, false)">
+                    {{alert.msg}}
+                </alert>
+            </div>
+
+            <!-- Specify "novalidate" here to disable the browser default validation -->
+            <!-- so we can get rid of the Bootstrap notification -->
+            <form name="formEditOption" id="formEditOption" class="form-validation" novalidate>
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <label class="control-label" for="optName"
+                                   translate="pages.sm.options.OPTIONS_MGMT_FIELDS.OPTIONS_MGMT_FIELD_OPTION_NAME">
+                                Option Box Name
+                            </label>
+                            <input id="optName" type="text" class="form-control"
+                                   ng-model="fields.optName"
+                                   ng-minlength="1" ng-maxlength="45" required>
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <label class="control-label" for="status"
+                                   translate="pages.sm.options.OPTIONS_MGMT_FIELDS.OPTIONS_MGMT_FIELD_OPTION_STATUS">
+                                Is Enabled?
+                            </label>
+                            <div class="input-group">
+                                <ui-select
+                                        id="status"
+                                        ng-model="selectedStatus.id"
+                                        on-select="activeStatusSelectChanged()"
+                                        ng-required="true"
+                                        theme="bootstrap">
+                                    <ui-select-match
+                                            placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                        {{$select.selected.active}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in statuses | filter: $select.search">
+                                        <span ng-bind-html="item.active | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <button ng-click="clearStatusSelect()" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 form-group">
+                            <label for="description"
+                                   translate="pages.sm.options.OPTIONS_MGMT_FIELDS.OPTIONS_MGMT_FIELD_OPTION_DESCRIPTION">
+                                Description
+                            </label>
+                            <textarea id="description" name="description"
+                                      ng-model="fields.optDescription"
+                                      style="max-width: 100%; min-width: 100%; min-height: fit-content;"
+                                      class="form-control"
+                                      ng-minlength="1" ng-maxlength="200" required>
+                            </textarea>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <form name="formEditFields" id="formEditFields" class="form-validation" novalidate>
+                <fieldset ng-disabled="isFormDisabled">
+                    <div class="panel panel-default">
+                        <div class="panel-heading font-bold"
+                             translate="pages.sm.options.OPTION_MGMT_FORM_TITLES.OPTION_MGMT_FORM_TITLE_EDIT_OPTION_ITEMS"></div>
+                        <div class="panel-body" id="addFieldPanel">
+                            <div class="row">
+                                <div class="col-lg-6 form-group">
+                                    <label for="itemKey"
+                                           translate="pages.sm.options.OPTIONS_MGMT_FIELDS.OPTIONS_MGMT_FIELD_OPTION_ITEM_KEY">
+                                        Key
+                                    </label>
+                                    <input id="itemKey" name="itemKey" type="text"
+                                           class="form-control"
+                                           ng-model="fields.itemKey"
+                                           required>
+                                </div>
+
+                                <div class="col-lg-6 form-group">
+                                    <label for="itemValue"
+                                           translate="pages.sm.options.OPTIONS_MGMT_FIELDS.OPTIONS_MGMT_FIELD_OPTION_ITEM_VALUE">
+                                        Value
+                                    </label>
+                                    <input id="itemValue" name="itemValue" type="text"
+                                           class="form-control"
+                                           ng-model="fields.itemValue"
+                                           required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-lg-3"></div>
+                                    <div class="col-lg-3"></div>
+                                    <div class="col-lg-3 text-center">
+                                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnAddFld"
+                                                ng-click="addItem(formEditOption)"
+                                                ng-disabled="formEditOption.$invalid || isEditingItem">
+                                            {{'pages.sm.options.OPTIONS_MGMT_BUTTONS.OPTIONS_MGMT_BUTTON_ADD_ITEM' |
+                                            translate}}
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-3 text-center">
+                                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnEditFld"
+                                                ng-click="editItem(formEditOption)"
+                                                ng-disabled="formEditOption.$invalid || !isEditingItem">
+                                            {{'pages.sm.options.OPTIONS_MGMT_BUTTONS.OPTIONS_MGMT_BUTTON_UPDATE_ITEM' |
+                                            translate}}
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table id="tblOptionItems"
+                                               ui-jq="dataTable"
+                                               ui-options="{{dataTableParms}}"
+                                               class="table display">
+                                            <thead>
+                                            <tr>
+                                                <th translate="pages.sm.options.OPTION_MGMT_COLUMN_TITLES.OPTION_MGMT_COLUMN_TITLE_ITEM_KEY">
+                                                    Key
+                                                </th>
+                                                <th translate="pages.sm.options.OPTION_MGMT_COLUMN_TITLES.OPTION_MGMT_COLUMN_TITLE_ITEM_VALUE">
+                                                    Value
+                                                </th>
+                                                <th translate="pages.sm.options.OPTION_MGMT_COLUMN_TITLES.OPTION_MGMT_COLUMN_TITLE_OPERATION">
+                                                    Operations
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-lg-6"></div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-2">
+                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnSave" data-dismiss="modal"
+                                ng-click="submit(formEditOption, formEditFields)"
+                                ng-disabled="formEditOption.$invalid || isFormDisabled">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                            <i class="fa fa-pencil-square-o"></i>
+                        </button>
+                    </div>
+                    <div class="col-lg-2">
+                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose"
+                                ng-click="cancel()" ng-disabled="isFormDisabled">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

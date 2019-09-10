@@ -1,0 +1,1569 @@
+{
+  "aside": {
+    "nav": {
+      "DASHBOARD": "Dashboard",
+      "HEADER": "Navigation"
+    }
+  },
+  "pages": {
+    "common": {
+      "COMMON_BUTTONS": {
+        "COMMON_BUTTON_ADD": "Add",
+        "COMMON_BUTTON_ADD_FIELD": "Add an item",
+        "COMMON_BUTTON_CANCEL": "Cancel",
+        "COMMON_BUTTON_CLEAR": "Clear",
+        "COMMON_BUTTON_SUBMIT": "Commit",
+        "COMMON_BUTTON_CONTINUE": "Continue",
+        "COMMON_BUTTON_EDIT": "Edit",
+        "COMMON_BUTTON_CHANGE_PASSWORD": "Change Password",
+        "COMMON_BUTTON_REMOVE": "Remove",
+        "COMMON_BUTTON_SEARCH": "Search",
+        "COMMON_BUTTON_PREV_PAGE": "Previous",
+        "COMMON_BUTTON_NEXT_PAGE": "Next",
+        "COMMON_BUTTON_FIRST_PAGE": "First",
+        "COMMON_BUTTON_LAST_PAGE": "Last",
+        "COMMON_BUTTON_TODAY": "Today",
+        "COMMON_BUTTON_CLOSE": "Close",
+        "COMMON_BUTTON_LOGIN": "Login",
+        "COMMON_BUTTON_LOGOUT": "Logout"
+      },
+      "COMMON_TOAST_TITLES": {
+        "COMMON_TOAST_TITLE_ERROR": "Error",
+        "COMMON_TOAST_TITLE_SUCCESSFUL": "Successful"
+      },
+      "COMMON_TOAST_TEXTS": {
+        "COMMON_TOAST_TEXT_SELECT_ROW": "Please select a row. ",
+        "COMMON_TOAST_TEXT_ERROR_OCCURRED": "An error has occurred. Please contact support group. ",
+        "COMMON_TOAST_TEXT_NETWORK_FAILED": "Network failed"
+      },
+      "COMMON_NOTIFICATION_TEXTS": {
+        "COMMON_NOTIFICATION_PAGE_INFO": "Showing page _PAGE_ of _PAGES_",
+        "COMMON_NOTIFICATION_PAGE_INFO_FILTERED": " - Filtered from _MAX_ total entries",
+        "COMMON_NOTIFICATION_PROCESSING": "Processing...",
+        "COMMON_NOTIFICATION_I18N": "Please make sure if the fields in other languages also need to be updated. ",
+        "COMMON_NOTIFICATION_EMPTY_TABLE": "No data available in table",
+        "COMMON_NOTIFICATION_PAGE_EMPTY": "No entries to show. ",
+        "COMMON_NOTIFICATION_LOGIN_FAILED": "Login failed. ",
+        "COMMON_NOTIFICATION_LOGIN_FAILED_DUE_TO_NETWORK_FAIL": "Login failed due to network failure. ",
+        "COMMON_NOTIFICATION_NO_AUTHORITY": "Lack of menu permissions"
+      },
+      "COMMON_PLACEHOLDERS": {
+        "COMMON_PLACEHOLDER_SELECT": "Select an option",
+        "COMMON_PLACEHOLDER_NO_RECORD": "No record found"
+      },
+      "COMMON_FIELDS": {
+        "COMMON_FIELD_LENGTH_MENU": "Display _MENU_ records",
+        "COMMON_FIELD_USERNAME": "Username",
+        "COMMON_FIELD_PASSWORD": "Password",
+        "COMMON_FIELD_LANGUAGE": "Language"
+      },
+      "COMMON_FORM_TITLES": {
+        "COMMON_FORM_TITLE_SEARCH": "Search Filters",
+        "COMMON_FORM_TITLE_CONFIRMATION": "Confirmation"
+      }
+    },
+    "sm": {
+      "PAGES": "System Management",
+      "org": {
+        "ORG_MGMT": "Organization Management",
+        "ORG_MGMT_COLUMN_TITLES": {
+          "ORG_MGMT_COLUMN_TITLE_SEQUENCE": "Seq.",
+          "ORG_MGMT_COLUMN_TITLE_ORG_ID": "Org. ID",
+          "ORG_MGMT_COLUMN_TITLE_ORG_CREATE_DATE": "Create date",
+          "ORG_MGMT_COLUMN_TITLE_ORG_DESCRIPTION": "Description",
+          "ORG_MGMT_COLUMN_TITLE_ORG_COMPANY_ID": "Company ID",
+          "ORG_MGMT_COLUMN_TITLE_ORG_LOGO": "Logo",
+          "ORG_MGMT_COLUMN_TITLE_ORG_NAME": "Org. Name",
+          "ORG_MGMT_COLUMN_TITLE_ORG_NUMBER": "Org. Code",
+          "ORG_MGMT_COLUMN_TITLE_ORG_USERID": "User ID",
+          "ORG_MGMT_COLUMN_TITLE_ORG_STAKEHOLDER": "Stakeholder",
+          "ORG_MGMT_COLUMN_TITLE_ORG_STATUS_ID": "Status ID",
+          "ORG_MGMT_COLUMN_TITLE_ORG_STATUS": "Status"
+        },
+        "ORG_MGMT_FIELDS": {
+          "ORG_MGMT_FIELD_AVAIL_TIME": "Available From",
+          "ORG_MGMT_FIELD_CHOOSE_LOGO": "Logo",
+          "ORG_MGMT_FIELD_EXPIRE_TIME": "Expires At",
+          "ORG_MGMT_FIELD_ORG_DESCRIPTION": "Description",
+          "ORG_MGMT_FIELD_ORG_ENABLED": "Is enabled?",
+          "ORG_MGMT_FIELD_ORG_NAME": "Org. Name",
+          "ORG_MGMT_FIELD_ORG_NUMBER": "Org. Code",
+          "ORG_MGMT_FIELD_STAKEHOLDER": "Stakeholder"
+        },
+        "ORG_MGMT_FORM_TITLES": {
+          "ORG_MGMT_FORM_TITLE_SEARCH": "Search Filters",
+          "ORG_MGMT_FORM_TITLE_ADD_ORG": "Add New Organization",
+          "ORG_MGMT_FORM_TITLE_EDIT_ORG": "Edit Organization",
+          "ORG_MGMT_FORM_TITLE_DELETE_ORG": "Delete Organization",
+          "ORG_MGMT_FORM_TITLE_CONFIRMATION": "Confirm"
+        },
+        "ORG_MGMT_PLACEHOLDERS": {
+          "ORG_MGMT_PLACEHOLDER_AVAIL_DATE": "Later than",
+          "ORG_MGMT_PLACEHOLDER_EXPIRE_DATE": "Earlier than",
+          "ORG_MGMT_PLACEHOLDER_DESCRIPTION": "Description",
+          "ORG_MGMT_PLACEHOLDER_ORG_NAME": "Organization Name",
+          "ORG_MGMT_PLACEHOLDER_ORG_NO": "Organization Number",
+          "ORG_MGMT_PLACEHOLDER_ORG_NO_RULE": "6 characters only and must be unique",
+          "ORG_MGMT_PLACEHOLDER_ORG_NAME_RULE": "At least 1 character, up to 100 characters",
+          "ORG_MGMT_PLACEHOLDER_ORG_DESC_RULE": "At least 1 character, up to 100 characters"
+        },
+        "ORG_MGMT_TOAST_TEXTS": {
+          "ORG_MGMT_TOAST_TEXT_DELETE_FAIL": "Failed to delete the selected row. ",
+          "ORG_MGMT_TOAST_TEXT_DELETE_SUCCESSFUL": "Organization successful deleted. "
+        },
+        "ORG_MGMT_NOTIFICATION_TEXTS": {
+          "ORG_MGMT_NOTIFICATION_DELETE": "Are you sure you want to delete this organization? ",
+          "ORG_MGMT_ORG_NAME_DUPLICATE": "Duplicate organization name"
+        },
+        "ORG_MGMT_ALERTS": {
+          "ORG_MGMT_ALERT_ORG_ADD_SUCCESSFUL": "Successfully added a new organization. ",
+          "ORG_MGMT_ALERT_ORG_ADD_FAILED": "Failed to add a new organization. ",
+          "ORG_MGMT_ALERT_ORG_EDIT_SUCCESSFUL": "Edit successful. ",
+          "ORG_MGMT_ALERT_ORG_EDIT_FAILED": "Edit failed. ",
+          "ORG_MGMT_ALERT_ORG_DELETE_SUCCESSFUL": "Delete successful. ",
+          "ORG_MGMT_ALERT_ORG_DELETE_FAILED": "Delete failed. "
+        }
+      },
+      "dep": {
+        "DEP_MGMT": "Department Management",
+        "DEP_MGMT_BUTTONS": {
+          "DEP_MGMT_BUTTON_ADD_ROOT_NODE": "Add 1st level dep."
+        },
+        "DEP_MGMT_FIELDS": {
+          "DEP_MGMT_FIELD_DEP_ID": "Department ID",
+          "DEP_MGMT_FIELD_DEP_CODE": "Department Code",
+          "DEP_MGMT_FIELD_DEP_NAME": "Department Name",
+          "DEP_MGMT_FIELD_DEP_DESCRIPTION": "Description",
+          "DEP_MGMT_FIELD_DEP_EMAIL": "E-Mail",
+          "DEP_MGMT_FIELD_DEP_TEL": "Telephone",
+          "DEP_MGMT_FIELD_DEP_PARENT_ID": "Parent Department ID",
+          "DEP_MGMT_FIELD_DEP_PARENT_NAME": "Parent Department",
+          "DEP_MGMT_FIELD_DEP_NO_PARENT": "No parent department",
+          "DEP_MGMT_FIELD_DEP_PRINCIPAL_ID": "Stakeholder ID",
+          "DEP_MGMT_FIELD_DEP_PRINCIPAL_NAME": "Stakeholder",
+          "DEP_MGMT_FIELD_DEP_ORG_ID": "Organization ID",
+          "DEP_MGMT_FIELD_DEP_ORG_NAME": "Organization",
+          "DEP_MGMT_FIELD_DEP_ACTIVE": "Status ID",
+          "DEP_MGMT_FIELD_DEP_ACTIVE_STATUS": "Status",
+          "DEP_MGMT_FIELD_DEP_IS_LEAF": "Has lower level department",
+          "DEP_MGMT_FIELD_DEP_HAS_LEAF": "It has lower level departments",
+          "DEP_MGMT_FIELD_DEP_HAS_NO_LEAF": "It doesn't have lower level departments",
+          "DEP_MGMT_FIELD_DEP_LEVEL": "Department Level",
+          "DEP_MGMT_FIELD_DEP_CREATE_TIME": "Create Date"
+        },
+        "DEP_MGMT_FORM_TITLES": {
+          "DEP_MGMT_FORM_DEP_INFO": "Department information"
+        },
+        "DEP_MGMT_PLACEHOLDERS": {
+          "DEP_MGMT_PLACEHOLDER_AVAIL_DATE": "Later than",
+          "DEP_MGMT_PLACEHOLDER_EXPIRE_DATE": "Earlier than",
+          "DEP_MGMT_PLACEHOLDER_DESCRIPTION": "Description",
+          "DEP_MGMT_PLACEHOLDER_DEP_NAME": "Department Name",
+          "DEP_MGMT_PLACEHOLDER_DEP_NO": "Department Number",
+          "DEP_MGMT_PLACEHOLDER_DEP_NO_RULE": "6 characters only and must be unique",
+          "DEP_MGMT_PLACEHOLDER_DEP_NAME_RULE": "At least 1 character, up to 22 Chinese characters or 45 English characters",
+          "DEP_MGMT_PLACEHOLDER_DEP_DESC_RULE": "At least 1 character, up to 100 Chinese characters or 200 English characters"
+        },
+        "DEP_MGMT_TOAST_TEXTS": {
+          "DEP_MGMT_TOAST_TEXT_INSERT_SUCCESSFUL": "Insert successful. ",
+          "DEP_MGMT_TOAST_TEXT_UPDATE_SUCCESSFUL": "Update successful. ",
+          "DEP_MGMT_TOAST_TEXT_DELETE_SUCCESSFUL": "Delete successful. ",
+          "DEP_MGMT_TOAST_TEXT_ROOT_NODE_DELETE_NOT_ALLOWED": "Deleting 1st level department is not allowed. ",
+          "DEP_MGMT_TOAST_TEXT_NODE_HAS_CHILDREN_DELETE_NOT_ALLOWED": "Departments with children departments are not allowed to be deleted. ",
+          "DEP_MGMT_TOAST_TEXT_INVALID_DEP_CODE": "Department code duplicated or is not valid. Please try another one. ",
+          "DEP_MGMT_TOAST_TEXT_ADD_DEP_FIRST": "No existing department. Please add a new department before editing. "
+        },
+        "DEP_MGMT_NOTIFICATION_TEXTS": {
+          "DEP_MGMT_NOTIFICATION_NO_DEP_FOUND": "No department found"
+        }
+      },
+      "pos":{
+                "POS_MGMT":"Position Management",
+                "POS_MGMT_FORM_TITLES": {
+                    "POS_MGMT_FORM_TITLE_SEARCH": "Search Filters",
+                    "POS_MGMT_FORM_TITLE_ADD_POS": "Add New Position",
+                    "POS_MGMT_FORM_TITLE_EDIT_POS": "Edit Position",
+                    "POS_MGMT_FORM_TITLE_DELETE_POS": "Delete Position",
+                    "POS_MGMT_FORM_TITLE_CONFIRMATION": "Confirm"
+                },
+                "POS_MGMT_FIELDS": {
+                    "POS_MGMT_FIELD_POS_ENABLED": "Status",
+                    "POS_MGMT_FIELD_POS_NAME": "Position Name",
+                    "POS_MGMT_FIELD_POS_CODE": "Position Code",
+                    "POS_MGMT_FIELD_POS_DESC": "Description",
+                    "POS_MGMT_FIELD_ORG_NAME": "Organization",
+                    "POS_MGMT_FIELD_DEP_NAME": "Department"
+                },
+                 "POS_MGMT_PLACEHOLDERS": {
+                    "POS_MGMT_PLACEHOLDER_POS_NAME": "Position Name",
+                    "POS_MGMT_PLACEHOLDER_POS_NAME_RULE": "1 to 45 characters. Only uppercase and lowercase letters, and dots allowed.",
+                    "POS_MGMT_PLACEHOLDER_POS_CODE": "Position Code",
+                    "POS_MGMT_PLACEHOLDER_POS_CODE_RULE": "6 characters only and must be unique",
+                    "POS_MGMT_PLACEHOLDER_POS_DESC": "Description",
+                    "POS_MGMT_PLACEHOLDER_POS_DESC_RULE": "At least 1 character, up to 100 Chinese characters or 200 English characters",
+                    "POS_MGMT_NO_RECORD": "No position found"
+                },
+                "POS_MGMT_COLUMN_TITLES": {
+                    "POS_MGMT_COLUMN_TITLE_SEQUENCE": "Seq.",
+                    "POS_MGMT_COLUMN_TITLE_POS_DESCRIPTION": "Description",
+                    "POS_MGMT_COLUMN_TITLE_POS_NAME": "Pos Name",
+                    "POS_MGMT_COLUMN_TITLE_POS_NUMBER": "Pos Code",
+                    "POS_MGMT_COLUMN_TITLE_POS_STATUS": "Status",
+                    "POS_MGMT_COLUMN_TITLE_POS_ROLE_NAME": "Role Name",
+                    "POS_MGMT_COLUMN_TITLE_POS_DEP_NAME": "Dep Name",
+                    "POS_MGMT_COLUMN_TITLE_POS_ORG_NAME": "Org Name"
+                },
+                "POS_MGMT_NOTIFICATION_TEXTS": {
+                    "POS_MGMT_NOTIFICATION_I18N": "Please make sure if the fields in other languages also need to be updated.",
+                    "POS_MGMT_NOTIFICATION_DELETE": "Are you sure you want to delete this department?",
+                    "POS_MGMT_NOTIFICATION_EMPTY_TABLE": "No data available in table",
+                    "POS_MGMT_NOTIFICATION_PAGE_EMPTY": "No entries to show.",
+                    "POS_MGMT_NOTIFICATION_PROCESSING": "Processing...",
+                    "POS_MGMT_ORG_NAME_DUPLICATE": "Duplicate department name"
+                },
+                "POS_MGMT_ALERTS":{
+                    "POS_MGMT_ALERT_INVALID_POSCODE": "postion code un-available.",
+                    "POS_MGMT_ALERT_POS_ADD_SUCCESSFUL": "Insert successful.",
+                    "POS_MGMT_ALERT_POS_ADD_FAILED": "Insert failed",
+                    "POS_MGMT_ALERT_POS_EDIT_SUCCESSFUL": "Update successful.",
+                    "POS_MGMT_ALERT_POS_EDIT_FAILED": "Update failed",
+                    "POS_MGMT_ALERT_POS_DELETE_SUCCESSFUL": "Delete successful.",
+                    "POS_MGMT_ALERT_POS_DELETE_FAILED": "Delete failed"
+                }
+            },
+      "user": {
+        "USER_MGMT": "User Management",
+        "USER_MGMT_FORM_TITLES": {
+          "USER_MGMT_FORM_TITLE_SEARCH": "Search Filters",
+          "USER_MGMT_FORM_TITLE_ADD_USER": "Add New User",
+          "USER_MGMT_FORM_TITLE_EDIT_USER": "Edit user profile",
+          "USER_MGMT_FORM_TITLE_DELETE_USER": "Delete user profile",
+          "USER_MGMT_FORM_TITLE_CHANGE_PASSWORD": "Change password"
+        },
+        "USER_MGMT_COLUMN_TITLES": {
+          "USER_MGMT_COLUMN_TITLE_SEQUENCE": "Seq. ",
+          "USER_MGMT_COLUMN_TITLE_USER_ID": "User ID",
+          "USER_MGMT_COLUMN_TITLE_USER_NAME": "User Name",
+          "USER_MGMT_COLUMN_TITLE_USER_ACTIVE": "Status ID",
+          "USER_MGMT_COLUMN_TITLE_USER_ACTIVE_STATUS": "Status",
+          "USER_MGMT_COLUMN_TITLE_USER_TELEPHONE": "Telephone",
+          "USER_MGMT_COLUMN_TITLE_USER_POS_ID": "Position ID",
+          "USER_MGMT_COLUMN_TITLE_USER_POS_NAME": "Position",
+          "USER_MGMT_COLUMN_TITLE_USER_ORG_ID": "Organization ID",
+          "USER_MGMT_COLUMN_TITLE_USER_ORG_NAME": "Organization Name",
+          "USER_MGMT_COLUMN_TITLE_USER_DEP_ID": "Department ID",
+          "USER_MGMT_COLUMN_TITLE_USER_DEP_NAME": "Department Name"
+        },
+        "USER_MGMT_FIELDS": {
+          "USER_MGMT_FIELD_USER_NAME": "User Name",
+          "USER_MGMT_FIELD_USER_PASSWORD": "Password",
+          "USER_MGMT_FIELD_USER_TELEPHONE": "Telephone",
+          "USER_MGMT_FIELD_USER_ACTIVE": "Status",
+          "USER_MGMT_FIELD_ORG_ID": "Organization",
+          "USER_MGMT_FIELD_DEP_ID": "Department",
+          "USER_MGMT_FIELD_POS_ID": "Position",
+          "USER_MGMT_FIELD_OLD_PSWD": "Old Password",
+          "USER_MGMT_FIELD_NEW_PSWD": "New Password",
+          "USER_MGMT_FIELD_NEW_PSWD_REPEAT": "Repeat New Password"
+        },
+        "USER_MGMT_PLACEHOLDERS": {
+          "USER_MGMT_PLACEHOLDER_USERNAME": "User Name",
+          "USER_MGMT_PLACEHOLDER_USERNAME_RULE": "1 to 45 characters. Only uppercase and lowercase letters, and dots allowed. ",
+          "USER_MGMT_PLACEHOLDER_PASSWORD": "Password",
+          "USER_MGMT_PLACEHOLDER_PASSWORD_RULE": "At least 6 characters. ",
+          "USER_MGMT_PLACEHOLDER_TEL_NBR": "Telephone Number",
+          "USER_MGMT_NO_RECORD": "No record found"
+        },
+        "USER_MGMT_ALERTS": {
+          "USER_MGMT_ALERT_INVALID_USERNAME": "Username un-available. ",
+          "USER_MGMT_ALERT_USER_ADD_SUCCESSFUL": "Successfully added a new user. ",
+          "USER_MGMT_ALERT_USER_ADD_FAILED": "Failed to add the user. ",
+          "USER_MGMT_ALERT_USER_EDIT_SUCCESSFUL": "Edit successful. ",
+          "USER_MGMT_ALERT_USER_EDIT_FAILED": "Edit failed. ",
+          "USER_MGMT_ALERT_USER_DELETE_SUCCESSFUL": "Delete successful. ",
+          "USER_MGMT_ALERT_USER_DELETE_FAILED": "Delete failed. ",
+          "USER_MGMT_ALERT_PASSWORD_CHANGED": "Password changed. ",
+          "USER_MGMT_ALERT_PASSWORD_NOT_CHANGED": "Failed to change the password. ",
+          "USER_MGMT_ALERT_PASSWORD_DISAGREE": "The repeated new password is disagree from the new password. "
+        }
+      },
+      "role": {
+        "ROLE_MGMT": "Role Management",
+        "ROLE_MGMT_FORM_TITLES": {
+          "ROLE_MGMT_FORM_TITLE_SEARCH": "Search Filters",
+          "ROLE_MGMT_FORM_TITLE_ADD_ROLE": "Add Role",
+          "ROLE_MGMT_FORM_TITLE_EDIT_ROLE": "Modify Role",
+          "ROLE_MGMT_FORM_TITLE_DELETE_ROLE": "Delete Role",
+          "ROLE_MGMT_FORM_TITLE_ADD_ROLE_MENU_NAME": "Menu permissions"
+        },
+        "ROLE_MGMT_FIELDS": {
+          "ROLE_MGMT_FIELD_ROLE_NAME": "Role Name",
+          "ROLE_MGMT_FIELD_ROLE_DESCRIPTION": "Description",
+          "ROLE_MGMT_FIELD_ORGANIZATION": "Organization",
+          "ROLE_MGMT_FIELD_DEPARTMENT": "Department",
+          "ROLE_MGMT_FIELD_POSITION": "Position",
+          "ROLE_MGMT_FIELD_STATUS": "Status"
+        },
+        "ROLE_MGMT_COLUMN_TITLES": {
+          "ROLE_MGMT_COLUMN_TITLE_SEQUENCE": "Seq. ",
+          "ROLE_MGMT_COLUMN_TITLE_ROLE_ID": "Role ID",
+          "ROLE_MGMT_COLUMN_TITLE_ROLE_NAME": "Role Name",
+          "ROLE_MGMT_COLUMN_TITLE_ROLE_ACTIVE": "Role Status ID",
+          "ROLE_MGMT_COLUMN_TITLE_ROLE_ACTIVE_STATUS": "Role Status",
+          "ROLE_MGMT_COLUMN_TITLE_ROLE_CREATE_TIME": "Create Date",
+          "ROLE_MGMT_COLUMN_TITLE_ROLE_DESCRIPTION": "Description",
+          "ROLE_MGMT_COLUMN_TITLE_POS_ID": "Position ID",
+          "ROLE_MGMT_COLUMN_TITLE_POS_NAME": "Position",
+          "ROLE_MGMT_COLUMN_TITLE_DEP_ID": "Department ID",
+          "ROLE_MGMT_COLUMN_TITLE_DEP_NAME": "Department",
+          "ROLE_MGMT_COLUMN_TITLE_ORG_ID": "Organization ID",
+          "ROLE_MGMT_COLUMN_TITLE_ORG_NAME": "Organization"
+        },
+        "ROLE_MGMT_PLACEHOLDERS": {
+          "ROLE_MGMT_PLACEHOLDER_ROLE_NAME": "Role Name",
+          "ROLE_MGMT_PLACEHOLDER_ROLE_DESCRIPTION": "Description",
+          "ROLE_MGMT_PLACEHOLDER_ROLE_NAME_RULE": "Up to 45 English characters"
+        },
+        "ROLE_MGMT_ALERTS": {
+          "ROLE_MGMT_ALERT_ROLE_ADD_SUCCESSFUL": "Successfully added a new role. ",
+          "ROLE_MGMT_ALERT_ROLE_EDIT_SUCCESSFUL": "The role has been successfully updated. ",
+          "ROLE_MGMT_ALERT_ROLE_DELETE_SUCCESSFUL": "This role has been successfully deleted. ",
+           "ROLE_MGMT_ALERT_MENU_MGT_SAVE_SUCCESSFUL": "Menu permissions are saved successfully",
+          "ROLE_MGMT_ALERT_MENU_MGT_SAVE_FAIL": "Failure to save menu permissions"
+        }
+      },
+      "menu":{
+            "MENU_MGMT": "Menu Management",
+            "MENU_MGMT_FORM_TITLES": {
+                "MENU_MGMT_FORM_MENU_INFO": "Menu Information"
+            },
+            "MENU_MGMT_BUTTONS":{
+                "MENU_MGMT_BUTTON_ADD_SUB_NODE":"Add Submenu",
+                "MENU_MGMT_BUTTON_ADD_ROOT_NODE":"Add The First Level Menu"
+            },
+            "MENU_MGMT_NOTIFICATION_TEXTS":{
+                "MENU_MGMT_NOTIFICATION_NO_MENU_FOUND":"Not found the menu"
+                
+            },
+            "MENU_MGMT_TOAST_TEXTS":{
+                "MENU_MGMT_TOAST_TEXT_ADD_MENU_FIRST":"No valid menu, please add a menu first",
+                "MENU_MGMT_TOAST_TEXT_NODE_HAS_CHILDREN_DELETE_NOT_ALLOWED":"The menu has submenus that can not be deleted",
+                "MENU_MGMT_TOAST_TEXT_INSERT_SUCCESSFUL":"Successfully added a menu",
+                "MENU_MGMT_TOAST_TEXT_UPDATE_SUCCESSFUL":"Update successfully",
+                "MENU_MGMT_TOAST_TEXT_DELETE_SUCCESSFUL":"Delete successfully",
+                "MENU_MGMT_TOAST_TEXT_INVALID_MENU_ID":"Menu ID is invalid or repeated, please change"
+            },
+            "MENU_MGMT_FIELDS":{
+                "MENU_MGMT_FIELD_MENU_PARENT_NAME":"Parent menu",
+                "MENU_MGMT_FIELD_MENU_NO_PARENT":"No Parent menu",
+                "MENU_MGMT_FIELD_MENU_IS_LEAF":"Has lower level menu",
+                "MENU_MGMT_FIELD_MENU_HAS_NO_LEAF":"It doesn't have lower level menu",
+                "MENU_MGMT_FIELD_MENU_HAS_LEAF":"It has lower level menu",
+                "MENU_MGMT_FIELD_MENU_ID":"Menu ID",
+                "MENU_MGMT_FIELD_MENU_NAME_ZH_CN": "Name in Chinese",
+                "MENU_MGMT_FIELD_MENU_NAME_EN": "Name in English",
+                "MENU_MGMT_FIELD_MENU_ACTIVE":"Status",
+                "MENU_MGMT_FIELD_MENU_DESCRIPTION_ZH_CN": "Description in Chinese",
+                "MENU_MGMT_FIELD_MENU_DESCRIPTION_EN": "Description in English"
+            },
+            "MENU_MGMT_PLACEHOLDERS":{
+                "MENU_MGMT_PLACEHOLDER_MENU_ID":"Menu Id",
+                "MENU_MGMT_PLACEHOLDER_MENU_NAME_ZH_CN": "Name in Chinese",
+                "MENU_MGMT_PLACEHOLDER_MENU_NAME_EN": "Name in English",
+                "MENU_MGMT_PLACEHOLDER_MENU_DESCRIPTION_RULE": "At least 1 character, up to 100 Chinese characters or 200 English characters"
+            }
+      },
+      "service": {
+        "SERVICE_MGMT": "Service Management",
+        "SERVICE_MGMT_BUTTONS": {
+          "SERVICE_MGMT_BUTTON_EDIT_SERVICE_INFO": "Edit service information",
+          "SERVICE_MGMT_BUTTON_EDIT_SERVICE_FIELDS": "Edit fields"
+        },
+        "SERVICE_MGMT_FORM_TITLES": {
+          "SERVICE_MGMT_FORM_TITLE_ADD_SERVICE": "Add New Service",
+          "SERVICE_MGMT_FORM_TITLE_ADD_FIELDS": "Add Fields",
+          "SERVICE_MGMT_FORM_TITLE_EDIT_SERVICE_BASIC_INFO": "Edit Basic Information",
+          "SERVICE_MGMT_FORM_TITLE_EDIT_SERVICE_FIELDS": "Edit Fields",
+          "SERVICE_MGMT_FORM_TITLE_DELETE_SERVICE": "Delete Service"
+        },
+        "SERVICE_MGMT_COLUMN_TITLES": {
+          "SERVICE_MGMT_COLUMN_TITLE_SEQUENCE": "Seq.",
+          "SERVICE_MGMT_COLUMN_TITLE_SERVICE_ID": "Service ID",
+          "SERVICE_MGMT_COLUMN_TITLE_SERVICE_NAME": "Service Name",
+          "SERVICE_MGMT_COLUMN_TITLE_SYS_NAME": "System",
+          "SERVICE_MGMT_COLUMN_TITLE_MODULE_NAME": "Module",
+          "SERVICE_MGMT_COLUMN_TITLE_ALIAS_NAME": "Alias",
+          "SERVICE_MGMT_COLUMN_TITLE_FUNCTION_NAME": "Function",
+          "SERVICE_MGMT_COLUMN_TITLE_DESCRIPTION_ZH_CN": "Description in Chinese: ",
+          "SERVICE_MGMT_COLUMN_TITLE_DESCRIPTION_EN": "Description in English: ",
+          "SERVICE_MGMT_COLUMN_TITLE_ORGANIZATION_ID": "Organization ID",
+          "SERVICE_MGMT_COLUMN_TITLE_ORGANIZATION_NAME": "Organization",
+          "SERVICE_MGMT_COLUMN_TITLE_UPDATE_USER_ID": "Update User ID",
+          "SERVICE_MGMT_COLUMN_TITLE_UPDATE_USER": "Updated By",
+          "SERVICE_MGMT_COLUMN_TITLE_UPDATE_DATE": "Date Updated",
+          "SERVICE_MGMT_COLUMN_TITLE_FIELD_ID": "Field ID",
+          "SERVICE_MGMT_COLUMN_TITLE_FIELD_NAME": "Field Name",
+          "SERVICE_MGMT_COLUMN_TITLE_FIELD_TYPE": "Field Type",
+          "SERVICE_MGMT_COLUMN_TITLE_DATA_TYPE": "Data Type",
+          "SERVICE_MGMT_COLUMN_TITLE_FIELD_LENGTH": "Field Length",
+          "SERVICE_MGMT_COLUMN_TITLE_FIELD_ORDER": "Order",
+          "SERVICE_MGMT_COLUMN_TITLE_OPERATIONS": "Operations"
+        },
+        "SERVICE_MGMT_FIELDS": {
+          "SERVICE_MGMT_FIELD_ORGANIZATION": "Organization",
+          "SERVICE_MGMT_FIELD_LATER_THAN": "Later than",
+          "SERVICE_MGMT_FIELD_EARLIER_THAN": "Earlier than",
+          "SERVICE_MGMT_FIELD_UPDATED_BY": "Updated by",
+          "SERVICE_MGMT_FIELD_SYSTEM": "System",
+          "SERVICE_MGMT_FIELD_MODULE": "Module",
+          "SERVICE_MGMT_FIELD_ALIAS": "Alias",
+          "SERVICE_MGMT_FIELD_FUNCTION": "Function",
+          "SERVICE_MGMT_FIELD_DESCRIPTION_ZH_CN": "Description in Chinese",
+          "SERVICE_MGMT_FIELD_DESCRIPTION_EN": "Description in English",
+          "SERVICE_MGMT_FIELD_FIELD_NAME": "Field Name",
+          "SERVICE_MGMT_FIELD_FIELD_TYPE": "Field Type",
+          "SERVICE_MGMT_FIELD_FIELD_LENGTH": "Field Length",
+          "SERVICE_MGMT_FIELD_DATA_TYPE": "Data Type"
+        },
+        "SERVICE_MGMT_PLACEHOLDERS": {
+          "SYSTEM_MGMT_PLACEHOLDER_SYS_NAME_RULE": "3 English characters",
+          "SYSTEM_MGMT_PLACEHOLDER_MODULE_NAME_RULE": "2 English characters",
+          "SYSTEM_MGMT_PLACEHOLDER_ALIAS_NAME_RULE": "1 to 8 English characters",
+          "SYSTEM_MGMT_PLACEHOLDER_FUNCTION_NAME_RULE": "3 English characters",
+          "SYSTEM_MGMT_PLACEHOLDER_DESCRIPTION_RULE": "100 Chinese characters or 200 English characters"
+        },
+        "SERVICE_MGMT_ALERTS": {
+          "SERVICE_MGMT_ALERT_SERVICE_ADD_SUCCESSFUL": "Successfully added a service. ",
+          "SERVICE_MGMT_ALERT_SERVICE_ADD_FAILED": "Failed to add this service. ",
+          "SERVICE_MGMT_ALERT_SERVICE_FIELD_ADD_SUCCESSFUL": "Successfully added a new field. ",
+          "SERVICE_MGMT_ALERT_SERVICE_FIELD_ADD_FAILED": "Failed to add a field.",
+          "SERVICE_MGMT_ALERT_SERVICE_INFO_EDIT_SUCCESSFUL": "Update successfully. ",
+          "SERVICE_MGMT_ALERT_SERVICE_INFO_EDIT_FAILED": "Failed to update the service information. ",
+          "SERVICE_MGMT_ALERT_DUPLICATE_FIELD_NAME": "Field name cannot be duplicate. ",
+          "SERVICE_MGMT_ALERT_CANNOT_MOVE_UPWARD": "Cannot move upward. ",
+          "SERVICE_MGMT_ALERT_CANNOT_MOVE_DOWNWARD": "Cannot move downward. "
+        },
+        "SERVICE_MGMT_NOTIFICATIONS": {
+          "SERVICE_MGMT_NOTIFICATION_ADDING_LIST": "You should insert a pair of LIST field when adding LIST fields. And its length should be the number of fields in the list. ",
+          "SERVICE_MGMT_NOTIFICATION_DELETE_FIELD_CONFIRMATION": "Are you sure you want to delete this item? ",
+          "SERVICE_MGMT_NOTIFICATION_DELETE_SERVICE_CONFIRMATION": "Are you sure you want to delete this service? "
+        },
+        "SERVCE_MGMT_SELECT_ITEMS": {
+          "SERVICE_MGMT_SELECT_ITEM_POSITION_LAST": "Last"
+        }
+      },
+      "options": {
+        "OPTIONS_MGMT": "Option Box Management",
+        "OPTIONS_MGMT_BUTTONS": {
+          "OPTIONS_MGMT_BUTTON_ADD_ITEM": "Add an item",
+          "OPTIONS_MGMT_BUTTON_UPDATE_ITEM": "Update this item"
+        },
+        "OPTIONS_MGMT_FIELDS": {
+          "OPTIONS_MGMT_FIELD_OPTION_NAME": "Option Box Name",
+          "OPTIONS_MGMT_FIELD_OPTION_CODE": "Option Box Code",
+          "OPTIONS_MGMT_FIELD_OPTION_STATUS": "Option Box Status",
+          "OPTIONS_MGMT_FIELD_OPTION_DESCRIPTION": "Description",
+          "OPTIONS_MGMT_FIELD_OPTION_ITEM_KEY": "Key of the item",
+          "OPTIONS_MGMT_FIELD_OPTION_ITEM_VALUE": "Value of the item",
+          "OPTIONS_MGMT_FIELD_OPTION_ITEM_POSITION": "Position"
+        },
+        "OPTION_MGMT_FORM_TITLES": {
+          "OPTION_MGMT_FORM_TITLE_ADD_OPTION": "Add Option Box",
+          "OPTION_MGMT_FORM_TITLE_ADD_OPTION_ITEMS": "Add Option",
+          "OPTION_MGMT_FORM_TITLE_EDIT_OPTION": "Modify Option Box",
+          "OPTION_MGMT_FORM_TITLE_EDIT_OPTION_ITEMS": "Modify Option"
+        },
+        "OPTION_MGMT_COLUMN_TITLES": {
+          "OPTION_MGMT_COLUMN_TITLE_SEQUENCE": "Seq. ",
+          "OPTION_MGMT_COLUMN_TITLE_OPTION_ID": "Option Box ID",
+          "OPTION_MGMT_COLUMN_TITLE_OPTION_NAME": "Option Box Name",
+          "OPTION_MGMT_COLUMN_TITLE_STATUS": "Option Box Status",
+          "OPTION_MGMT_COLUMN_TITLE_DESCRIPTION": "Description",
+          "OPTION_MGMT_COLUMN_TITLE_ITEM_KEY": "Key",
+          "OPTION_MGMT_COLUMN_TITLE_ITEM_VALUE": "Value",
+          "OPTION_MGMT_COLUMN_TITLE_OPERATION": "Operation"
+        },
+        "OPTION_MGMT_ALERTS": {
+          "OPTION_MGMT_ALERT_OPTION_ADD_SUCCESSFUL": "Successfully added a new option box. ",
+          "OPTION_MGMT_ALERT_OPTION_ADD_FAILED": "Failed to add this option box. ",
+          "OPTION_MGMT_ALERT_OPTION_ITEM_ADD_SUCCESSFUL": "Successfully added an item. ",
+          "OPTION_MGMT_ALERT_OPTION_ITEM_ADD_FAILED": "Failed to add this item. ",
+          "OPTION_MGMT_ALERT_OPTION_NAME_DUPLICATE": "Duplicate option box name. ",
+          "OPTION_MGMT_ALERT_OPTION_ITEM_KEY_DUPLICATE": "Duplicate item key. ",
+          "OPTION_MGMT_ALERT_OPTION_CANNOT_BE_EMPTY": "At least 1 option needed. "
+        },
+        "OPTION_MGMT_NOTIFICATIONS": {
+          "OPTION_MGMT_NOTIFICATION_SUBMIT_REMINDER": "Remember to click the submit button when finished editing. ",
+          "OPTION_MGMT_NOTIFICATION_DELETE_CONFIRMATION": "Are you sure you want to delete this option? "
+        },
+        "OPTION_MGMT_TOAST_TEXTS": {
+          "OPTION_MGMT_TOAST_TEXT_DELETE_SUCCESSFUL": "Delete successful",
+          "OPTION_MGMT_TOAST_TEXT_DELETE_FAILED": "Delete failed"
+        }
+      }
+    },
+     "ln": {
+	        "GX_MGMT": "展期申请",
+	        "GX_Query_MGMT": "展期查询审核",
+	        "LN_APPLY" : "贷款申请",
+	        "LN_CHECK" : "贷款审核",
+	        "LN_ACCOUNT" : "贷款开户",
+	        "LN_CONTRACT_ENTRY":"合同录入",
+	        "LN_CONTRACT_MGMT":"合同管理",
+	        "LN_LENDING_MGMT":"放款管理",
+	        "LN_PAYMENT_MGMT":"还款管理",
+	        "LN_HISTORY_QUERY":"历史查询",
+	        "LN_CALCULATE_MGMT":"贷款试算",
+	        "GX_MGMT_FORM_TITLES": {
+		            "GX_MGMT_FORM_TITLE_APPLY_EXTENSION": "展期申请",
+		            "LOAN_APPLY_EXTENSION" : "贷款申请"
+	        },
+	        "GX_CHECK_FORM_INPUTS":{
+	        	"LOAN_CONTRACT_NO":"贷款合同号 ",
+	        	"PRE_LOAN_TIME":"展期前贷款到期日",
+	        	"APPROVAL_OPERATION":"审批操作",
+	        	"CUSTOMER_NUMBER":"客户账号 ",
+	        	"EXPIRY_DATE":"展期后到期日",
+	        	"APPROVAL_NOTE":"审批说明",
+	        	"CUSTOMER_NAME":"客户名称",
+	        	"LOAN_AMOUNT":" 贷款金额",
+	        	"REMARK":"备注",
+	        	"PRE_PRODUCT_TYPE":"展期前产品类型",
+	        	"APPROVAL_CHANNELS":"审批渠道"
+	        },
+	        "GX_DELETE_FORM_INPUTS":{
+	        	"LOAN_CONTRACT_NUMBER":"贷款合同号 ",
+	        	"LOAN_AMOUNT":"展期前贷款到期日",
+	        	"POST_DATE_INTEREST_RATE":"审批操作",
+	        	"EXHIBITION_FEE":"客户张号 ",
+	        	"APPLICATION_STATUS":"展期后到期日",
+	        	"APPLICATION_DATE":"审批说明"
+	        },
+	        
+	         "GX_DETAIL_FORM_INPUTS":{
+	        	"LOAN_CONTRACT_NUMBER":"贷款合同号 ",
+	        	"CUSTOMER_NUMBER":"客户号",
+	        	"LOAN_ACCOUNT_NUMBER":"贷款账户号",
+	        	"CUSTOMER_NAME":"客户名称 ",
+	        	"PRE_LOAN_TIME":"展期前贷款到期日",
+	        	"PRE_PRODUCT_TYPE":"展期前产品类型",
+	        	"LOAN_AMOUNT":" 贷款金额",
+	        	"EXPIRY_DATE":" 展期后到期日",
+	        	"EXTEND_FEE":"展期手续费",
+	        	"POST_DATE_INTEREST_RATE":"展期后利率",
+	        	"EXTEND_TOTAL_DAY":"总展期天数",
+	        	"APPLICATION_STATUS":"展期申请簿状态",
+	        	"APPLICATION_DATE":"申请日期",
+	        	"REMARK":"备注"
+	        },
+	        "GX_MGMT_BUTTON": {
+	            "GX_MGMT_BUTTON_APPLY": "申请",
+	            "GX_MGMT_BUTTON_CHECK": "合同检验",
+	            "GX_MGMT_BUTTON_ENTRY": "合同录入",
+	            "GX_MGMT_BUTTON_LOAN": "合同放款",
+	            "GX_MGMT_BUTTON_CANCEL": "取消"
+            },
+	        "GX_MGMT_FIELDS": {
+	            "CONTRACT_NBR": "贷款合同号",
+	            "CUSTOMER_NBR": "客户号",
+	            "ACCOUNT_NBR": "贷款账户号",
+	            "CUSTOMER_NAME": "客户名称",
+	            "BEFORE_EXTENSION_LOAN_DUEDATE": "展期前贷款到期日",
+	            "BEFORE_EXTENSION_PRO_TYPE": "展期前产品类型",
+	            "LOAN_AMOUNT": "贷款金额",
+	            "AFTER_EXTENSION_DUEDATE": "展期后到期日",
+	            "EXTENSION_FEE": "展期手续费",
+	            "EXTENSION_RATE": "展期后利率",
+	            "REMARK": "备注"
+	        },
+	        "LN_APPLY_FIELDS":{
+	        	"DOCUMENT TYPE":"证件类型",
+	        	"DOCUMENT NUMBER":"证件号码",
+	        	"CUSTOMER NAME":"客户名称",
+	        	"CUSTOMERS BIRTHDAY":"客户生日",
+	        	"HIGHEST DEGREE":"最高学历",
+	        	"MONTHLY SALARY":"每月工资",
+	        	"CONSUMPTION LEVEL":"消费水平",
+	        	"ENGAGED IN OCCUPATION":"从事职业",
+	        	"CREDIT RATING":"信用等级",
+	        	"LOAN TYPE":"贷款类型",
+	        	"COMPANY NAME":"公司名称",
+	        	"COMPANY LOGO":"公司标识",
+	        	"COMPANY SIZE":"公司规模",
+	        	"LOAN PRODUCT LIST":" 贷款产品表（临时）",
+	        	"LOAN AMOUNT":"贷款金额",
+	        	"CUSTOMER NUMBER":" 客户卡号"
+	        },
+	        "LOAN_ACCOUNT_FORM_INPUTS":{
+	        	"DOCUMENT_TYPE":"证件类型",
+	        	"ID_MUMBER":"币种",
+	        	"APPLICATION_STATUS":"申请单状态"
+	        },
+	        "LOAN_CAL_FORM_INPUTS":{
+	        	"LOAN_PRINCIPAL":"贷款本金",
+	        	"INTEREST_TYPE":"利率类型",
+	        	"INTEREST_SETTLEMENT":"结息方式",
+	        	"TOTAL_PERIODS":"总期数",
+	        	"CURRENCY":"币种",
+	        	"LOAN_INTEREST":"贷款利率",
+	        	"REPAYMENT_METHOD":"还款方式",
+	        	"TOTAL_INTEREST":"总利息"
+	        },
+
+	         "LOAN_ACCOUNT_MODAL_FORM_INPUTS":{
+	        	"DOCUMENT_TYPE":"证件类型",
+	        	"CURRENCY":"币种",
+	        	"EXPIRATION_DATE":"账户到期日",
+	        	"ID_MUMBER":"证件号码",
+	        	"ACCOUNT_STATUS":"账户状态",
+	        	"CUSTOMER_NAME":"客户姓名",
+	        	"INTEREST_TYPE":"利率类型 ",
+	        	"PRODUCT_TYPE":"产品类型",
+	        	"INTEREST":"利率"
+	        },
+	        "LOAN_CHECK_MODAL_FORM_INPUTS":{
+	        	"APPLICATION_ACCOUNT":"申请单账号",
+	        	"DOCUMENT_TYPE":"证件类型",
+	        	"CUSTOMER_SALARY":"客户工资",
+	        	"LOAN_TYPE":"贷款类型",
+	        	"APPLICATION_STATUS":"申请单状态",
+	        	"DOCUMENT_NUMBER":" 证件号码",
+	        	"CONSUMPTION_LEVEL":" 消费水平 ",
+	        	"COMPANY_NAME":"公司名称",
+	        	"APPLICATION_AMOUNT":"申请金额",
+	        	"CUSTOMER_BIRTHDAY":"客户生日",
+	        	"JOB":"工作",
+	        	"LISTING_SIGN":"上市标志",
+	        	"CUSTOMER_NAME":"客户姓名",
+	        	"HIGHEST_DEGREE":"最高学历",
+	        	"CREDIT_RATING":"信用等级",
+	        	"COMPANY_SIZE":"公司规模",
+	        	"INSPECTOR_NUMBER":"检验员编号",
+	        	"INSPECTION_OPINION":"检验意见",
+	        	"INSPECTION_RESULT":"检验结果",
+	        	"REASON_EXPLANATION":"原因说明",
+	        	"AVAILABLE_CREDIT":"可用额度"
+	        },
+	        "LOAN_CHECK_FORM_INPUTS": {
+	            "DOCUMENT_TYPE": "证件类型 ",
+	            "ID_MUMBER": "证件号码",
+	            "APPLICATION_STATUS": "贷款申请状态"
+	        },
+	         "LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS":{
+	        	"DOCUMENT_TYPE":"证件类型",
+	        	"CONTRACT_FORM":"合同形态",
+	        	"CREDIT_LINE":"授信额度",
+	        	"INTEREST_SETTLE_DATE":"结息日期",
+	        	"PERIODS":"期数",
+	        	"REPAY_DATE":" 起始还本日期",
+	        	"APPLICATION_NUMBER":" 申请书号 ",
+	        	"FLOATING_COEFFICIENT":"正常利率浮动系数",
+	        	"OVERDUE_RATE":"逾期执行利率",
+	        	"DOCUMENT_NUMBER":"证件号码",
+	        	"CONTRACT_STATUS":"合同状态",
+	        	"LOAN_WHEREABOUTS":"贷款款项去向",
+	        	"DATE_OPENED":"开户日期",
+	        	"REPAYMENT_METHOD":"还款方式",
+	        	"BENCHMARK_INTEREST_RATE_TYPE":"基准利率类型",
+	        	"LOAN_OFFICER":"信贷员ID",
+	        	"NORMAL_EXECUTION_RATE":"正常执行利率 ",
+	        	"PRODUCT_NAME":"产品名称",
+	        	"ACCOUNT_CODE":"客户账号",
+	        	"CURRENT_PERIOD":"当前期数",
+	        	"LOAN_CARD_NUMBER":"放款卡号",
+	        	"INTEREST_DATE":"起息日期",
+	        	"CONTRACT_LOAN_AMOUNT(PRINCIPAL)":"合同贷款金额（本金）",
+	        	"BENCHMARK_INTEREST":"基准利率",
+	        	"INTEREST_CHANGE":"利率变更方式",
+	        	"OVERDUE_RATE_MODE":"逾期利率浮动方式",
+	        	"PRODUCT_TYPE":"产品类型",
+	        	"CUSTOMER_NAME":"客户名称",
+	        	"CURRENCY":"币种号",
+	        	"INTEREST_SETTLEMENT":"结息方式",
+	        	"END_DATE":"到期日期 ",
+	        	"ASSOCIATION_CARD_NUMBER":"关联卡号",
+	        	"EFFECTIVE_DATE":"生效日期 ",
+	        	"NORMAL_FLOAT_MODE":"正常利率浮动方式 ",
+	        	"OVERDUE_FLOAT_COEFFICIENT":"逾期利率浮动系数"
+	        },
+	        "LOAN_CONTRACT_MGMT_FORM_INPUTS": {
+	            "CHECK_OFFICER": "检验员ID",
+	            "EXAM_CONCLUSION": "检查结论 ",
+	            "INSPECTION_DATE":"检查日期",
+	            "CONTRACT_NUMBER":"合同编号",
+	            "CHECK_RESULT":"检查结果",
+	            "CONTRACT_LOAN_AMOUNT(INTEREST)":"合同贷款金额（利息）",
+	            "REJECTION_REASON":"检查拒绝原因 "
+	        },
+	          "LOAN_HISTORY_DETAIL_FORM_INPUTS":{
+	        	"LOAN_TRANSACTION_NUMBER":"贷款交易流水号",
+	        	"LOAN_NO":"贷款账户号",
+	        	"REQUIRED_AMOUNT":"交易后需还金额",
+	        	"TRAD_TYPE":"交易类型 ",
+	        	"CARD_NUMBER":"客户卡号 ",
+	        	"TRAD_DATE":" 交易日期",
+	        	"TRAD_DESCRIPTION":"交易描述 ",
+	        	"REQUIRED_BEFORE_TRANSACTION":"交易前需还金额",
+	        	"TRAD_TIME":"交易时间 ",
+	        	"LOAN_ACCOUNT":"贷款账户",
+	        	"TRAD_AMT":"交易金额",
+	        	"TRAD_INFO":"交易信息"
+	        },
+	        "LOAN_HISTORY_QUERY_FORM_INPUTS": {
+	            "CARD_NUMBER": "客户卡号",
+	            "CONTRACT_NO": "合同编号 ",
+	            "TRAD_TYPE":"交易类型"
+	        },
+	        
+	        "LN_CHECK_TITLES": {
+	            "LNCAPPF_ID": "申请书编号",
+	            "LNCAPPF_CUST_TYPE": "证件类型",
+	            "LNCAPPF_CUST_NO": "证件号码",
+	            "LNCAPPF_STATUS": "申请书状态",
+	            "LNCAPPF_AMT": "贷款金额",
+	            "LNCAPPF_IN_DATE": "录入日期",
+	            "LNCAPPF_IN_TIME": "录入时间 "
+	        },
+	         "LN_CONTRACT_TITLES": {
+	            "CONTRACT_NO": "合同编号",
+	            "OPEN_DATE": "开户日期",
+	            "CNTRCT_STATUS": "合同状态",
+	            "LOAN_NO": "贷款账户号",
+	            "CUST_NO": "客户编号",
+	            "CUST_NAME": "客户姓名"
+	        },
+	        "LN_HISTORY_TITLES": {
+	        	"LNCTRANF_ID":"交易流水号",
+	        	"LNCTRANF_PAY_WAY":"贷款类型",
+	        	"LNCTRANF_CONTRACT_ID":"交易合同号",
+	        	"LNCTRANF_CARD_NO":"交易卡号",
+	        	"LNCTRANF_DATE":"交易日期",
+	        	"LNCTRANF_TIME":"交易时间"
+	        },
+	        "GXQUERY_MGMT_COLUMN_TITLES": {
+	        	"LOAN_NUMBER": "贷款合同号",
+	        	"LOAN_AMT" :"贷款金额 ",
+	        	"EXTENSION_FEE" :"展期手续费",
+	        	"EXTENSION_RATE" :"展期后利率",
+	        	"EXTENSION_STATUS" :"展期申请簿状态",
+	        	"APPLY_DATE" :"申请日期",
+	        	"OPERATION" :"操作"
+	        },
+	        "GX_PAGES": "Loan Management"
+	    },
+    "dp": {
+			"PAGES": "Deposit Management",
+			"DP_ACCT_OPEN_TITLES": "存款开户界面",
+			"DP_ACCT_OPEN2_TITLES":"填写个人相关信息",
+			"DP_CARD_DEPOSIT_TITLES": "活期存款",
+			"DP_TRANS_HISTORY_TITLES": "交易历史查询",
+			"DP_AMT_WITHDRAW":"账户取款",
+			"DP_BALANCE_QUERY":"余额查询",
+			"DP_INTRA_TRANSFER":"行内转账",
+			"DP_ACCT_BALANCE":"账户余额",
+			"DP_MGMT_BUTTONS":{
+				"DP_MGMT_BUTTON_NEXT":"下一步",
+				"DP_MGMT_BUTTON_CANCEL":"取消",
+				"DP_MGMT_BUTTON_RETURN":"返回",
+				"DP_MGMT_BUTTON_INQUIRE": "查询"
+			},
+			"DP_ACCT_TOASTER_TITLES": {
+                "DP_ACCT_TOASTER_TITLE_ERROR": "错误提示",
+                "DP_ACCT_TOASTER_TITLE_SUCCESSFUL": "成功提示",
+                "DP_ACCT_TOASTER_TITLE_INFO":"提示信息"
+                
+            },
+            "DP_ACCT_TOASTER_TEXTS": {
+                "DP_ACCT_OPEN_CUST_INQ_SUCCESSFUL": "客户查询成功",
+                "DP_ACCT_OPEN_CUST_INQ_FAILED": "客户查询失败",
+                "DP_ACCT_OPEN_INPUT_NULL": "请输入正确的数据",
+                "DP_ACCT_OPEN_INPUT_DATA": "请填写相关信息",
+                "DP_ACCT_OPEN_PRODUCT_INQ_SUCCESSFUL": "产品参数查询成功",
+                "DP_ACCT_OPEN_PRODUCT_INQ_FAILED": "产品参数查询失败",
+                "DP_ACCT_OPEN_CUST_ADD_SUCCESSFUL": "客户信息添加成功",
+                "DP_ACCT_OPEN_CUST_ADD_FAILED": "客户信息添加失败",
+                "DP_ACCT_OPEN_CUST_UPDATE_SUCCESSFUL": "客户信息维护成功",
+                "DP_ACCT_OPEN_CUST_UPDATE_FAILED": "客户信息维护失败",
+                "DP_ACCT_OPEN_SUCCESSFUL": "账户开户成功",
+                "DP_ACCT_OPEN_FAILED": "账户开户失败"
+            },
+			"DP_ACCT_OPEN_FIELDS": {
+	            "DP_ACCT_FIELD_CUSTOMER_TYPE": "客户类型",
+	            "DP_ACCT_FIELD_COUNTRY_CODE": "国家代码",
+	            "DP_ACCT_FIELD_ID_TYPE": "证件类型",
+	            "DP_ACCT_FIELD_ID_NUMBER": "证件号码",
+	            "DP_ACCT_FIELD_ACCOUNT_TYPE": "开户类型",
+	            "DP_ACCT_FIELD_CUSTOMER_LEVEL": "客户级别",
+	            "DP_ACCT_FIELD_SEX":"性别",
+	            "DP_ACCT_FIELD_NATIONALITY":"国籍",
+	            "DP_ACCT_FIELD_CUST_NAME":"姓名",
+	            "DP_ACCT_FIELD_CUST_CITY":"城市",
+	            "DP_ACCT_FIELD_CUST_ADDRESS":"地址",
+	            "DP_ACCT_FIELD_POST_CODE":"邮编",
+	            "DP_ACCT_FIELD_PHONE_NUMBER":"电话",
+	            "DP_ACCT_FIELD_CELLPHONE_NUMBER":"手机",
+	            "DP_ACCT_FIELD_PRODUCT_NAME":"产品名称",
+	            "DP_ACCT_FIELD_PRODUCT_CYCLE":"产品周期",
+	            "DP_ACCT_FIELD_CURRENCY":"币种",
+	            "DP_ACCT_FIELD_SUBJECT_NUMBER":"科目编号",
+	            "DP_ACCT_FIELD_PRODUCT_START_DATE":"产品开户日",
+	            "DP_ACCT_FIELD_PRODUCT_END_DATE":"产品到期日",
+	            "DP_ACCT_FIELD_ASSOCIATED_ORGANIZATION":"关联机构",
+	            "DP_ACCT_FIELD_ACCT_OPEN_OPERATOR":"开户操作员",
+	            "DP_ACCT_FIELD_ACCT_INITIAL_AMOUNT":"账户初始金额",
+	            "DP_ACCT_FIELD_CARD_NUMBER": "客户卡号"
+	        }, 
+	        "DP_MONEY_ADD_FIELDS": {
+	        	"DP_DEPOSIT_FIELD_ADD_AMT": "存入金额",
+	        	"DP_DEPOSIT_FIELD_BATCH_ORDER": "批次顺序",
+	        	"DP_DEPOSIT_FIELD_FLOATING_INTEREST_RATE": "浮动利率",
+	        	"DP_DEPOSIT_FIELD_TRANS_TYPE": "交易类别",
+	        	"DP_DEPOSIT_FIELD_STATISTICAL_CODING": "统计编码",
+	        	"DP_DEPOSIT_FIELD_CURRENT_DATE": "当前日期",
+	        	"DP_DEPOSIT_FIELD_ACCOUNT_MANAGER": "账户经理"
+	        },
+	        "DP_TRANS_HIST_FIELDS":{
+	        	"DP_TRANS_JOUR_NUMBER" :"交易流水号",
+	        	"DP_TRANS_CARD_NUMBER" :"交易卡号",
+	        	"DP_TRANS_TYPE" :"交易类型",
+	        	"DP_TRANS_BEFORE_BAL" :"交易前余额",
+	        	"DP_TRANS_AMT" :"交易金额",
+	        	"DP_TRANS_AFTER_BAL" :"交易后余额",
+	        	"DP_TRANS_DATE" :"交易日期",
+	        	"DP_CARD_NUMBER": "银行卡号",
+	        	"DP_CARD_PIN" :"卡片密码"
+	        },
+			"DEP_ACCT": "Deposit Personal Account",
+			"AMT_WITHDRAW":"Account Withdraw Money",
+			"BALANCE_INQUIRE":"Account Balance Query",
+			"TRANS_LIST": "Transaction History List",
+			"AMT_ADD":"Account Deposit Money",
+			"AMT_TRANSFER":"Intra Account Transfer",
+			"CLOSE_ACCOUNT":"Customer Account Cancellation",
+			"CANCELLED_ACCOUNT_LIST":"Cancelled Account History Inquiry",
+			"CANCELLED_BIG_ACCOUNT_LIST":"Lost Large Amount Account Inquiry"
+		},
+    "cp": {
+      "CP_PAGES": "Parameter Management",
+      "ORG_PARAM": "Organization Parameter Management",
+      "PRODUCT_PARAM": "Product Parameter Management",
+      "SCT_PARAM": "SCT Parameter Management",
+      "ORG_MGT_FIELDS": {
+        "ORG_ID": "Organization ID",
+        "ORG_NAME": "Organization Name",
+        "QUERY_BUTTON": "Query",
+        "RESET_BUTTON": "Clear",
+        "ORG_ID_PLACEHOLDER": "Please enter the organization number",
+        "ORG_NAME_PLACEHOLDER": "Please enter the organization name(Not yet implemented)",
+        "ORG_MGMT_BUTTON_ADD": "Add",
+        "ORG_MGMT_BUTTON_EDIT": "Edit",
+        "ORG_MGMT_BUTTON_DETAIL": "Detail"
+      },
+      "TITLE": {
+        "ADD_NEW_ORGANIZATION": "Add New Organization",
+        "EDIT_ORGANIZATION": "Edit Organization",
+        "ORGANIZATION_DETAIL": "Organzation Detail",
+        "ADD_NEW_PRODUCT": "Add New Product",
+        "EDT_PRODUCT": "Edit Product",
+        "PRODUCT_DETAIL": "Product Detail"
+      },
+      "ORG_TABLE": {
+        "ORG_ID": "Org id",
+        "ORG_NAME": "Org Name",
+        "PROCESS_STATUS": "Process Status",
+        "PROCESS_WITH_SYSTEM": "Process With System",
+        "CURR_PROC_DATE": "Curr Proc Date",
+        "LAST_PROC_DATE": "Last Proc Date",
+        "NEXT_PROC_DATE": "Next Proc Date",
+        "ACCR_THRU_DATE": "Accr Thru Date",
+        "LAST_ACCR_DATE": "Last Accr Date",
+        "NEXT_ACCR_DATE": "Next Accr Date",
+        "LAST_MAINT_DATE": "Last Maint Date",
+        "WORK_OF_WEEK": "Work Of Week",
+        "EOM_EOY_FLAG": "Eom Eoy Flag",
+        "PUBLIC_HOLIDAY1": "Public Holiday1",
+        "PUBLIC_HOLIDAY2": "Public Holiday2",
+        "PUBLIC_HOLIDAY3": "Public Holiday3",
+        "PUBLIC_HOLIDAY4": "Public Holiday4",
+        "PUBLIC_HOLIDAY5": "Public Holiday5",
+        "PUBLIC_HOLIDAY6": "Public Holiday6",
+        "PUBLIC_HOLIDAY7": "Public Holiday7",
+        "PUBLIC_HOLIDAY8": "Public Holiday8",
+        "PUBLIC_HOLIDAY9": "Public Holiday9",
+        "PUBLIC_HOLIDAY10": "Public Holiday10",
+        "PUBLIC_HOLIDAY11": "Public Holiday11",
+        "PUBLIC_HOLIDAY12": "Public Holiday12",
+        "PUBLIC_HOLIDAY13": "Public Holiday13",
+        "PUBLIC_HOLIDAY14": "Public Holiday14",
+        "PUBLIC_HOLIDAY15": "Public Holiday15",
+        "PUBLIC_HOLIDAY16": "Public Holiday16",
+        "PUBLIC_HOLIDAY17": "Public Holiday17",
+        "PUBLIC_HOLIDAY18": "Public Holiday18",
+        "PUBLIC_HOLIDAY19": "Public Holiday19",
+        "PUBLIC_HOLIDAY20": "Public Holiday20",
+        "PUBLIC_HOLIDAY21": "Public Holiday21",
+        "PUBLIC_HOLIDAY22": "Public Holiday22",
+        "PUBLIC_HOLIDAY23": "Public Holiday23",
+        "PUBLIC_HOLIDAY24": "Public Holiday24",
+        "PUBLIC_HOLIDAY25": "Public Holiday25",
+        "PUBLIC_HOLIDAY26": "Public Holiday26",
+        "PUBLIC_HOLIDAY27": "Public Holiday27",
+        "PUBLIC_HOLIDAY28": "Public Holiday28",
+        "PUBLIC_HOLIDAY29": "Public Holiday29",
+        "PUBLIC_HOLIDAY30": "Public Holiday30",
+        "DEL": "Del",
+        "CREATE_TIME": "Create Time",
+        "CREATE_USER": "Create User",
+        "UPDATE_TIME": "Update Time",
+        "UPDATE_USER": "Update User"
+      },
+      "PRODUCT_TABLE": {
+        "PRODUCT_ID": "Product ID",
+        "PRODUCT_NAME": "Product Name",
+        "ASSOCIATE_ORG_ID": "Assosiate Org ID",
+        "SUBJECT_NUMBER": "Subject Number",
+        "PRODUCT_TYPE": "Product Type",
+        "PRODUCT_CODE": "Product Code",
+        "PRODUCT_CCY": "Product Ccy",
+        "CURRENCY_SUPPORT": "Currency Support",
+        "MULTI_NSTANCE": "Multi Nstance",
+        "CARD_ISSURANCE": "Card Issurance",
+        "ACCOUNT_CONTROL": "Account Control",
+        "CARD_CONTROL": "Card Control",
+        "FEE_CONTROL": "Fee Control",
+        "INTEREST_CONTROL": "Interest Control",
+        "DP_CONTROL": "DP Control",
+        "LAST_MAINT_DATE": "Last Maint Date",
+        "PRODUCT_TABLE_PLACEHOLDER": "Please Enter Product ID",
+        "PRODUCT_ADD_MODAL_TITLE": "Add New Product"
+      },
+      "SCT_TABLE": {
+        "TABLE_TYPES": "Table Types",
+        "SCT_ID": "SCT ID",
+        "SCT_TABLE_PLACEHOLDER": "Please Enter SCT ID",
+        "DEL": "Del",
+        "CREATE_TIME": "Create Time",
+        "CREATE_USER": "Create User",
+        "UPDATE_TIME": "Update Time",
+        "UPDATE_USER": "Update User",
+        "ACCT": {
+          "SCT_ID": "SCT ID",
+          "SCT_NAME": "SCT Name",
+          "ASSOCIATE_ORG_ID": "Associate Org ID",
+          "SCT_TYPE": "SCT Type",
+          "ACCOUNT_START_NBR": "Account Start Nbr",
+          "ACCT_END_NBR": "Acct End Nbr",
+          "ACCOUNT_CURRENT": "Account Current",
+          "ACCOUNT_NEXT": "Account Next",
+          "LAST_MAINT_DATE": "Last Maint Date"
+        },
+        "CARD": {
+          "SCT_ID": "SCT ID",
+          "SCT_NAME": "SCT Name",
+          "ASSOCIATE_ORG_ID": "Associate Org ID",
+          "SCT_TYPE": "SCT Type",
+          "CARD_BIN": "Card Bin",
+          "CARD_TYPE": "Card Type",
+          "CARD_START_NBR": "Card Start Nbr",
+          "CARD_END_NBR": "Card End Nbr",
+          "CARD_CURRENT": "Card Current",
+          "CARD_NEXT": "Card Next",
+          "LAST_MAINT_DATE": "Last Maint Date"
+        },
+        "DEPOSIT": {
+          "SCT_ID": "SCT ID",
+          "SCT_NAME": "SCT Name",
+          "ASSOCIATE_ORG_ID": "Associate Org ID",
+          "MIN_AMT": "Min Amt",
+          "MAX_AMT": "Max Amt",
+          "DEPOSIT_PERIOD": "Deposit Period",
+          "WITHDRAW_PERIOD": "Withdraw Period",
+          "WITHDRAW_TIMES": "Withdraw Times",
+          "CMP_INTS_TIME": "Cmp Ints Time",
+          "WITHDRAW_AMT": "Withdraw Amt",
+          "TRANS_DEPOSITE": "Trans Deposit",
+          "LAST_MAINT_DATE": "Last Maint Date"
+        },
+        "FEE": {
+          "SCT_ID": "SCT ID",
+          "SCT_NAME": "SCT Name",
+          "ASSOCIATE_ORG_ID": "Associate Org ID",
+          "SCT_TYPE": "SCT Type",
+          "FEE_TAG": "Fee Tag",
+          "FEE_TYPE": "Fee Type",
+          "FEE_AMT": "Fee Amt",
+          "FEE_PERCENT": "Fee Percent",
+          "FEE_DISCOUNT": "Fee Discount",
+          "FEE_TXN_AMT": "Fee Txn Amt",
+          "FEE_TXN_TIMED": "Fee Txn Timed",
+          "FEE_TXN_TIMEM": "Fee Txn Timem",
+          "LAST_MAINT_DATE": "Last Maint Date",
+          "FEE_CHECK_ACCOUNT": "Fee Check Account",
+          "DEF_FEE_TAG": "Def Fee Tag",
+          "DEF_FEE_TYPE": "Def Fee Type",
+          "DEF_FEE_AMT": "Def Fee Amt",
+          "DEF_FEE_PERCENT": "Def Fee Percent",
+          "DEF_FEE_CHECK_ACCOUNT": "Def Fee Check Account"
+        },
+        "INTEREST": {
+          "SCT_ID": "SCT ID",
+          "SCT_NAME": "SCT Name",
+          "ASSOCIATE_ORG_ID": "Associate Org ID",
+          "SCT_TYPE": "SCT Type",
+          "INTEREST_TYPE": "Interest Type",
+          "INTEREST_RATE": "Interest Rate",
+          "FLOATING_PERCENT": "Floating Percent",
+          "LAST_MAINT_DATE": "Last Maint Date"
+        }
+      },
+      "TOASTER_ERROR_MESSAGE": {
+        "MESSAGE_HEAD": "查询失败",
+        "MESSAGE_CONTENT": "查询结果不存在"
+      },
+      "PLACEHOLDERS": {
+        "ORGANIZATION": {
+          "ORGANIZATION_ID": "Enter Organization Number",
+          "ORGANIZATION_NAME": "Enter Organization Name",
+          "PROCESS_WITH_SYSTEM": "Select Process With System",
+          "PROCESS_STATUS": "Select Process Status",
+          "WORK_OF_WEEK": "Select Work Of Week",
+          "EOM_EOY_FLAG": "Select Eom Eoy Flag",
+          "DATE_CHOOSE": "Enter The Date"
+        },
+        "PRODUCT": {
+          "PRODUCT_ID": "Enter Product Number",
+          "PRODUCT_NAME": "Enter Product Name",
+          "ASSOCIATE_ORG_ID": "Enter Associate Organizaton Number",
+          "SUBJECT_NUMBER": "Enter Subject Number",
+          "PRODUCT_TYPE": "Enter Product Type Number",
+          "PRODUCT_CODE": "Enter Product Code",
+          "PRODUCT_CCY": "Select Product Ccy",
+          "CURRENCY_SUPPORT": "Select Currency Support",
+          "MULTI_NSTANCE": "Enter Multi Nstance",
+          "CARD_ISSURANCE": "Select Card Issurance",
+          "ACCOUNT_CONTROLLER": "Account Controller Number",
+          "CARD_CONTROLLER": "Card Controller Number",
+          "FEE_CONTROLLER": "Fee Controller Number",
+          "INTEREST_CONTROLLER": "Interest Controller Number",
+          "DP_CONTROLLER": "Deposit Controller Number"
+        },
+        "SCT": {
+          "ACCT": {
+            "SCT_ID": "Enter SCT ID",
+            "SCT_NAME": "Enter SCT Name",
+            "ASSOCIATE_ORG_ID": "Enter Associate Org ID",
+            "ACCOUNT_START_NBR": "Enter Account Start Number",
+            "ACCOUNT_END_NBR": "Enter Account End Number",
+            "ACCOUNT_CURRENT": "Enter Account Current",
+            "ACCOUNT_NEXT": "Enter Account Next"
+          },
+          "CARD": {
+            "SCT_ID": "Enter SCT ID",
+            "SCT_NAME": "Enter SCT Name",
+            "ASSOCIATE_ORG_ID": "Enter Associate Org ID",
+            "CARD_BIN": "Enter Card Bin",
+            "CARD_TYPE": "Select Card Type",
+            "CARD_START_NBR": "Enter Card Start Number",
+            "CARD_END_NBR": "Enter Card End Number",
+            "CARD_CURRENT": "Enter Card Current",
+            "CARD_NEXT": "Enter Card Next"
+          },
+          "DEPOSIT": {
+            "SCT_ID": "Enter SCT ID",
+            "SCT_NAME": "Enter SCT Name",
+            "ASSOCIATE_ORG_ID": "Enter Associate Org ID",
+            "TRANS_DEPOSIT": "Select Trans Deposit",
+            "MAX_AMT": "Up to 8 digits",
+            "DEPOSIT_PERIOD": "Enter Deposit Period",
+            "WITHDRAW_PERIOD": "Enter Withdraw Period",
+            "WITHDRAW_TIMES": "Enter Withdraw Times",
+            "CMP_INTS_TIME": "Enter Ints Time",
+            "WITHDRAW_AMT": "Enter Withdraw Amount",
+            "MIN_AMT": "Up to 8 digits"
+          },
+          "FEE": {
+            "SCT_ID": "Enter SCT ID",
+            "SCT_NAME": "Enter SCT Name",
+            "ASSOCIATE_ORG_ID": "Enter Associate Org ID",
+            "FEE_TAG": "Select Fee Tag",
+            "FEE_TYPE": "Select Fee Type",
+            "FEE_AMT": " Enter Fee Amount",
+            "FEE_PERCENT": "Enter Fee Percent",
+            "FEE_DISCOUNT": "Enter Fee Discount",
+            "FEE_TXN_AMT": "Enter Fee Txn Amount",
+            "FEE_TXN_TIMED": "Enter Txn Timed",
+            "FEE_TXN_TIMEM": "Enter Fee Txn Timem",
+            "FEE_CHECK_ACCOUNT": "Enter Fee Check Account",
+            "DEF_FEE_TAG": "Enter Default Fee Tag",
+            "DEF_FEE_TYPE": "Enter Default Fee Type",
+            "DEF_FEE_AMT": "Enter Default Fee Amount",
+            "DEF_FEE_PERCENT": "Enter Default Fee Percent",
+            "DEF_FEE_CHECK_ACCOUNT": "Enter Default Fee Check Account"
+          },
+          "INTEREST": {
+            "SCT_ID": "Enter SCT ID",
+            "SCT_NAME": "Enter SCT Name",
+            "ASSOCIATE_ORG_ID": "Enter Associate Org ID",
+            "INTEREST_TYPE": "Select Interest Type",
+            "INTEREST_RATE": "Enter Interest Rate",
+            "FLOATING_PERCENT": "Enter Floating Percent"
+          }
+        }
+      }
+    },
+    "rm": {
+            "PAGES": "Customer Management",
+            "PCUST": {
+                "PCUST_MGMT": "Open Personal Information",
+                "PCUST_MGMT_COLUMN_TITLES": {
+                    "PCUST_MGMT_COLUMN_TITLE_QUERYCONTENT": "Please fill in the search condition",
+                    "PCUST_MGMT_COLUMN_TITLE_NAME": "Query Customers By Name",
+                    "PCUST_MGMT_COLUMN_TITLE_NUMBER": "Customers Number",
+                    "PCUST_MGMT_COLUMN_TITLE_DETAIL": "Detail",
+                    "PCUST_MGMT_COLUMN_TITLE_SEQUENCE": "seq",
+                    "PCUST_MGMT_COLUMN_TITLE_PCUST_NUM": "Customer Number",
+                    "PCUST_MGMT_COLUMN_TITLE_CUST_NAME": "Name",
+                    "PCUST_MGMT_COLUMN_TITLE_PCUST_ORG_ID": "Associated Organizatio ID"
+                },
+                "PCUST_MGMT_FORM_INPUTS": {
+                    "PCUST_MGMT_FORM_INPUT_EXPLAIN": "Personal customers add",
+                    "PCUST_MGMT_FORM_INPUT_UPDATE": "Personal Customer Maintenance",
+                    "PCUST_MGMT_FORM_INPUT_PROMPT": "Red star is a must lose item",
+                    "PCUST_MGMT_FORM_INPUT_CUSTNUMBER": "Customer Number",
+                    "PCUST_MGMT_FORM_INPUT_NAME": "Name",
+                    "PCUST_MGMT_FORM_INPUT_IDNUMBER": "ID Number",
+                    "PCUST_MGMT_FORM_INPUT_HANDPHONE": "Mobile",
+                    "PCUST_MGMT_FORM_INPUT_PHONENUMBER": "Phone",
+                    "PCUST_MGMT_FORM_INPUT_NATIONALITY": "Nationality",
+                    "PCUST_MGMT_FORM_INPUT_ADDRESS1": "Address1",
+                    "PCUST_MGMT_FORM_INPUT_ADDRESS3": "Address3",
+                    "PCUST_MGMT_FORM_INPUT_ASSESS": "Credit Assess",
+                    "PCUST_MGMT_FORM_INPUT_ORGID": "Associated Organization ID",
+                    "PCUST_MGMT_FORM_INPUT_GENDER": "Gender",
+                    "PCUST_MGMT_FORM_INPUT_IDTYPE": "ID Type",
+                    "PCUST_MGMT_FORM_INPUT_EMAIL": "EMAIL",
+                    "PCUST_MGMT_FORM_INPUT_POST": "Postal Code",
+                    "PCUST_MGMT_FORM_INPUT_CITY": "City",
+                    "PCUST_MGMT_FORM_INPUT_ADDRESS2": "Address2",
+                    "PCUST_MGMT_FORM_INPUT_OPENTIME": "Opening Date",
+                    "PCUST_MGMT_FORM_INPUT_UPDATETIME": "Last Maintenance Date",
+                    "PCUST_MGMT_FORM_INPUT_STATUS": "Customer status",
+                    "PCUST_MGMT_FORM_INPUT_TYPES": "Customer type"
+                },
+                "PCUST_MGMT_PLACEHOLDERS": {
+                    "PCUST_MGMT_PLACEHOLDER_NUMBER": "Please enter the 19 digit number",
+                    "PCUST_MGMT_PLACEHOLDER_NAME": "Please enter the customer name",
+                    "PCUST_MGMT_PLACEHOLDER_ID_NUMBER": "Please enter the ID number",
+                    "PCUST_MGMT_PLACEHOLDER_HAND_PHONE": "Please enter your cell phone number",
+                    "PCUST_MGMT_PLACEHOLDER_PHONE_NUMBER": "Please input a landline phone",
+                    "PCUST_MGMT_PLACEHOLDER_NATIONALITY": "Please enter your nationality",
+                    "PCUST_MGMT_PLACEHOLDER_ADDRESS": "Please enter the address",
+                    "PCUST_MGMT_PLACEHOLDER_ADDRESS3": "Please enter the address",
+                    "PCUST_MGMT_PLACEHOLDER_ASSESS": "Please input the credit assess information",
+                    "PCUST_MGMT_PLACEHOLDER_ORG_ID": "Please enter a maximum of 3 digits",
+                    "PCUST_MGMT_PLACEHOLDER_EMAIL": "Please enter the email",
+                    "PCUST_MGMT_PLACEHOLDER_POST": "Please enter the zip code",
+                    "PCUST_MGMT_PLACEHOLDER_CITY": "Please enter the city",
+                    "PCUST_MGMT_PLACEHOLDER_ADDRESS2": "Please enter the address",
+                    "PCUST_MGMT_PLACEHOLDER_OPENING_TIME": "Please choose the time of opening an account",
+                    "PCUST_MGMT_PLACEHOLDER_UPDATE_TIME": "Last maintenance time"
+                },
+                "PCUST_MGMT_TOAST_TEXTS": {
+                    "PCUST_MGMT_TOAST_TEXT_QUERY_FAIL": "Query failure",
+                    "PCUST_MGMT_TOAST_TEXT_QUERY_FAIL2": "request was aborted",
+                    "PCUST_MGMT_TOAST_TEXT_FAIL_CAUSE": "No relevant customers were found",
+                    "PCUST_MGMT_TOAST_TEXT_FAIL_CAUSE2": "The request failed. Please try again!",
+                    "PCUST_MGMT_TOAST_TEXT_FAIL_CAUSE3": "Query condition cannot be empty!",
+                    "PCUST_MGMT_TOAST_TEXT_FAIL_CAUSE4": "It's the last page!",
+                    "PCUST_MGMT_TOAST_TEXT_FAIL_CAUSE5": "The customer information already exists and can not be repeatedly added!",
+                    "PCUST_MGMT_TOAST_TEXT_FAIL_CAUSE6": "Data format error!",
+                    "PCUST_MGMT_TOAST_TEXT_ADD_CAUSE": "The customer does not exist and can continue to add!",
+                    "PCUST_MGMT_TOAST_TEXT_ADD_SUCCESS": "Customer add success!",
+                    "PCUST_MGMT_TOAST_TEXT_ADD_FAIL": "Customer add failed!",
+                    "PCUST_MGMT_TOAST_TEXT_EDIT_SUCCESS": "Successful modification of customer information!",
+                    "PCUST_MGMT_TOAST_TEXT_EDIT_FAIL": "Customer information modification failed!",
+                    "PCUST_MGMT_TOAST_TEXT_BLUR_SUCCESS": "Customer information query success, you can modify!",
+                    "PCUST_MGMT_TOAST_TEXT_BLUR_FAIL": "Customer information query failed, can not be modified!"
+                }
+            },
+            "BCUST": {
+                "BCUST_MGMT": "Business Customer Management",
+                "BCUST_MGMT_COLUMN_TITLES": {
+                    "BCUST_MGMT_COLUMN_TITLE_LICENSE_NUMBER": "Business license number"
+                },
+	            "BCUST_BUTTONS": {
+	                "BCUST_BUTTON_EDIT": "Update"
+           	 	},
+                "BCUST_MGMT_FORM_INPUTS": {
+                    "BCUST_MGMT_FORM_INPUT_EXPLAIN": "Business customers add",
+                    "BCUST_MGMT_FORM_INPUT_UPDATE": "Business customers Maintenance",
+                    "BCUST_MGMT_FORM_INPUT_QUERY_LICENSE": "Enter the business license number for query",
+                    "BCUST_MGMT_FORM_INPUT_BCUST_ID": "Customer Number",
+                    "BCUST_MGMT_FORM_INPUT_INORG": "Associated Organization ID",
+                    "BCUST_MGMT_FORM_INPUT_ORG_CODE": "Organization Number",
+                    "BCUST_MGMT_FORM_INPUT_LICENSE": "License",
+                    "BCUST_MGMT_FORM_INPUT_INDUST_TYPE": "Industry Type",
+                    "BCUST_MGMT_FORM_INPUT_REGION_LVL": "Region Level",
+                    "BCUST_MGMT_FORM_INPUT_ADDRESS": "Address",
+                    "BCUST_MGMT_FORM_INPUT_FX_NBR": "Forex Allowance Certificate Number",
+                    "BCUST_MGMT_FORM_INPUT_LAW_REPTER": "Law Representer",
+                    "BCUST_MGMT_FORM_INPUT_BUSS_REPTER": "Business Representer",
+                    "BCUST_MGMT_FORM_INPUT_REGI_CAP": "Registration Capital",
+                    "BCUST_MGMT_FORM_INPUT_CRED_ASSESS": "Credit Assess",
+                    "BCUST_MGMT_FORM_INPUT_MAKER": "Last Maintenanced By",
+                    "BCUST_MGMT_FORM_INPUT_NAME": "Customer Name",
+                    "BCUST_MGMT_FORM_INPUT_TEL_NBR": "Phone",
+                    "BCUST_MGMT_FORM_INPUT_FAX_NBR": "Fax",
+                    "BCUST_MGMT_FORM_INPUT_SCOPE": "Business Scope",
+                    "BCUST_MGMT_FORM_INPUT_AREA": "Area",
+                    "BCUST_MGMT_FORM_INPUT_ADDRESS2": "Address2",
+                    "BCUST_MGMT_FORM_INPUT_LOAN_NBR": "Loan Card Number",
+                    "BCUST_MGMT_FORM_INPUT_AUTH_REPTER": "Authorization Representer",
+                    "BCUST_MGMT_FORM_INPUT_APPROVE_NAME": "Approver",
+                    "BCUST_MGMT_FORM_INPUT_REGI_CCY": "Registration Currency",
+                    "BCUST_MGMT_FORM_INPUT_PSW_IND": "Password Indicator",
+                    "BCUST_MGMT_FORM_INPUT_ENAME": "Customer English Name",
+                    "BCUST_MGMT_FORM_INPUT_EMAIL": "E-Mail",
+                    "BCUST_MGMT_FORM_INPUT_ZIP_CODE": "Postal Code",
+                    "BCUST_MGMT_FORM_INPUT_OWNSHP_TYPE": "Ownership Type",
+                    "BCUST_MGMT_FORM_INPUT_EXPDATE": "License Expiration Date",
+                    "BCUST_MGMT_FORM_INPUT_ADDRESS3": "Address3",
+                    "BCUST_MGMT_FORM_INPUT_LOAN_CARD": "Loan Card Number",
+                    "BCUST_MGMT_FORM_INPUT_FIN_REPTER": "Financial Representer",
+                    "BCUST_MGMT_FORM_INPUT_BCUST_RANK": "Customer Rank",
+                    "BCUST_MGMT_FORM_INPUT_STK_HLDR_IND": "Stock Holder Indicator",
+                    "BCUST_MGMT_FORM_INPUT_LST_MN_DATE": "Last Maintenance Date"
+                },
+                
+                "BCUST_MGMT_PLACEHOLDERS": {
+                    "BCUST_MGMT_PLACEHOLDER_ORG_NUMBER": "Please enter the customer organization code",
+                    "BCUST_MGMT_PLACEHOLDER_BCUST_ID": "Please enter the customer number",
+                    "BCUST_MGMT_PLACEHOLDER_ORG_ID": "Please enter the associated organization ID",
+                    "BCUST_MGMT_PLACEHOLDER_LICENSE": "Please enter the license of 15 for the number",
+                    "BCUST_MGMT_PLACEHOLDER_INDUST_TYPE": "Please enter the client's industry",
+                    "BCUST_MGMT_PLACEHOLDER_FX_NBR": "Please enter the 15 bit license number",
+                    "BCUST_MGMT_PLACEHOLDER_LAW_REPTER": "Please enter the 19 digit number",
+                    "BCUST_MGMT_PLACEHOLDER_BUSS_REPTER": "Please enter the 19 digit number",
+                    "BCUST_MGMT_PLACEHOLDER_CRED_ASSESS": "Please input the credit evaluation information",
+                    "BCUST_MGMT_PLACEHOLDER_MAKER": "Last maintenance man",
+                    "BCUST_MGMT_PLACEHOLDER_NAME": "Please enter the customer name",
+                    "BCUST_MGMT_PLACEHOLDER_TEL_NBR": "Please enter the telephone number",
+                    "BCUST_MGMT_PLACEHOLDER_FAX_NBR": "Please input fax",
+                    "BCUST_MGMT_PLACEHOLDER_SCOPE": "Please enter the scope of business",
+                    "BCUST_MGMT_PLACEHOLDER_ADDRESS2": "Please enter the address",
+                    "BCUST_MGMT_PLACEHOLDER_LOAN_NBR": "Please enter 19 credit card number",
+                    "BCUST_MGMT_PLACEHOLDER_APPROVE_NAME": "Please input the approver",
+                    "BCUST_MGMT_PLACEHOLDER_ENAME": "Please input the English name",
+                    "BCUST_MGMT_PLACEHOLDER_EMAIL": "Please enter the EMAIL",
+                    "BCUST_MGMT_PLACEHOLDER_ZIP_CODE": "Please enter the zip code",
+                    "BCUST_MGMT_PLACEHOLDER_OWNSHP_TYPE": "Please enter the ownership type",
+                    "BCUST_MGMT_PLACEHOLDER_EXPDATE": "Please enter the validity of the license",
+                    "BCUST_MGMT_PLACEHOLDER_LOAN_CARD": "Please enter 19 credit card number",
+                    "BCUST_MGMT_PLACEHOLDER_LST_MN_DATE": "Please enter the last maintenance time"
+                },
+                "BCUST_MGMT_TOAST_TEXTS": {
+                    "BCUST_MGMT_TOAST_TEXT_QUERY_FAIL": "Query failure",
+                    "BCUST_MGMT_TOAST_TEXT_QUERY_FAIL2": "Request was aborted",
+                    "BCUST_MGMT_TOAST_TEXT_FAIL_CAUSE": "No relevant customers were found",
+                    "BCUST_MGMT_TOAST_TEXT_FAIL_CAUSE2": "The request failed. Please try again!",
+                    "BCUST_MGMT_TOAST_TEXT_FAIL_CAUSE3": "Query condition cannot be empty!",
+                    "BCUST_MGMT_TOAST_TEXT_FAIL_CAUSE4": "It's the last page!",
+                    "BCUST_MGMT_TOAST_TEXT_FAIL_CAUSE6": "Data format error!",
+                    "BCUST_MGMT_TOAST_TEXT_ADD_SUCCESS": "Customer add success",
+                    "BCUST_MGMT_TOAST_TEXT_ADD_FAIL": "Customer add failed!",
+                    "BCUST_MGMT_TOAST_TEXT_EDIT_SUCCESS": "Successful modification of customer information!",
+                    "BCUST_MGMT_TOAST_TEXT_EDIT_FAIL": "Customer information modification failed!",
+                    "BCUST_MGMT_TOAST_TEXT_BLUR_SUCCESS": "Customer information query success, you can modify!",
+                    "BCUST_MGMT_TOAST_TEXT_BLUR_FAIL": "Customer information query failed, can not be modified!"
+                }
+            },
+            "CTALE": {
+                "CTALE_MGMT": "Customer Event Management",
+                "CTALE_MGMT_COLUMN_TITLES": {
+                    "CTALE_MGMT_COLUMN_TITLE_CUST_NUMBER": "Customer Number",
+                    "CTALE_MGMT_COLUMN_TITLE_TALE_TITLE": "Title",
+                    "CTALE_MGMT_COLUMN_TITLE_HPN_DATE": "Date Happened",
+                    "CTALE_MGMT_COLUMN_TITLE_MAINTENANCE": "update event",
+                    "CTALE_MGMT_COLUMN_TITLE_VIEW": "View",
+                    "CTALE_MGMT_COLUMN_TITLE_LIST": "Customer Event List"
+                },
+	            "CTALE_BUTTONS": {
+	                "CTALE_BUTTON_VIEW": "Detail Information"
+           	 	},
+                "CTALE_MGMT_FORM_INPUTS": {
+                    "CTALE_MGMT_FORM_INPUT_EXPLAIN": "Update Customer Event",
+                    "CTALE_MGMT_FORM_INPUT_UPDATE": "Maintenance",
+                    "CTALE_MGMT_FORM_INPUT_TITLE": "Title",
+                    "CTALE_MGMT_FORM_INPUT_MARK": "Description",
+                    "CTALE_MGMT_FORM_INPUT_USER": "Maker",
+                    "CTALE_MGMT_FORM_INPUT_NUMBER": "Customer Number",
+                    "CTALE_MGMT_FORM_INPUT_HPN_DATE": "Date Happened",
+                    "CTALE_MGMT_FORM_INPUT_UPDATE_TIME": "Date Maintenanced",
+                    "CTALE_MGMT_FORM_INPUT_DETAIL_EXPLAIN": "Customer Event Detail"
+                },
+                "CTALE_MGMT_PLACEHOLDERS": {
+                    "CTALE_MGMT_PLACEHOLDER_TITLE": "Please enter the event title",
+                    "CTALE_MGMT_PLACEHOLDER_MARK": "Please enter the event description",
+                    "CTALE_MGMT_PLACEHOLDER_USER": "Please enter the user",
+                    "CTALE_MGMT_PLACEHOLDER_NUMBER": "Please enter the customer number",
+                    "CTALE_MGMT_PLACEHOLDER_HPN_DATE": "Please enter the happened Date",
+                    "CTALE_MGMT_PLACEHOLDER_UPDATE_TIME": "Please enter the update time"
+                    
+                },
+                "CTALE_MGMT_TOAST_TEXTS": {
+                    "CTALE_MGMT_TOAST_TEXT_ADD_SUCCESS": "Customer event information added successfully!",
+                    "CTALE_MGMT_TOAST_TEXT_UPDATE_SUCCESS": "Customer event information updated successfully!",
+                    "CTALE_MGMT_TOAST_TEXT_DELETE_SUCCESS": "Customer event information delete successfully!",
+                    "CTALE_MGMT_TOAST_TEXT_QUERY_SUCCESS": "Customer event information query successfully!",
+                    "CTALE_MGMT_TOAST_TEXT_FAIL": "Failed. Please try again!",
+                    "CTALE_MGMT_TOAST_TEXT_FAIL2": "Customer event already exists!",
+                    "CTALE_MGMT_TOAST_TEXT_FAIL3": "Must lose item not input!",
+                    "CTALE_MGMT_TOAST_TEXT_FAIL4": "Content unchanged, not updated!",
+                    "CTALE_MGMT_TOAST_TEXT_FAIL5": "Customer event not found!"
+                }
+            },
+            "CRDMN": {
+                "CRDMN_MGMT": "Customized Information List",
+                "CRDMN_MGMT_COLUMN_TITLES": {
+                    "CRDMN_MGMT_COLUMN_TITLE_CRDMN_DEFINED_TITL": "Customized Information Title",
+                    "CRDMN_MGMT_COLUMN_TITLE_CRDMN_INF": "Customized Information"
+                },
+	            "CRDMN_BUTTONS": {
+	                "CRDMN_BUTTON_DETAIL": "Customized Information Detail"
+           	 	},
+                "CRDMN_MGMT_FORM_INPUTS": {
+                    "CRDMN_MGMT_FORM_INPUT_ADD_INF": "Add Customized Information",
+                    "CRDMN_MGMT_FORM_INPUT_DEFINED_DESC": "Customized Information Description",
+                    "CRDMN_MGMT_FORM_INPUT_MAIN_DATE": "Date Created",
+                    "CRDMN_MGMT_FORM_INPUT_DEFINED_TITL": "Customized Information Title",
+                    "CRDMN_MGMT_FORM_INPUT_DEFINED_CONTENT": "Customized Information Content",
+                    "CRDMN_MGMT_FORM_INPUT_MAKER": "Created By",
+                    "CRDMN_MGMT_FORM_INPUT_UPDATE_TIME": "Last Maintenance Date",
+                    "CRDMN_MGMT_FORM_INPUT_UPDATE_USER": "Last Maintenanced By"
+                },
+                "CRDMN_MGMT_PLACEHOLDERS": {
+                    "CRDMN_MGMT_PLACEHOLDER_CUST_NUMBER": "Please enter the customer number",
+                    "CRDMN_MGMT_PLACEHOLDER_CRDMN_DEFINED_TITL": "Please enter the information title",
+                    "CRDMN_MGMT_PLACEHOLDER_DEFINED_DESC": "Please enter the information description",
+                    "CRDMN_MGMT_PLACEHOLDER_DEFINED_TITL": "Please enter the information title",
+                    "CRDMN_MGMT_PLACEHOLDER_DEFINED_CONTENT": "Please enter the information content",
+                    "CRDMN_MGMT_PLACEHOLDER_MAKER": "Please enter the maker",
+                    "CRDMN_MGMT_PLACEHOLDER_UPDATE_USER": "Please enter the last update user"
+                },
+                "CRDMN_MGMT_TOAST_TEXTS": {
+                    "CRDMN_MGMT_TOAST_TEXT_QUERY_FAIL": "Query failure",
+                    "CRDMN_MGMT_TOAST_TEXT_QUERY_FAIL2": "Request was aborted",
+                    "CRDMN_MGMT_TOAST_TEXT_FAIL_CAUSE": "No data was found",
+                    "CRDMN_MGMT_TOAST_TEXT_FAIL_CAUSE2": "The request failed. Please try again!",
+                    "CRDMN_MGMT_TOAST_TEXT_FAIL_CAUSE4": "It's the last page!",
+                    "CRDMN_MGMT_TOAST_TEXT_FAIL_CAUSE6": "Data format error!",
+                    "CRDMN_MGMT_TOAST_TEXT_ADD_SUCCESS": "Customized information added successfully!",
+                    "CRDMN_MGMT_TOAST_TEXT_ADD_FAIL": "Failed to add customized information!",
+                    "CRDMN_MGMT_TOAST_TEXT_ADD_FAIL2": "Must lose item not input!",
+                    "CRDMN_MGMT_TOAST_TEXT_ADD_FAIL3": "Customized information already exists!",
+                    "CRDMN_MGMT_TOAST_TEXT_EDIT_SUCCESS": "Customized information edit successfully!",
+                    "CRDMN_MGMT_TOAST_TEXT_EDIT_FAIL": "Failed to edit customized information!",
+                    "CRDMN_MGMT_TOAST_TEXT_DELETE_SUCCESS": "Customized information delete successfully!",
+                    "CRDMN_MGMT_TOAST_TEXT_DELETE_FAIL": "Failed to delete customized information!"
+                }
+            },
+            "HIST": {
+                "HIST_MGMT": "Maintenance History",
+                "HIST_MGMT_COLUMN_TITLES": {
+                    "HIST_MGMT_COLUMN_TITLE_NUMBER": "Customer Number",
+                    "HIST_MGMT_COLUMN_TITLE_TIME_STAMP": "Timestamp",
+                    "HIST_MGMT_COLUMN_TITLE_TRANS_NAME": "Transaction Name",
+                    "HIST_MGMT_COLUMN_TITLE_EXECUTOR": "Maintenanced By",
+                    "HIST_MGMT_COLUMN_TITLE_DESC": "Description",
+                    "HIST_MGMT_COLUMN_TITLE_DETAIL": "Maintenance History Detail",
+                    "HIST_MGMT_COLUMN_TITLE_HISTORY_LIST": "Maintenance History List"
+                },
+                "HIST_MGMT_FORM_INPUTS": {
+                    "HIST_MGMT_FORM_INPUT_ITEM": "Item Updated",
+                    "HIST_MGMT_FORM_INPUT_ORIGIN": "Origin",
+                    "HIST_MGMT_FORM_INPUT_NEW": "New"
+                }
+            },
+            "CREAL": {
+            	"PAGES": "customer relation management",
+                "CREAL_MGMT": "list customer relation information",
+                "CREAL_MGMT_COLUMN_TITLES": {
+                    "CREAL_MGMT_COLUMN_TITLE_RETYPE": "Type of Relationship",
+                    "CREAL_MGMT_COLUMN_TITLE_REL_CUS": "Related Customer Number",
+                    "CREAL_MGMT_COLUMN_TITLE_CUS": "Related Customer"
+                },
+	            "CREAL_BUTTONS": {
+	                "CREAL_BUTTON_DETAIL": "Detailed Customer Relationship ",
+	                "CREAL_BUTTON_EDIT": "Edit"
+           	 	},
+                "CREAL_MGMT_FORM_INPUTS": {
+                    "CREAL_MGMT_FORM_INPUT_ADD": "Add Customer Relationship",
+                    "CREAL_MGMT_FORM_INPUT_REAL_NUMBER": "Related Customer Number",
+                    "CREAL_MGMT_FORM_INPUT_UPDATE_TIME": "Date Maintenanced",
+                    "CREAL_MGMT_FORM_INPUT_MARK": "Description",
+                    "CREAL_MGMT_FORM_INPUT_MAKER": "Maker",
+                    "CREAL_MGMT_FORM_INPUT_LAST_MAKER": "Last Maker"
+                },
+                "CREAL_MGMT_PLACEHOLDERS": {
+                    "CREAL_MGMT_PLACEHOLDER_CUST_NUMBER": "Please enter the relationship customer number",
+                    "CREAL_MGMT_PLACEHOLDER_CUST_RETYPE": "Please enter the type of Relationship",
+                    "CREAL_MGMT_PLACEHOLDER_REAL_CUST": "Please enter the relationship customer number",
+                    "CREAL_MGMT_PLACEHOLDER_UPDATE_TIME": "Please enter the update time",
+                    "CREAL_MGMT_PLACEHOLDER_DESC": "Please enter the description",
+                    "CREAL_MGMT_PLACEHOLDER_MAKER": "Please enter the maker"
+                },
+                "CREAL_MGMT_TOAST_TEXTS": {
+                    "CREAL_MGMT_TOAST_TEXT_ADD_SUCCESS": "Add success to customer relationship!",
+                    "CREAL_MGMT_TOAST_TEXT_ADD_FAIL": "Add customer relationship failure!",
+                    "CREAL_MGMT_TOAST_TEXT_ADD_FAIL2": "Relational customer does not exist!",
+                    "CREAL_MGMT_TOAST_TEXT_ADD_FAIL3": "Customer relationship already exists!",
+                    "CREAL_MGMT_TOAST_TEXT_ADD_FAIL4": "Two customers can not be the same!",
+                    "CREAL_MGMT_TOAST_TEXT_EDIT_SUCCESS": "Edit success to customer relationship!",
+                    "CREAL_MGMT_TOAST_TEXT_EDIT_FAIL": "Edit customer relationship failure!",
+                    "CREAL_MGMT_TOAST_TEXT_EDIT_FAIL2": "No change in data!",
+                    "CREAL_MGMT_TOAST_TEXT_DELETE_SUCCESS": "Delete success to customer relationship!",
+                    "CREAL_MGMT_TOAST_TEXT_DELETE_FAIL": "Delete customer relationship failure!"
+                }
+            }
+    },
+    "fm": {
+      "FM_PAGES": "Accounting Management",
+      "SUBJECT_MGT": "Account Management",
+      "ACCOUNTING_ENTRY_MGT": "Accounting Entry Management",
+      "BILLING_ENTRIES_DETAILED_INQUIRY": "Journal Entries Detailed Inquiry",
+      "SUBJECT_DETAILED_FLOW_QUERY": "Account Details Flow Information Inquiry",
+      "GENERAL_LEDGER_ACCOUNTING_MGT": "General Ledger Account Management",
+      "TRADING_LIST": "Transaction flow list",
+      "SUBJECTS": {
+        "ITEM_KEY": "Subject No.",
+        "ITEM_LEVEL": "Subject Level",
+        "ITEM_NAME": "Subject Name",
+        "OP_TIME_STAMP": "Operation Time",
+        "BAL_DIRE_FLG": "Balance Direction",
+        "GL_ACCOUNT": "General Ledger Account",
+        "CAL_GL_ACCOUNT": "General ledger calculation",
+        "CLASS_ITEM": "Detailed Account logo",
+        "FX_ITEM_FLAG": "Forex Trading Account Flag",
+        "IN_OUT_FLAG": "Table Flags Inside and Outside",
+        "BUSS_TYPE": "Account Properties",
+        "TRAN_AMT_DIR": "Amount Direction",
+        "ITEM_START_DATE": "Account Opening Date",
+        "ITEM_END_DATE": "Account Expiration Date"
+      },
+      "ACCOUNTING_ENTRY": {
+        "ACCT_ITEM": "ACCT-ITEM",
+        "TRAN_ID": "TRAN_ID",
+        "COND_SEQ": "COND_SEQ",
+        "DC_FLAG": "DC-FLAG",
+        "ACCT_ORG": "ACCT-ORG",
+        "TRAN_AMT_POINT": "TRAN_AMT_POINT",
+        "ITEM_SEQ": "ITEM_SEQ",
+        "TRAN_DESP": "TRAN_DESP"
+      },
+      "PLACEHOLDERS": {
+        "ITEM_KEY": "Please enter 8 Subject No.",
+        "TRAN_ID": "Please enter 4 TRAN_ID"
+      },
+      "TITLES": {
+        "EDIT_SUBJECT": "Edit Subject",
+        "ADD_SUBJECT": "Add Subject",
+        "SUBJECT_DETAIL": "Subject Details",
+        "ADD_ACCT_ENTRY": "Add Accounting Entries",
+        "EDIT_ACCT_ENTRY": "Edit Accounting Entries",
+        "ACCT_ENTRY_DETAIL": "Accounting Entries Details"
+      },
+      "TRAD_LIST": {
+        "PLACEHOLDERS": {
+          "TXN_JOUR": "Please enter 19 transaction numbers",
+          "BUSN_DATE": "Please enter the date of the transaction",
+          "SER_NAME": "Please enter the trade service name",
+          "CPU_DATE": "Please enter the system date",
+          "CPU_TIME": "Please enter system time",
+          "TXN_TERMINAL": "Please enter the transaction terminal",
+          "EC_LOG_NO": "Please enter the EC_LOG_NO",
+          "AR_LOG_NO": "Please enter the AR_LOG_NO",
+          "ACCOUNT_NO": "Please enter a trading account",
+          "OPPO_ACCOUNT_NO": "Please enter the opposite trading account",
+          "TXN_TYPE": "Please enter the transaction type",
+          "DOC_TYPE": "Please enter the DOC_TYPE",
+          "BOOK_CODE": "Please enter the transaction book number",
+          "TX_AMT1": "Please enter the transaction amount 1",
+          "TX_AMT2": "Please enter the transaction amount 2",
+          "AREA_LEN": "Please enter the transaction interface length",
+          "TRAD_AREA": "Please enter the transaction content"
+        },
+        "TRAD_TXN_JOUR": "Transaction flow number",
+        "TRAD_TXN_TYPE": "Type of transaction",
+        "TRAD_BUSN_DATE": "Date of transaction",
+        "TRAD_TABLE_SEQ": "sequence",
+        "TRAD_SER_NAME": "Trade service name",
+        "TRAD_DOC_TYPE": "document type",
+        "TRAD_EC_FLG": "Trade logo",
+        "TRAD_TX_AMT1": "Transaction amount",
+        "TRAD_24HEC_FLG": "24H trade logo",
+        "TRAD_TRAD_AREA": "Transaction content",
+        "TITLES_TRAD_ADD": "Transaction add",
+        "TITLES_TRAD_EDIT": "Transaction edit",
+        "TITLES_TRAD_DETAIL": "Transaction detail",
+        "TRAD_CPU_DATE": "system date",
+        "TRAD_CPU_TIME": "system time",
+        "TRAD_TXN_TERMINAL": "Transaction terminal",
+        "TRAD_AUTH_FLG": "authority logo",
+        "TRAD_AUTH_TYP": "authority type",
+        "TRAD_TXL_EC_FLG": "Reversal transaction logo",
+        "TRAD_EC_LOG_NO": "Correct serial number",
+        "TRAD_AR_LOG_NO": "authorize serial number",
+        "TRAD_ACCOUNT_NO": "Trading account",
+        "TRAD_OPPO_ACCOUNT_NO": "opponent trading account",
+        "TRAD_BOOK_CODE": "Transaction book number",
+        "TXL_TX_AMT1": "Transaction amount1",
+        "TXL_TX_AMT2": "Transaction amount2",
+        "TRAD_AREA_LEN": "Transaction interface length",
+        "ALERTS_ADD_FAIL": "The transaction flow has already existed！",
+        "ALERTS_ADD_FAIL2": "Transaction pipelining failure！",
+        "ALERTS_ADD_SUCCESS": "The transaction flow does not exist and can continue to be added！",
+        "ALERTS_ADD_SUCCESS2": "Transaction pipelining is added to success！",
+        "ALERTS_CONNECT_FAIL": "Request failure, please try again！",
+        "ALERTS_EDIT_SUCCESS": "The query is successful and can be modified！",
+        "ALERTS_EDIT_SUCCESS2": "Transaction flow modification success！",
+        "ALERTS_EDIT_FAIL": "Query failure！",
+        "ALERTS_EDIT_FAIL2": "Transaction flow modification failure！",
+        "ALERTS_DETAIL_FAIL": "No data was found！"
+      },
+      "ITEM_DETAIL_LIST": {
+        "PLACEHOLDERS": {
+          "TXN_JOUR_T": "Please input 19 bit serial Trading and 1 bit transaction serial number",
+          "BUSN_DATE": "Please enter the date of the transaction",
+          "ITEM_NBR": "Please enter the subject number"
+        },
+        "TXN_JOUR_T": "Transaction flow number",
+        "TXN_DATE_T": "Date of transaction",
+        "ITEM_NBR": "Subject number",
+        "TXN_SEQ": "Transaction flow serial number",
+        "TXN_TIME": "Trading time",
+        "DC_CODE": "To loan type",
+        "ITEM_BAL": "balance",
+        "OPR_NBR": "Operator number",
+        "TITLE_ITEM_DETAIL": "Subject flow detailed inquiry",
+        "TXN_DESCRIP": "abstract",
+        "TXN_INSTIN": "Trading agency",
+        "TXN_FXR": "exchange rate",
+        "DSCRP_COD": "Summary code",
+        "TXN_UNIT": "Company",
+        "DOC_TYPE": "Type of voucher",
+        "TXN_AMT": "Transaction amount",
+        "VAL_DATE": "value date",
+        "SECOND_AMT": "Standard currency amount",
+        "TXN_SEQ_NBR": "Ordinal number of the day",
+        "DOC_NBR": "Voucher number",
+        "DC_COD": "To loan type",
+        "RCHR_NBR": "Checker number",
+        "RECON_NBR": "remove from an account number",
+        "SECOND_BAL": "Standard currency balance",
+        "DOC_END_NO": "Voucher check"
+      }
+    }
+	    
+	    
+  }
+}

@@ -1,0 +1,271 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3" translate="pages.sm.user.USER_MGMT">User Management</h1>
+</div>
+
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="wrapper-md" ng-controller="UserMgtControl">
+    <div ng-controller="AccordionCtrl">
+        <accordion close-others="oneAtATime">
+            <accordion-group heading="{{accordionTitle}}"
+                             is-open="status.isFirstOpen"
+                             is-disabled="status.isFirstDisabled">
+                <form name="formUserFilter" id="formUserFilter">
+                    <!-- Column 1 -->
+                    <div class="col-lg-4">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="userName"
+                                       translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_USER_NAME">
+                                    User Name
+                                </label>
+                                <div class="input-group col-lg-7">
+                                    <input id="userName" type="text" class="form-control"
+                                           ng-model="fields.username" placeholder="{{placeholders.username}}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="status"
+                                       translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_USER_ACTIVE">
+                                    Is Enabled?
+                                </label>
+                                <div class="input-group col-lg-7">
+                                    <ui-select
+                                            id="status"
+                                            ng-model="selectedStatus.selected"
+                                            on-select="activeStatusSelectChanged()"
+                                            theme="bootstrap">
+                                        <ui-select-match placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.active}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in active | filter: $select.search">
+                                            <span ng-bind-html="item.active | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button ng-click="clearStatusSelect()" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-4">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="orgId"
+                                       translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_ORG_ID">
+                                    Organization
+                                </label>
+                                <div class="input-group col-lg-7">
+                                    <ui-select
+                                            id="orgId"
+                                            ng-model="selectedOrg.selected"
+                                            on-select="orgIdSelectOnChange()"
+                                            theme="bootstrap">
+                                        <ui-select-match placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.orgName}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in organizationInfo | filter: $select.search">
+                                            <span ng-bind-html="item.orgName | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.sm.user.USER_MGMT_PLACEHOLDERS.USER_MGMT_NO_RECORD' | translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button ng-click="clearSelect()" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="depId"
+                                       translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_DEP_ID">
+                                    Department
+                                </label>
+                                <div class="input-group col-lg-7">
+                                    <ui-select
+                                            id="depId"
+                                            ng-model="selectedDep.selected"
+                                            on-select="depIdSelectOnChange()"
+                                            theme="bootstrap">
+                                        <ui-select-match placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.depName}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in departmentInfo | filter: $select.search">
+                                            <span ng-bind-html="item.depName | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.sm.user.USER_MGMT_PLACEHOLDERS.USER_MGMT_NO_RECORD' | translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button ng-click="clearSelect()" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3 -->
+                    <div class="col-lg-4">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="posId"
+                                       translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_POS_ID">
+                                    Position
+                                </label>
+                                <div class="input-group col-lg-7">
+                                    <ui-select
+                                            id="posId"
+                                            ng-model="selectedPos.selected"
+                                            on-select="posIdSelectOnChange()"
+                                            theme="bootstrap">
+                                        <ui-select-match placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.posName}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item in posInfo | filter: $select.search">
+                                            <span ng-bind-html="item.posName | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.sm.user.USER_MGMT_PLACEHOLDERS.USER_MGMT_NO_RECORD' | translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                    <span class="input-group-btn">
+                                        <button ng-click="clearSelect()" class="btn btn-default">
+                                            <span class="glyphicon glyphicon-trash"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-3">
+                                    <button class="btn m-b-xs btn-success btn-addon" ng-click="search()">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SEARCH' | translate}}
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-3">
+                                    <button class="btn m-b-xs btn-default btn-addon" type="reset" ng-click="clear()">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">
+                    <span ng-controller="AddUserModalInstanceCtrl">
+                        <script type="text/ng-template" id="addUserModal.html">
+                            <div ng-include="'html/sm/user_add_modal_form.html'"></div>
+                        </script>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="addUser" ng-click="showAddUserPopup()">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+                    <span ng-controller="EditUserModalInstanceCtrl">
+                        <script type="text/ng-template" id="editUserModal.html">
+                            <div ng-include="'html/sm/user_edit_modal_form.html'"></div>
+                        </script>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="editUser" ng-click="showEditUserPopup()">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_EDIT' | translate}}
+                            <i class="fa fa-pencil-square-o"></i>
+                        </button>
+                    </span>
+                    <span ng-controller="ChangePasswordModalInstanceCtrl">
+                        <script type="text/ng-template" id="changePasswordModal.html">
+                            <div ng-include="'html/sm/user_change_pswd_modal_form.html'"></div>
+                        </script>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="changePswd" ng-click="showChangePswdPopup()">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CHANGE_PASSWORD' | translate}}
+                            <i class="fa fa-key"></i>
+                        </button>
+                    </span>
+                    <span ng-controller="DeleteUserModalInstanceCtrl">
+                        <script type="text/ng-template" id="deleteUserModal.html">
+                            <div ng-include="'html/sm/user_delete_modal_form.html'"></div>
+                        </script>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="deleteUser" ng-click="showEditUserPopup()">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_REMOVE' | translate}}
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </span>
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="tblUsers"
+                               ui-jq="dataTable"
+                               ui-options="{{dataTableParms}}"
+                               class="table display">
+                            <thead>
+                            <tr>
+                                <th translate="pages.sm.user.USER_MGMT_COLUMN_TITLES.USER_MGMT_COLUMN_TITLE_SEQUENCE">
+                                    Seq.
+                                </th>
+                                <th translate="pages.sm.user.USER_MGMT_COLUMN_TITLES.USER_MGMT_COLUMN_TITLE_USER_ID">
+                                    User ID
+                                </th>
+                                <th translate="pages.sm.user.USER_MGMT_COLUMN_TITLES.USER_MGMT_COLUMN_TITLE_USER_NAME">
+                                    User Name
+                                </th>
+                                <th translate="pages.sm.user.USER_MGMT_COLUMN_TITLES.USER_MGMT_COLUMN_TITLE_USER_TELEPHONE">
+                                    Telephone
+                                </th>
+                                <th translate="pages.sm.user.USER_MGMT_COLUMN_TITLES.USER_MGMT_COLUMN_TITLE_USER_POS_ID">
+                                    Position ID
+                                </th>
+                                <th translate="pages.sm.user.USER_MGMT_COLUMN_TITLES.USER_MGMT_COLUMN_TITLE_USER_POS_NAME">
+                                    Position
+                                </th>
+                                <th translate="pages.sm.user.USER_MGMT_COLUMN_TITLES.USER_MGMT_COLUMN_TITLE_USER_ORG_ID">
+                                    Org. ID
+                                </th>
+                                <th translate="pages.sm.user.USER_MGMT_COLUMN_TITLES.USER_MGMT_COLUMN_TITLE_USER_ORG_NAME">
+                                    Organization
+                                </th>
+                                <th translate="pages.sm.user.USER_MGMT_COLUMN_TITLES.USER_MGMT_COLUMN_TITLE_USER_DEP_ID">
+                                    Dep. ID
+                                </th>
+                                <th translate="pages.sm.user.USER_MGMT_COLUMN_TITLES.USER_MGMT_COLUMN_TITLE_USER_DEP_NAME">
+                                    Department
+                                </th>
+                                <th translate="pages.sm.user.USER_MGMT_COLUMN_TITLES.USER_MGMT_COLUMN_TITLE_USER_ACTIVE">
+                                    Status ID
+                                </th>
+                                <th translate="pages.sm.user.USER_MGMT_COLUMN_TITLES.USER_MGMT_COLUMN_TITLE_USER_ACTIVE_STATUS">
+                                    Status
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

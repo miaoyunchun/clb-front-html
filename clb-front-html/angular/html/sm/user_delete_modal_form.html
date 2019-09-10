@@ -1,0 +1,120 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.user.USER_MGMT_FORM_TITLES.USER_MGMT_FORM_TITLE_DELETE_USER"></div>
+        <div class="panel-body" id="addOrgPanel">
+            <div class="well b bg-warning bg lt text-dark wrapper-sm m-t">
+                <strong>{{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}</strong>
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <!-- Specify "novalidate" here to disable the browser default validation -->
+            <!-- so we can get rid of the Bootstrap notification -->
+            <form name="formEditUser" id="formEditUser" class="form-validation" novalidate>
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <!-- Username and password -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="username"
+                                       translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_USER_NAME">
+                                    Username
+                                </label>
+                                <input id="username" name="username" type="text" class="form-control"
+                                       ng-model="fields.username" ng-readonly="true">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tel number and status -->
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="telnbr"
+                                       translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_USER_TELEPHONE">
+                                    Telephone
+                                </label>
+                                <input id="telnbr" name="telnbr" type="text" class="form-control"
+                                       ng-model="fields.phoneNumber" ng-readonly="true">
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label for="status"
+                                   translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_USER_ACTIVE">
+                                Status
+                            </label>
+                            <input id="status" name="status" type="text" class="form-control"
+                                   ng-model="fields.status" ng-readonly="true">
+                        </div>
+                    </div>
+
+                    <!-- Organization, department, position -->
+                    <div class="row">
+                        <fieldset ng-disabled="isOrgSelectDisabled || isDepSelectDisabled || isPosSelectDisabled">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="orgName"
+                                           translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_ORG_ID">
+                                        Organization
+                                    </label>
+                                    <input id="orgName" name="orgName" type="text" class="form-control"
+                                           ng-model="fields.orgName" ng-readonly="true">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="depName"
+                                           translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_DEP_ID">
+                                        Department
+                                    </label>
+                                    <input id="depName" name="depName" type="text" class="form-control"
+                                           ng-model="fields.depName" ng-readonly="true">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="posName"
+                                           translate="pages.sm.user.USER_MGMT_FIELDS.USER_MGMT_FIELD_POS_ID">
+                                        Org #
+                                    </label>
+                                    <input id="posName" name="posName" type="text" class="form-control"
+                                           ng-model="fields.posName" ng-readonly="true">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-danger btn-addon" id="btnSave"
+                                        ng-click="delete()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose"
+                                        ng-click="cancel()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

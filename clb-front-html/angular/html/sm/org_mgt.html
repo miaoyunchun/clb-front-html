@@ -1,0 +1,276 @@
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3" translate="pages.sm.org.ORG_MGMT">Organization Management</h1>
+</div>
+
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="wrapper-md" ng-controller="OrgMgmtCtrl">
+    <div ng-controller="AccordionCtrl">
+        <accordion close-others="oneAtATime">
+            <accordion-group heading="{{accordionTitle}}"
+                             is-open="status.isFirstOpen"
+                             is-disabled="status.isFirstDisabled">
+                <form name="formOrgFilter" id="formOrgFilter">
+                    <!-- Column 1 -->
+                    <div class="col-lg-3">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="orgNbr"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_ORG_NUMBER">
+                                    Org #
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="orgNbr" type="text" class="form-control text-uppercase"
+                                           ng-model="fields.orgCode" placeholder="{{placeholders.orgNo}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_AVAIL_TIME">
+                                    Available From
+                                </label>
+                                <!--<div class="col-lg-7" ng-controller="OrgMgmtCtrl">-->
+                                <div ng-controller="AvailDateCtrl" class="col-lg-7">
+                                    <div class="input-group">
+                                        <input id="availDate" type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="fields.availTime" placeholder="{{placeholders.availDate}}"
+                                               is-open="opened" datepicker-options="dateOptions"
+                                               close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-3">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="org-name"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_ORG_NAME">
+                                    Organization Name
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="org-name" type="text" class="form-control"
+                                           ng-model="fields.orgName"
+                                           placeholder="{{placeholders.orgName}}">
+                                </div>
+                            </div>
+                            <div ng-controller="ExpireDateCtrl" class="form-group">
+                                <label class="col-lg-5 control-label"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_EXPIRE_TIME">
+                                    Expires At
+                                </label>
+                                <div class="col-lg-7">
+                                    <div class="input-group">
+                                        <input id="expireDate" type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="fields.expireTime" placeholder="{{placeholders.expireDate}}"
+                                               is-open="opened" datepicker-options="dateOptions"
+                                               close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 3 -->
+                    <div class="col-lg-3">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="stakeholder"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_STAKEHOLDER">
+                                    Stakeholder
+                                </label>
+                                <div class="col-lg-7">
+                                    <ui-select id="stakeholder" ng-model="selectedStakeholder.item" on-select="stakeholderSelectOnChange()" theme="bootstrap">
+                                        <ui-select-match placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.username}}
+                                        </ui-select-match>
+                                         <ui-select-choices repeat="item in stakeholders | filter: $select.search">
+                                            <span ng-bind-html="item.username | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.sm.pos.POS_MGMT_PLACEHOLDERS.POS_MGMT_NO_RECORD' | translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="active"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_ORG_ENABLED">
+                                    Is Enabled?
+                                </label>
+                                <div class="col-lg-7">
+                                    <ui-select id="active" ng-model="selectedActive.item" on-select="activeSelectOnChange()" theme="bootstrap">
+                                        <ui-select-match placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.active}}
+                                        </ui-select-match>
+                                         <ui-select-choices repeat="item in active | filter: $select.search">
+                                            <span ng-bind-html="item.active | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.sm.pos.POS_MGMT_PLACEHOLDERS.POS_MGMT_NO_RECORD' | translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 4 -->
+                    <div class="col-lg-3">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="description"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_ORG_DESCRIPTION">
+                                    Description
+                                </label>
+                                <div class="col-lg-7">
+                                    <input type="text" class="form-control" id="description"
+                                           ng-model="fields.orgDescription"
+                                           placeholder="{{placeholders.description}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="logo"
+                                       translate="pages.sm.org.ORG_MGMT_FIELDS.ORG_MGMT_FIELD_CHOOSE_LOGO">
+                                    Logo
+                                </label>
+                                <div class="col-lg-7">
+                                    <ui-select id="logo" ng-model="selectedLogo.item" on-select="logoSelectOnChange()" theme="bootstrap">
+                                        <ui-select-match placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                            {{$select.selected.companyName}}
+                                        </ui-select-match>
+                                         <ui-select-choices repeat="item in logo | filter: $select.search">
+                                            <span ng-bind-html="item.companyName | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                        <ui-select-no-choice>
+                                            {{ 'pages.sm.pos.POS_MGMT_PLACEHOLDERS.POS_MGMT_NO_RECORD' | translate }}
+                                        </ui-select-no-choice>
+                                    </ui-select>
+                                    
+                                </div> 
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-sm btn-success btn-addon" ng-click="search()">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SEARCH' | translate}}
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-sm btn-default btn-addon" type="reset" ng-click="clear()">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </accordion-group>
+        </accordion>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">
+                    <!-- See this controller in org_add_modal_ctrl.js -->
+                    <span ng-controller="AddOrgModalInstanceCtrl">
+                        <script type="text/ng-template" id="addOrgModal.html">
+                            <div ng-include="'html/sm/org_add_modal_form.html'"></div>
+                        </script>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="addOrg" ng-click="showAddOrgPopup()">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+                    <span ng-controller="EditOrgModalInstanceCtrl">
+                        <script type="text/ng-template" id="editOrgModal.html">
+                            <div ng-include="'html/sm/org_edit_modal_form.html'"></div>
+                        </script>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="editOrg" ng-click="showEditOrgPopup()">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_EDIT' | translate}}
+                            <i class="fa fa-pencil-square-o"></i>
+                        </button>
+                    </span>
+                    <span ng-controller="DeleteOrgModalInstanceCtrl">
+                        <script type="text/ng-template" id="deleteOrgModal.html">
+                            <div ng-include="'html/sm/org_delete_modal_form.html'"></div>
+                        </script>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="removeOrg" ng-click="showDeleteOrgPopup()">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_REMOVE' | translate}}
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </span>
+                </div>
+
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table ui-jq="dataTable"
+                               ui-options="{{dataTableParms}}"
+                               class="table display" id="tblOrganizations">
+                            <thead>
+                            <tr>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_SEQUENCE">
+                                    Seq.
+                                </th>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_ORG_ID">
+                                    Org ID
+                                </th>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_ORG_NUMBER">
+                                    Org Code
+                                </th>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_ORG_NAME">
+                                    Org Name
+                                </th>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_ORG_USERID">
+                                    User ID
+                                </th>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_ORG_STAKEHOLDER">
+                                    Stakeholder
+                                </th>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_ORG_COMPANY_ID">
+                                    Company ID
+                                </th>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_ORG_LOGO">
+                                    Logo
+                                </th>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_ORG_DESCRIPTION">
+                                    Description
+                                </th>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_ORG_CREATE_DATE">
+                                    Create Date
+                                </th>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_ORG_STATUS_ID">
+                                    Status ID
+                                </th>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_ORG_STATUS">
+                                    Status
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

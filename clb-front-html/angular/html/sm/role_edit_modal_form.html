@@ -1,0 +1,138 @@
+<!-- This page has been included in org_mgt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.role.ROLE_MGMT_FORM_TITLES.ROLE_MGMT_FORM_TITLE_EDIT_ROLE"></div>
+        <div class="panel-body" id="addRolePanel">
+            <div class="well b bg-warning bg lt text-dark wrapper-sm m-t">
+                <strong>{{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}</strong>
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <!-- Specify "novalidate" here to disable the browser default validation -->
+            <!-- so we can get rid of the Bootstrap notification -->
+            <form name="formEditRole" id="formEditRole" class="form-validation" novalidate>
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <!-- rolename and password -->
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="rolename"
+                                       translate="pages.sm.role.ROLE_MGMT_FIELDS.ROLE_MGMT_FIELD_ROLE_NAME">
+                                    Role Name
+                                </label>
+                                <input id="rolename" name="rolename" type="text" class="form-control"
+                                       placeholder="{{ placeholders.roleName }}"
+                                       popover="{{ 'pages.sm.role.ROLE_MGMT_PLACEHOLDERS.ROLE_MGMT_PLACEHOLDER_ROLE_NAME_RULE' | translate }}"
+                                       popover-placement="bottom" popover-trigger="focus"
+                                       ng-model="fields.roleName"
+                                       ng-minlength="1" ng-maxlength="45" required>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="status"
+                                       translate="pages.sm.role.ROLE_MGMT_FIELDS.ROLE_MGMT_FIELD_STATUS">
+                                    Status
+                                </label>
+                                <ui-select
+                                        id="status"
+                                        ng-model="selectedStatus.value"
+                                        on-select="statusSelectOnChange()"
+                                        ng-required="true"
+                                        theme="bootstrap">
+                                    <ui-select-match
+                                            placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                        {{$select.selected.active}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="item.value as item in statuses | filter: $select.search">
+                                        <span ng-bind-html="item.active | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                    <ui-select-no-choice>
+                                        {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' | translate}}
+                                    </ui-select-no-choice>
+                                </ui-select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="posId"
+                                       translate="pages.sm.role.ROLE_MGMT_FIELDS.ROLE_MGMT_FIELD_POSITION">
+                                    Positions
+                                </label>
+                                <ui-select
+                                        id="posId"
+                                        ng-model="selectedPos.id"
+                                        on-select="posIdSelectOnChange()"
+                                        ng-required="true"
+                                        theme="bootstrap">
+                                    <ui-select-match
+                                            placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                        {{$select.selected.posName}}
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                            repeat="item.posId as item in positions | filter: $select.search">
+                                        <span ng-bind-html="item.posName | highlight: $select.search"></span>
+                                    </ui-select-choices>
+                                    <ui-select-no-choice>
+                                        {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' | translate
+                                        }}
+                                    </ui-select-no-choice>
+                                </ui-select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="description"
+                                       translate="pages.sm.role.ROLE_MGMT_FIELDS.ROLE_MGMT_FIELD_ROLE_DESCRIPTION">
+                                    Description
+                                </label>
+                                <textarea id="description" name="description"
+                                          ng-model="fields.roleDescription"
+                                          style="max-width: 100%; min-width: 100%; min-height: fit-content;"
+                                          class="form-control"
+                                          ng-minlength="1" ng-maxlength="200" required
+                                          placeholder="{{ 'pages.sm.role.ROLE_MGMT_PLACEHOLDERS.ROLE_MGMT_PLACEHOLDER_ROLE_DESCRIPTION' | translate }}">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnUpdate"
+                                        ng-click="edit(formEditRole)" ng-disabled="formEditRole.$invalid">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                    <i class="fa fa-pencil-square-o"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose"
+                                        ng-click="cancel()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

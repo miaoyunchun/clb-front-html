@@ -1,0 +1,371 @@
+<!-- list -->
+<ul class="nav">
+    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+        <span translate="aside.nav.HEADER">Navigation</span>
+    </li>
+    <li>
+        <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+            <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+            <span class="font-bold" translate="aside.nav.DASHBOARD">Dashboard</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span translate="aside.nav.DASHBOARD">Dashboard</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.dashboard-v1">
+                    <span>Dashboard v1</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.dashboard-v2">
+                    <b class="label bg-info pull-right">N</b>
+                    <span>Dashboard v2</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    
+   
+    
+    <!-- 贷款模块菜单 -->
+    <li menu="dkyw_5000">
+        <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+            <i class="fa fa-usd icon"></i>
+            <span translate="pages.ln.GX_PAGES">Loan Management</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span translate="pages.ln.GX_PAGES">Loan Management</span>
+                </a>
+            </li>
+            
+            <li menu="dksq_5001" ui-sref-active="active">
+                <a ui-sref="app.ln.lnApply">
+                    <span translate="pages.ln.LN_APPLY">Loan Apply</span>
+                </a>
+            </li>
+            <li menu="dksh_5002" ui-sref-active="active">
+                <a ui-sref="app.ln.lnCheck">
+                    <span translate="pages.ln.LN_CHECK">Loan Check</span>
+                </a>
+            </li>
+             <li menu="dkkh_5002" ui-sref-active="active">
+                <a ui-sref="app.ln.lnAccount">
+                    <span translate="pages.ln.LN_ACCOUNT">Loan Account</span>
+                </a>
+            </li>
+            <li menu="htlr_5004" ui-sref-active="active">
+                <a ui-sref="app.ln.lnContractEntry">
+                    <span translate="pages.ln.LN_CONTRACT_ENTRY">Loan Contract Entry</span>
+                </a>
+            </li>
+            <li menu="htgl_5005" ui-sref-active="active">
+                <a ui-sref="app.ln.lnContractMgmt">
+                    <span translate="pages.ln.LN_CONTRACT_MGMT">Loan Contract Management</span>
+                </a>
+            </li>
+            <li menu="fkgl_5006" ui-sref-active="active">
+                <a ui-sref="app.ln.lendingMgmt">
+                    <span translate="pages.ln.LN_LENDING_MGMT">Loan Lending Management</span>
+                </a>
+            </li>
+            <li menu="hkgl_5007" ui-sref-active="active">
+                <a ui-sref="app.ln.paymentMgmt" >
+                    <span translate="pages.ln.LN_PAYMENT_MGMT">Loan Payment Management</span>
+                </a>
+            </li>
+            <li menu="lscx_5008" ui-sref-active="active">
+                <a ui-sref="app.ln.historyQuery">
+                    <span translate="pages.ln.LN_HISTORY_QUERY">Loan History Query</span>
+                </a>
+            </li>
+            <li menu="dzgl_5009" ui-sref-active="active">
+                <a ui-sref="app.ln.badDebtMaintain">
+                    <span translate="pages.ln.LN_BADDEBT_MAINTAIN">Loan Debt Maintain</span>
+                </a>
+            </li>
+            <li menu="dkss_5010" ui-sref-active="active">
+                <a ui-sref="app.ln.calculateMgmt">
+                    <span translate="pages.ln.LN_CALCULATE_MGMT">Loan Calculate Management</span>
+                </a>
+            </li>
+            <li menu="zqsq_50110" ui-sref-active="active">
+                <a ui-sref="app.ln.gxManagement">
+                    <span translate="pages.ln.GX_MGMT">GX Management</span>
+                </a>
+            </li>
+            <li menu="zqcxsh_50111" ui-sref-active="active">
+                <a ui-sref="app.ln.gxQueryManagement">
+                    <span translate="pages.ln.GX_Query_MGMT">GX Query Management</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!-- 存款模块菜单 -->
+	<li>
+        <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+            <i class="icon-credit-card"></i>
+            <span translate="pages.dp.PAGES">Deposit Management</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span translate="pages.dp.PAGES">Deposit Management</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.dp.depManagement">
+                    <span translate="pages.dp.DEP_ACCT">Deposit Personal Account</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.dp.deposit">
+                    <span translate="pages.dp.AMT_ADD">Account Deposit Money</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.dp.withdraw">
+                    <span translate="pages.dp.AMT_WITHDRAW">Account Withdraw Money</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.dp.balance">
+                    <span translate="pages.dp.BALANCE_INQUIRE">Account Balance Query</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.dp.transfer">
+                    <span translate="pages.dp.AMT_TRANSFER">Intra Account Transfer</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.dp.trans">
+                    <span translate="pages.dp.TRANS_LIST">Transaction History List</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.dp.cancellation">
+                    <span translate="pages.dp.CLOSE_ACCOUNT">Customer Account Cancellation</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.dp.cancellinq">
+                    <span translate="pages.dp.CANCELLED_ACCOUNT_LIST">Cancelled Account Inquiry</span>
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="app.dp.bigactinq">
+                    <span translate="pages.dp.CANCELLED_ACCOUNT_LIST">Cancelled Account Inquiry</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!--系统参数模块菜单-->
+    <li menu="csgl_4000">
+        <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+            <i class="glyphicon glyphicon-cog icon"></i>
+            <span translate="pages.cp.CP_PAGES">参数管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span translate="pages.cp.CP_PAGES">参数管理</span>
+                </a>
+            </li>
+            <li menu="jgcsgl_4005" ui-sref-active="active">
+                <a ui-sref="app.cp.orgParameterManagement">
+                    <span translate="pages.cp.ORG_PARAM">机构参数管理</span>
+                </a>
+            </li>
+            <li menu="cpcsgl_4002" ui-sref-active="active">
+                <a ui-sref="app.cp.productParameterManagement">
+                    <span translate="pages.cp.PRODUCT_PARAM">产品参数管理</span>
+                </a>
+            </li>
+            <li menu="sctcsgl_4003" ui-sref-active="active">
+                <a ui-sref="app.cp.SCTParameterManagement">
+                    <span translate="pages.cp.SCT_PARAM">SCT参数管理</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+
+    <!--账务管理模块菜单-->
+    <li menu="cwgl_2000">
+        <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+            <i class="glyphicon glyphicon-cog icon"></i>
+            <span translate="pages.fm.FM_PAGES">账务管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li class="nav-sub-header">
+                <a href>
+                    <span translate="pages.fm.FM_PAGES">账务管理</span>
+                </a>
+            </li>
+            <li menu="kmgl_2001" ui-sref-active="active">
+                <a menu="" ui-sref="app.fm.subjectsMgt">
+                    <span translate="pages.fm.SUBJECT_MGT">科目管理</span>
+                </a>
+            </li>
+            <li menu="kjflgl_2002" ui-sref-active="active">
+                <a ui-sref="app.fm.accountingEntryMgt">
+                    <span translate="pages.fm.ACCOUNTING_ENTRY_MGT">会计分录管理</span>
+                </a>
+            </li>
+            <li menu="jzflmxcx_2003" ui-sref-active="active">
+                <a ui-sref="app.fm.billingEntriesDetailedInquiry">
+                    <span translate="pages.fm.BILLING_ENTRIES_DETAILED_INQUIRY">记账分录明细查询</span>
+                </a>
+            </li>
+
+            <li menu="kmmxlscx_2004" ui-sref-active="active">
+                <a ui-sref="app.fm.subjectDetailedFlowQuery">
+                    <span translate="pages.fm.SUBJECT_DETAILED_FLOW_QUERY">科目明细流水查询</span>
+                </a>
+            </li>
+            <li menu="zzzwgl_2005" ui-sref-active="active">
+                <a ui-sref="app.fm.generalLedgerAccountingMgt">
+                    <span translate="pages.fm.GENERAL_LEDGER_ACCOUNTING_MGT">总账账务管理</span>
+                </a>
+            </li>
+            <li menu="jylslb_2006" ui-sref-active="active">
+                <a ui-sref="app.fm.tradingList">
+                    <span translate="pages.fm.TRADING_LIST">交易流水列表</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <!-- 客户关系模块菜单 -->
+    <li menu="khgl_3000">
+        <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+            <i class="fa fa-usd icon"></i>
+            <span translate="pages.rm.PAGES">客户管理</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li menu="grkhgl_3001" ui-sref-active="active">
+                <a ui-sref="app.rm.PerCustomer">
+                    <span translate="pages.rm.PCUST.PCUST_MGMT">个人客户管理</span>
+                </a>
+            </li>
+            <li menu="dgkhgl_3002" ui-sref-active="active">
+                <a ui-sref="app.rm.BusinessManagement">
+                    <span translate="pages.rm.BCUST.BCUST_MGMT">对公客户管理</span>
+                </a>
+            </li>
+            <li menu="khsjgl_3003" ui-sref-active="active">
+                <a ui-sref="app.rm.CustomerEventManagement">
+                    <span translate="pages.rm.CTALE.CTALE_MGMT">客户事件管理</span>
+                </a>
+            </li>
+            <li menu="khzdyxxlb_3004" ui-sref-active="active">
+                <a ui-sref="app.rm.CustomizedInformationManagement">
+                    <span translate="pages.rm.CRDMN.CRDMN_MGMT">客户自定义信息</span>
+                </a>
+            </li>
+            <li menu="whls_3005" ui-sref-active="active">
+                <a ui-sref="app.rm.MaintenanceHistory">
+                    <span translate="pages.rm.HIST.HIST_MGMT">维护历史1</span>
+                </a>
+            </li>
+            <li menu="khgxgl_3006" ui-sref-active="active">
+                <a ui-sref="app.rm.CustRelationManagement">
+                    <span translate="pages.rm.CREAL.PAGES">客户关系管理</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    
+     <!-- SM -->
+    <li menu="xtgl_1000">
+        <a href class="auto">
+      <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
+      </span>
+            <i class="glyphicon glyphicon-cog icon"></i>
+            <span translate="pages.sm.PAGES">System Management</span>
+        </a>
+        <ul class="nav nav-sub dk">
+            <li  class="nav-sub-header">
+                <a href>
+                    <span translate="pages.sm.PAGES">System Management</span>
+                </a>
+            </li>
+            <li menu="jggl_1001" ui-sref-active="active">
+                <a ui-sref="app.sm.orgManagement">
+                    <span translate="pages.sm.org.ORG_MGMT">Organization Management</span>
+                </a>
+            </li>
+            <li menu="bmgl_1002" ui-sref-active="active">
+                <a ui-sref="app.sm.depManagement">
+                    <span translate="pages.sm.dep.DEP_MGMT">Department Management</span>
+                </a>
+            </li>
+             <li menu="zwgl_1003" ui-sref-active="active">
+                <a ui-sref="app.sm.posManagement">
+                    <span translate="pages.sm.pos.POS_MGMT">Position Management</span>
+                </a>
+            </li>
+            <li menu="jsgl_1004" ui-sref-active="active">
+                <a ui-sref="app.sm.userManagement">
+                    <span translate="pages.sm.user.USER_MGMT">User Management</span>
+                </a>
+            </li>
+            <li menu="yhgl_1005" ui-sref-active="active">
+                <a ui-sref="app.sm.roleManagement">
+                    <span translate="pages.sm.role.ROLE_MGMT">Role Management</span>
+                </a>
+            </li>
+            <li menu="cdgl_1006" ui-sref-active="active">
+                <a ui-sref="app.sm.menuManagement">
+                    <span translate="pages.sm.menu.MENU_MGMT">Menu Management</span>
+                </a>
+            </li>
+            <li menu="BTN" ui-sref-active="active">
+                <a ui-sref="app.sm.btnManagement">
+                    <span translate="pages.sm.btn.BTN_MGMT">Button Management</span>
+                </a>
+            </li>
+            <li menu="fwgl_1008" ui-sref-active="active">
+                <a ui-sref="app.sm.serviceManagement">
+                    <span translate="pages.sm.service.SERVICE_MGMT">Service Management</span>
+                </a>
+            </li>
+            <li menu="xxkgl_1007" ui-sref-active="active">
+                <a ui-sref="app.sm.optionsManagement">
+                    <span translate="pages.sm.options.OPTIONS_MGMT">Options Management</span>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
+<!-- / list -->
