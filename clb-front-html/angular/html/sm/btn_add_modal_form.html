@@ -1,0 +1,117 @@
+<div class="modal-body wrapper-lg no-padder">
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.btn.BTN_MGMT_FORM_TITLES.BTN_MGMT_FORM_TITLE_ADD_BTN">
+        </div>
+        
+        <div class="panel-body" id="addBtnPanel">
+            <div class="well b bg-warning bg lt text-dark wrapper-sm m-t">
+                 <strong>{{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}</strong>
+            </div>
+            
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+            
+            <!-- Specify "novalidate" here to disable the browser default validation -->
+            <!-- so we can get rid of the Bootstrap notification -->
+            <form name="formAddBtn" id="formAddBtn" class="form-validation" novalidate>
+                <fieldset ng-disabled="isFormDisabled">
+	                <div class="row">
+	                    <div class="col-lg-4">
+	                        <div class="form-group">
+	                            <label for="btnId" translate="pages.sm.btn.BTN_MGMT_FIELDS.BTN_MGMT_FIELD_BTN_ID" >
+	                                    btnId
+	                            </label>
+	                            
+	                            <input id="btnId" name="btnId" type="text" class="form-control" ng-model="fields.btnId"
+	                                           ng-blur="chkBtnIdExistence(formAddBtn['btnId'])" popover="{{ '' | translate}}"
+                                               popover-placement="bottom" popover-trigger="focus" ng-minlength="1" required
+	                                           placeholder="{{ 'pages.sm.btn.BTN_MGMT_PLACEHOLDERS.BTN_MGMT_PLACEHOLDER_BTN_ID ' | translate}}"/>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="col-lg-4">
+	                        <div class="form-group">
+	                            <label for="btnName" translate="pages.sm.btn.BTN_MGMT_FIELDS.BTN_MGMT_FIELD_BTN_NAME">
+	                                    btnName
+	                            </label>
+	                            <input id="btnName" name="btnName" type="text" class="form-control" ng-model="fields.btnName"
+	                                           popover="{{ '' | translate}}"
+                                               popover-placement="bottom" popover-trigger="focus" ng-minlength="1" required
+                                               placeholder="{{ 'pages.sm.btn.BTN_MGMT_PLACEHOLDERS.BTN_MGMT_PLACEHOLDER_BTN_NAME ' | translate}}"/>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="col-lg-4">
+	                        <div class="form-group">
+	                            <label for="status" translate="pages.sm.btn.BTN_MGMT_FIELDS.BTN_MGMT_FIELD_BTN_ENABLED">
+	                                          Status
+	                                    </label>
+	                                    <ui-select
+	                                        id="status"
+	                                        ng-model="selectedStatus.selected"
+	                                        on-select="statusSelectOnChange()"
+	                                        theme="bootstrap"
+	                                        ng-required="true"/>
+	                                    <ui-select-match placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+	                                             {{$select.selected.active}}
+	                                    </ui-select-match>
+	                                    <ui-select-choices repeat="item in status | filter: $select.search">
+	                                        <span ng-bind-html="item.active | highlight: $select.search"></span>
+	                                    </ui-select-choices>
+	                                    <ui-select-no-choice>
+	                                        {{ 'pages.sm.btn.BTN_MGMT_PLACEHOLDERS.BTN_MGMT_NO_RECORD' | translate }}
+	                                    </ui-select-no-choice>
+	                            </ui-select>
+	                        </div>
+	                    </div>
+	                </div>
+	                
+	                <div class="row">
+	                   <div class="col-lg-12">
+	                       <div class="form-group">
+	                           <label for="BtnDescription"
+                                       translate="pages.sm.btn.BTN_MGMT_FIELDS.BTN_MGMT_FIELD_BTN_DESC">
+                                    OptDescription
+                                </label>
+                                <textarea id="btnDescription" name="btnDescription"  style="max-width: 100%; min-width: 100%; min-height: fit-content;"
+                                          class="form-control"  ng-minlength="1" ng-maxlength="200" required ng-model="fields.btnDescription"
+                                                placeholder="{{ 'pages.sm.btn.BTN_MGMT_PLACEHOLDERS.BTN_MGMT_PLACEHOLDER_BTN_DESCRIPTION_RULE ' | translate}}">
+                            </textarea>
+	                       </div>
+	                   </div>
+	                </div>
+                
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnSave"
+                                        ng-click="add()" ng-disabled="formAddBtn.$invalid">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose"
+                                        ng-click="cancel()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                </fieldset>
+            </form>
+            
+            
+            
+        </div>
+    </div>
+</div>

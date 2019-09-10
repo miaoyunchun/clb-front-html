@@ -1,0 +1,182 @@
+<!-- This page has been included in org_mgt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+	<div class="panel panel-default m-b-none">
+		<div class="panel-heading font-bold"
+			translate="pages.ln.LN_ACCOUNT"></div>
+		<div class="panel-body" id="editOrgPanel">
+			<div class="well b bg-warning bg text-dark lt wrapper-sm m-t">
+				<strong>{{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N"
+					| translate}}</strong>
+			</div>
+
+			<!-- alert -->
+			<div class="m-b-md">
+				<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+					close="closeAlert($index)">{{alert.msg}} </alert>
+			</div>
+
+			<form name="formLoanAccount" id="formLoanAccount"
+				class="form-validation">
+
+				<fieldset ng-disabled="isFormDisabled">
+
+					<!-- Organization basic info -->
+					<div class="row">
+
+						<!-- Column 1 -->
+						<div class="col-lg-3">
+						<input id="lncappf_id" name="lncappf_id" type="text"  style="display:none"
+									class="form-control "  ng-model="fields.lncappf_id"   >
+						<input id="customer_number" name="customer_number" type="text" style="display:none"
+						class="form-control " ng-model="fields.customer_number"  >
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_ACCOUNT_MODAL_FORM_INPUTS.DOCUMENT_TYPE"> 证件类型 </label> <input
+									id="lncappf_cust_type" name="lncappf_cust_type" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.orgNoRule }}"
+									ng-model="fields.lncappf_cust_type" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_ACCOUNT_MODAL_FORM_INPUTS.CURRENCY"> 币种 </label> <input
+									id="ccy_name" name="ccy_name" type="text" class="form-control "
+									placeholder="{{ placeholders.orgNoRule }}"
+									ng-model="fields.ccy_name" required >
+							</div>
+							<div class="form-group">
+								<label for="isEnabled" translate="pages.ln.LOAN_ACCOUNT_MODAL_FORM_INPUTS.EXPIRATION_DATE"> 账户到期日 </label>
+								<div ng-controller="AvailDateCtrl">
+									<div class="input-group">
+										<input type="text" class="form-control"
+											datepicker-popup="{{format}}" ng-model="fields.loan_last_date"
+											placeholder="{{placeholders.availDate}}" id="loan_last_date"
+											name="loan_last_date"  is-open="opened"
+											datepicker-options="dateOptions" ng-required="true"
+											close-text="Close" /> <span class="input-group-btn">
+											<button type="button" class="btn btn-default" 
+												ng-click="open($event)">
+												<i class="glyphicon glyphicon-calendar"></i>
+											</button>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Column 2 -->
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_ACCOUNT_MODAL_FORM_INPUTS.ID_MUMBER"> 证件号码 </label> <input
+									id="lncappf_cust_no" name="lncappf_cust_no" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.orgNoRule }}"
+									ng-model="fields.lncappf_cust_no" required readonly>
+							</div>
+
+							<div class="form-group">
+								<label for="isEnabled" translate="pages.ln.LOAN_ACCOUNT_MODAL_FORM_INPUTS.ACCOUNT_STATUS"> 账户状态 </label> 
+								<ui-select
+                                     id="acct_status"
+                                     ng-model="selectedAcctStatus.item"
+                                     on-select="acctStatusSelectOnChange()"
+                                     ng-required="true"
+                                     theme="bootstrap">
+                                 <ui-select-match
+                                         placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                     {{$select.selected.value}}
+                                 </ui-select-match>
+                                 <ui-select-choices repeat="item in acctStatus | filter: $select.search">
+                                     <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                 </ui-select-choices>
+                                 <ui-select-no-choice>
+                                     {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                     translate }}
+                                 </ui-select-no-choice>
+                               </ui-select>
+								<!-- 
+								<input
+									id="acct_status" name="acct_status" type="text" class="form-control "
+									placeholder="{{ placeholders.orgNoRule }}"
+									ng-model="fields.acct_status" required> -->
+							</div>
+						</div>
+
+						<!-- Column 3 -->
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="isEnabled" translate="pages.ln.LOAN_ACCOUNT_MODAL_FORM_INPUTS.CUSTOMER_NAME"> 客户姓名 </label> <input
+									id="loan_name" name="loan_name" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.orgNoRule }}"
+									ng-model="fields.loan_name" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_ACCOUNT_MODAL_FORM_INPUTS.INTEREST_TYPE"> 利率类型 </label> 
+								<ui-select
+                                     id="rate_type"
+                                     ng-model="selectedRateType.item"
+                                     on-select="rateTypeSelectOnChange()"
+                                     ng-required="true"
+                                     theme="bootstrap">
+                                 <ui-select-match
+                                         placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                     {{$select.selected.value}}
+                                 </ui-select-match>
+                                 <ui-select-choices repeat="item in rateType | filter: $select.search">
+                                     <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                 </ui-select-choices>
+                                 <ui-select-no-choice>
+                                     {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                     translate }}
+                                 </ui-select-no-choice>
+                               </ui-select>
+								<!-- <input
+									id="rate_type" name="rate_type" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.orgNoRule }}"
+									ng-model="fields.rate_type" required> -->
+							</div>
+						</div>
+
+						<!-- Column 4 -->
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_ACCOUNT_MODAL_FORM_INPUTS.PRODUCT_TYPE"> 产品类型 </label> <input
+									id="prod_id" name="prod_id" type="text" class="form-control "
+									placeholder="{{ placeholders.orgNoRule }}"
+									ng-model="fields.prod_id" required >
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_ACCOUNT_MODAL_FORM_INPUTS.INTEREST"> 利率 </label> <input
+									id="rate" name="rate" type="text" class="form-control "
+									placeholder="{{ placeholders.orgNoRule }}" required
+									ng-model="fields.rate">
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-lg-6"></div>
+							<div class="col-lg-2"></div>
+							<div class="col-lg-2" id="div_check">
+								<button class="btn m-b-xs btn-default btn-success btn-addon"
+									id="btnSave" ng-click="add()" ng-disabled="formLoanAccount.$invalid">
+									{{'pages.ln.GX_MGMT_BUTTON.GX_MGMT_BUTTON_CHECK' | translate}} <i class="fa fa-plus"></i>
+								</button>
+							</div>
+							<div class="col-lg-2">
+								<button class="btn m-b-xs btn-default btn-success btn-addon"
+									id="btnClear" ng-click="cancel()">
+									{{'pages.ln.GX_MGMT_BUTTON.GX_MGMT_BUTTON_CANCEL' | translate}}
+									<i class="fa fa-times"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>

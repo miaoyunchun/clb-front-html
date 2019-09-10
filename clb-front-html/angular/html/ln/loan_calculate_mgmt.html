@@ -1,0 +1,208 @@
+<div class="bg-light lter b-b wrapper-md">
+	<h1 class="m-n font-thin h3" translate="pages.ln.LN_CALCULATE_MGMT">LoanContract
+		Entry</h1>
+</div>
+
+<!-- toaster directive -->
+<toaster-container
+	toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="wrapper-md" ng-controller="LoanCalculateMgmtCtrl">
+
+	<div ng-controller="AccordionCtrl">
+		<accordion close-others="oneAtATime"> <accordion-group
+			heading="{{accordionTitle}}" is-open="status.isFirstOpen"
+			is-disabled="status.isFirstDisabled">
+		<form name="formLnFilter" id="formLnFilter">
+			<!-- Column 1 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="setting_way"
+							translate="pages.ln.LOAN_CAL_FORM_INPUTS.LOAN_PRINCIPAL"> 贷款本金 </label>
+						<div class="col-lg-7">
+							<input id="param_ln_principal" name="param_ln_principal" type="text"
+								class="form-control"
+								ng-model="fields.param_ln_principal">
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="ints_type"
+							translate="pages.ln.LOAN_CAL_FORM_INPUTS.INTEREST_TYPE">利率类型</label>
+						<div class="col-lg-7">
+							<input id="param_interst_type" name="param_interst_type" type="text"
+								class="form-control"
+								ng-model="fields.param_interst_type">
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Column 2 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="setting_way"
+							translate="pages.ln.LOAN_CAL_FORM_INPUTS.INTEREST_SETTLEMENT"> 结息方式 </label>
+						<div class="col-lg-7">
+							<ui-select
+                                     id="param_ints_settle_way"
+                                     ng-model="selectedParamIntsSettleWay.item"
+                                     on-select="paramIntsSettleWaySelectOnChange()"
+                                     ng-required="true"
+                                     theme="bootstrap">
+                                 <ui-select-match
+                                         placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                     {{$select.selected.value}}
+                                 </ui-select-match>
+                                 <ui-select-choices repeat="item in paramIntsSettleWay | filter: $select.search">
+                                     <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                 </ui-select-choices>
+                                 <ui-select-no-choice>
+                                     {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                     translate }}
+                                 </ui-select-no-choice>
+                             </ui-select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="periods"
+							translate="pages.ln.LOAN_CAL_FORM_INPUTS.TOTAL_PERIODS">总期数 </label>
+						<div class="col-lg-7">
+							<input id="param_periods" name="param_periods" type="text"
+								class="form-control"
+								ng-model="fields.param_periods">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Column 3 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="orgNbr"
+							translate="pages.ln.LOAN_CAL_FORM_INPUTS.CURRENCY">币种</label>
+						<div class="col-lg-7">
+							<ui-select
+                                     id="param_currency"
+                                     ng-model="selectedParamCurrency.item"
+                                     on-select="paramCurrencySelectOnChange()"
+                                     ng-required="true"
+                                     theme="bootstrap">
+                                 <ui-select-match
+                                         placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                     {{$select.selected.value}}
+                                 </ui-select-match>
+                                 <ui-select-choices repeat="item in paramCurrency | filter: $select.search">
+                                     <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                 </ui-select-choices>
+                                 <ui-select-no-choice>
+                                     {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                     translate }}
+                                 </ui-select-no-choice>
+                             </ui-select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="orgNbr"
+							translate="pages.ln.LOAN_CAL_FORM_INPUTS.LOAN_INTEREST">贷款利率</label>
+						<div class="col-lg-7">
+							<input id="param_lending_rate" name="param_lending_rate" type="text"
+								class="form-control"
+								ng-model="fields.param_lending_rate">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Column 4 -->
+			<div class="col-lg-3">
+				<div class="form-horizontal">
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="orgNbr"
+							translate="pages.ln.LOAN_CAL_FORM_INPUTS.REPAYMENT_METHOD">还款方式</label>
+						<div class="col-lg-7">
+							<ui-select
+                                     id="param_pay_way"
+                                     ng-model="selectedParamPayWay.item"
+                                     on-select="paramPayWaySelectOnChange()"
+                                     ng-required="true"
+                                     theme="bootstrap">
+                                 <ui-select-match
+                                         placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                     {{$select.selected.value}}
+                                 </ui-select-match>
+                                 <ui-select-choices repeat="item in paramPayWay | filter: $select.search">
+                                     <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                 </ui-select-choices>
+                                 <ui-select-no-choice>
+                                     {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                     translate }}
+                                 </ui-select-no-choice>
+                             </ui-select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-lg-5 control-label" for="orgNbr"
+							translate="pages.ln.LOAN_CAL_FORM_INPUTS.TOTAL_INTEREST">总利息</label>
+						<div class="col-lg-7">
+							<input id="param_total_interest" name="param_total_interest" type="text" readonly
+								class="form-control"
+								ng-model="fields.param_total_interest">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4" style="float:right;left: 15%">
+				<div class="col-lg-4">
+					<button class="btn m-b-xs btn-sm btn-success btn-addon"
+						ng-click="search()" ng-disabled="formLnFilter.$invalid">
+						{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SEARCH' | translate}}
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+				<div class="col-lg-4">
+					<button class="btn m-b-xs btn-sm btn-default btn-addon"
+						type="reset" ng-click="clear()">
+						{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+						<i class="fa fa-times"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+
+		</accordion-group> </accordion>
+	</div>
+
+	<!-- Action buttons -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table ui-jq="dataTable" ui-options="{{dataTableParms}}"
+							class="table display" id="tblLoanCalculateMgmt">
+							<thead>
+								<tr>
+									<th translate="pages.ln.LN_CALCULATE_TITLES.REPAY_PERIODS">
+										还款期号</th>
+									<th translate="pages.ln.LN_CALCULATE_TITLES.REPAY_PRINCIPAL">
+										应还本金</th>
+									<th
+										translate="pages.ln.LN_CALCULATE_TITLES.REPAY_INTEREST">
+										应还利息 </th>
+									<th
+										translate="pages.ln.LN_CALCULATE_TITLES.REPAY_TOTAL_AMOUNT">
+										应还总额 </th>
+									<th
+										translate="pages.ln.LN_CALCULATE_TITLES.REMAIN_AMOUNT">
+										本金余额 </th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

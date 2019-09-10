@@ -1,0 +1,380 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <!--modal框标题-->
+        <div class="panel-heading font-bold"
+             translate="pages.fm.TITLES.SUBJECT_DETAIL"></div>
+
+
+        <div class="panel-body" id="editSubPanel">
+
+            <div class="well b bg-light lt wrapper-sm m-t">
+                {{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <form name="formEditSubject" id="formEditSubject" class="form-validation">
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <!--column 1-->
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="item_key"
+                                       translate="pages.fm.SUBJECTS.ITEM_KEY">
+                                    Item Key
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="item_key" name="item_key" type="text"
+                                       class="form-control"
+                                       ng-maxlength="8" ng-model="item_key"
+                                       required readonly="readonly">
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="item_level"
+                                       translate="pages.fm.SUBJECTS.ITEM_LEVEL">
+                                    Item Level
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="item_level"
+                                        name="item_level"
+                                        class="form-control"
+                                        ng-model="item_level"
+                                        disabled="true">
+                                    <option value></option>
+                                    <option ng-repeat="x in itemLevels2" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="item_name"
+                                       translate="pages.fm.SUBJECTS.ITEM_NAME">
+                                    Item Name
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="item_name" name="item_name" type="text"
+                                       class="form-control"
+                                       ng-maxlength="40" ng-model="item_name"
+                                       required readonly="readonly">
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--column 2-->
+                    <div class="row">
+
+                        <!--操作时间-->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="op_time_stamp"
+                                       translate="pages.fm.SUBJECTS.OP_TIME_STAMP">
+                                    Operate Time Stamp
+                                </label>
+                                <span style="color:red">*</span>
+                                <div ng-controller="DateCtrl" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="op_time_stamp"
+                                               is-open="opened" datepicker-options="dateOptions"
+                                               id="op_time_stamp"	name="op_time_stamp"
+                                               placeholder="{{ 'pages.cp.PLACEHOLDERS.ORGANIZATION.DATE_CHOOSE'| translate}}"
+                                               close-text="Close" readonly="readonly"/>
+
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--余额方向-->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="bal_dire_flg"
+                                       translate="pages.fm.SUBJECTS.BAL_DIRE_FLG">
+                                    Balance Direction Flag
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="bal_dire_flg"
+                                        name="bal_dire_flg"
+                                        class="form-control"
+                                        ng-model="bal_dire_flg"
+                                        disabled="true">
+                                    <option value></option>
+                                    <option ng-repeat="x in balDireFlags" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <!--总账账户-->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="gl_account"
+                                       translate="pages.fm.SUBJECTS.GL_ACCOUNT">
+                                    Gl Account
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="gl_account"
+                                        name="gl_account"
+                                        class="form-control"
+                                        ng-model="gl_account"
+                                        disabled="true">
+                                    <option value></option>
+                                    <option ng-repeat="x in glAccounts" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--column 3-->
+                    <div class="row">
+
+                        <!--总账计算-->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="cal_gl_account"
+                                       translate="pages.fm.SUBJECTS.CAL_GL_ACCOUNT">
+                                    Cal Gl Account
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="cal_gl_account"
+                                        name="cal_gl_account"
+                                        class="form-control"
+                                        ng-model="cal_gl_account"
+                                        disabled="true">
+                                    <option value></option>
+                                    <option ng-repeat="x in calGlAccounts" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--最明细科目-->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="class_item"
+                                       translate="pages.fm.SUBJECTS.CLASS_ITEM">
+                                    Class Item
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="class_item"
+                                        name="class_item"
+                                        class="form-control"
+                                        ng-model="class_item"
+                                        disabled="true">
+                                    <option value></option>
+                                    <option ng-repeat="x in classItems" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--外汇买卖科目标志-->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="fx_item_flag"
+                                       translate="pages.fm.SUBJECTS.FX_ITEM_FLAG">
+                                    Fx Item Flag
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="fx_item_flag"
+                                        name="fx_item_flag"
+                                        class="form-control"
+                                        ng-model="fx_item_flag"
+                                        disabled="true">
+                                    <option value></option>
+                                    <option ng-repeat="x in fxItemFlags" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--column 4-->
+                    <div class="row">
+
+                        <!--表内外科目标志-->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="in_out_flag"
+                                       translate="pages.fm.SUBJECTS.IN_OUT_FLAG">
+                                    In Out Flag
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="in_out_flag"
+                                        name="in_out_flag"
+                                        class="form-control"
+                                        ng-model="in_out_flag"
+                                        disabled="true">
+                                    <option value></option>
+                                    <option ng-repeat="x in inOutFlags" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--业务类别-->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="buss_type"
+                                       translate="pages.fm.SUBJECTS.BUSS_TYPE">
+                                    Buss Type
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="buss_type"
+                                        name="buss_type"
+                                        class="form-control"
+                                        ng-model="buss_type"
+                                        disabled="true">
+                                    <option value></option>
+                                    <option ng-repeat="x in bussTypes" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--发生额方向-->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="tran_amt_dir"
+                                       translate="pages.fm.SUBJECTS.TRAN_AMT_DIR">
+                                    Tran Amt Dir
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="tran_amt_dir"
+                                        name="tran_amt_dir"
+                                        class="form-control"
+                                        ng-model="tran_amt_dir"
+                                        disabled="true">
+                                    <option value></option>
+                                    <option ng-repeat="x in tranAmtDirs" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--column 5-->
+                    <div class="row">
+                        <!--科目启用日期-->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="item_start_date"
+                                       translate="pages.fm.SUBJECTS.ITEM_START_DATE">
+                                    Item Start Date
+                                </label>
+                                <span style="color:red">*</span>
+                                <div ng-controller="DateCtrl" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="item_start_date"
+                                               is-open="opened" datepicker-options="dateOptions" required
+                                               id="item_start_date"	name="item_start_date"
+                                               placeholder="{{ 'pages.cp.PLACEHOLDERS.ORGANIZATION.DATE_CHOOSE'| translate}}"
+                                               close-text="Close" readonly="readonly"/>
+
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--科目到期日期-->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="item_end_date"
+                                       translate="pages.fm.SUBJECTS.ITEM_END_DATE">
+                                    Item End Date
+                                </label>
+                                <span style="color:red">*</span>
+                                <div ng-controller="DateCtrl" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="item_end_date"
+                                               is-open="opened" datepicker-options="dateOptions" required
+                                               id="item_end_date"	name="item_end_date"
+                                               placeholder="{{ 'pages.cp.PLACEHOLDERS.ORGANIZATION.DATE_CHOOSE'| translate}}"
+                                               close-text="Close" readonly="readonly"/>
+
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--按钮-->
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="form-group">
+
+                                <div class="col-lg-2">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" style="width:100px;margin-top:10px;margin-left: 650px"
+                                            ng-click="cancelSubject()">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+            </form>
+
+
+        </div>
+    </div>
+</div>

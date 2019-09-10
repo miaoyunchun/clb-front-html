@@ -1,0 +1,353 @@
+<!-- This page has been included in org_mgmt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder"  >
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.ln.GX_MGMT_FORM_TITLES.LOAN_APPLY_EXTENSION">
+        </div>
+        <div class="panel-body" ng-controller="lnController">
+        <!-- toaster directive -->
+		<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<!--             <div class="well b bg-light lt wrapper-sm m-t"> -->
+<!--                 {{"pages.sm.ORG_MGMT_NOTIFICATION_TEXTS.ORG_MGMT_NOTIFICATION_I18N" | translate}} -->
+<!--             </div> -->
+
+           
+            
+			<!-- 展期申请表单 -->
+            <form name="formLnApply" id="formLnApply" class="form-validation" >
+	 			<!-- alert -->
+		            <div class="m-b-md">
+		                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+		                </alert>
+		            </div>
+                <fieldset ng-disabled="isFormDisabled">
+                    <!-- Organization basic info -->
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-3" >
+                            <div class="form-group" >
+                                <label for="loanNbr"
+                                       translate="pages.ln.LN_APPLY_FIELDS.DOCUMENT TYPE">
+                                       	证件类型
+                                </label>
+                                <ui-select
+                                           id="document_type"
+                                           ng-model="selectedDocumentType.item"
+                                           on-select="documentTypeSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in documentType | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="auditCustId"
+                                       translate="pages.ln.LN_APPLY_FIELDS.DOCUMENT NUMBER">
+                                    	证件号码
+                                </label>
+                               <input id="document_number" name="document_number"  type="text" 
+                                       class="form-control"	ng-blur="checkblur()"
+                                       ng-model="fields.document_number"   
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="loanAccount"
+                                       translate="pages.ln.LN_APPLY_FIELDS.CUSTOMER NAME">
+                                    	客户名称
+                                </label>
+                               <input id="customer_name" name="name" type="text"
+                                       class="form-control"
+                                       ng-model="fields.customer_name" 
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 4 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="custName"
+                                       translate="pages.ln.LN_APPLY_FIELDS.CUSTOMERS BIRTHDAY">
+                                    	客户生日
+                                </label>
+                                <div ng-controller="AvailDateCtrl" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="fields.customers_birthday" 
+                                               id="customers_birthday"	name="birth" 
+                                               is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                               close-text="Close"/>
+                                              
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default"  ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Name and description -->
+                    <div class="row">
+                        <!-- Name and description in Simplified Chinese -->
+                        <div   class="col-lg-3">
+                            <div class="form-group">
+                                <label for="loanDueDate"
+                                       translate="pages.ln.LN_APPLY_FIELDS.HIGHEST DEGREE">
+                                    	最高学历
+                                </label>
+                                <ui-select
+                                           id="highest_degree"
+                                           ng-model="selectedHighestDegree.item"
+                                           on-select="highestDegreeSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in highestDegree | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                 </ui-select>
+                            </div>
+                            <div class="form-group">
+                                <label for="prodType"
+                                       translate="pages.ln.LN_APPLY_FIELDS.MONTHLY SALARY">
+                                    	每月工资
+                                </label>
+                                <input type="text" class="form-control" id="monthly_salary"
+                                       name="salary" 
+                                       ng-model="fields.monthly_salary"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="remark"
+                                       translate="pages.ln.LN_APPLY_FIELDS.CONSUMPTION LEVEL">
+                                   		 消费水平
+                                </label>
+                                <ui-select
+                                           id="consumption_level"
+                                           ng-model="selectedConsumptionLevel.item"
+                                           on-select="consumptionLevelSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in consumptionLevel | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                 </ui-select>
+                            </div>
+                        </div>
+
+                        <!-- Name and description in Traditional Chinese -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="loanAmt"
+                                       translate="pages.ln.LN_APPLY_FIELDS.ENGAGED IN OCCUPATION">
+                                   		从事职业
+                                </label>
+                                <input type="text" class="form-control" id="engaged_in_occupation"
+                                       name="job"	
+                                        ng-model="fields.engaged_in_occupation" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="extendDate"
+                                       translate="pages.ln.LN_APPLY_FIELDS.CREDIT RATING">
+                                    	信用等级
+                                </label>
+                                <ui-select
+                                           id="credit_rating"
+                                           ng-model="selectedcreditRating.item"
+                                           on-select="creditRatingSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in creditRating | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                 </ui-select>
+                            </div>
+                            <div class="form-group">
+                                <label for="remark"
+                                       translate="pages.ln.LN_APPLY_FIELDS.LOAN TYPE">
+                                   		 贷款类型
+                                </label>
+                                <ui-select
+                                           id="loan_type"
+                                           ng-model="selectedloanType.item"
+                                           on-select="loanTypeSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in loanType | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                 </ui-select>
+                            </div>
+                        </div>
+
+                        <!-- Name and description in English -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="extendFee"
+                                       translate="pages.ln.LN_APPLY_FIELDS.COMPANY NAME">
+                                    	公司名称
+                                </label>
+                                <input id="company_name" name="company_name" type="text"
+                                       class="form-control"		
+                                       ng-model="fields.company_name"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="extendRate"
+                                       translate="pages.ln.LN_APPLY_FIELDS.COMPANY LOGO">
+                                     	 公司标识
+                                </label>
+                                <input type="text" class="form-control" id="company_logo"
+                                       name="listed_company_mark"	
+                                       ng-model="fields.company_logo"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="remark"
+                                       translate="pages.ln.LN_APPLY_FIELDS.COMPANY SIZE">
+                                   		公司规模
+                                </label>
+                                <ui-select
+                                           id="company_size"
+                                           ng-model="selectedcompanySize.item"
+                                           on-select="companySizeSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in companySize | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                 </ui-select>
+                            </div>
+                        </div>
+                        
+                        <!-- Name and description in English -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="loan_product_list"
+                                       translate="pages.ln.LN_APPLY_FIELDS.LOAN PRODUCT LIST">
+                                   		 贷款产品表（临时）
+                                </label>
+                                <ui-select
+                                           id="loan_product_list"
+                                           ng-model="selectedloanProductList.item"
+                                           on-select="loanProductListSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in loanProductList | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                 </ui-select>
+                            </div>
+                            <div class="form-group">
+                                <label for="loan_amount"
+                                       translate="pages.ln.LN_APPLY_FIELDS.LOAN AMOUNT">
+                                   		 贷款金额
+                                </label>
+                                <input id="loan_amount" name="lncappf_amt" type="text"
+                                       class="form-control"
+                                       ng-model="fields.loan_amount"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="card_number"
+                                       translate="pages.ln.LN_APPLY_FIELDS.CUSTOMER NUMBER">
+                                   		 客户卡号
+                                </label>
+                                <input id="card_number" name="lncappf_card_no" type="text"
+                                       class="form-control"
+                                       ng-model="fields.card_number"  required>
+                            </div>
+                        </div>
+                        	<!-- 隐藏框 开始-->
+						<div style="display:none">
+							<input id="customer_number" name="customer_number" type="text"
+								ng-model="fields.customer_number" class="form-control">
+						</div>
+						<!-- 隐藏框结束 -->
+                    </div>
+
+  					
+                    <div class="row" >
+                        <div style="float:right">
+<!--                             <div class="col-lg-6"></div> -->
+<!--                             <div class="col-lg-2"></div> -->
+                            <div >
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:180px;margin-right:10px" id="btnSave"  ng-click="add()" ng-disabled="formLnApply.$invalid">
+                                    {{'pages.ln.GX_MGMT_BUTTON.GX_MGMT_BUTTON_APPLY' | translate}}
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClear" style="width:180px;margin-left:70px;margin-right:15px"
+                                        ng-click="cancel()">
+                                    {{'pages.ln.GX_MGMT_BUTTON.GX_MGMT_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

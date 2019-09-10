@@ -1,0 +1,282 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <!--modal框标题-->
+        <div class="panel-heading font-bold"
+             translate="pages.fm.ITEM_DETAIL_LIST.TITLE_ITEM_DETAIL">科目明细流水列表详细查询</div>
+
+
+        <div class="panel-body" id="editSubPanel">
+
+            <div class="well b bg-light lt wrapper-sm m-t">
+                {{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <form name="formItemDetailInf" id="formItemDetailInf" class="form-validation">
+                <!--column 1-->
+                <div class="row">
+                	<div class="col-lg-4">
+                    <div>
+                        <div class="form-group">
+                            <label for="txn_jour_t" translate="pages.fm.TRAD_LIST.TRAD_TXN_JOUR">
+                             	   交易流水号
+                            </label>
+                            <input id="txn_jour_t" name="txn_jour_t" type="text"
+                                   class="form-control" ng-model="fields.txn_jour_t"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="txn_time" translate="pages.fm.ITEM_DETAIL_LIST.TXN_TIME">
+                             	   交易时间
+                            </label>
+                            <input id="txn_time" name="txn_time" type="text"
+                                   class="form-control" ng-model="fields.txn_time"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="txn_descrip" translate="pages.fm.ITEM_DETAIL_LIST.TXN_DESCRIP">
+                             	  摘要
+                            </label>
+                            <input id="txn_descrip" name="txn_descrip" type="text"
+                                   class="form-control" ng-model="fields.txn_descrip"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="item_bal" translate="pages.fm.ITEM_DETAIL_LIST.ITEM_BAL">
+                             	   余额
+                            </label>
+                            <input id="item_bal" name="item_bal" type="text"
+                                   class="form-control" ng-model="fields.item_bal"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="txn_instin" translate="pages.fm.ITEM_DETAIL_LIST.TXN_INSTIN">
+                             	   交易机构
+                            </label>
+                            <input id="txn_instin" name="txn_instin" type="text"
+                                   class="form-control" ng-model="fields.txn_instin"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="txn_fxr" translate="pages.fm.ITEM_DETAIL_LIST.TXN_FXR">
+                             	 汇率
+                            </label>
+                            <input id="txn_fxr" name="txn_fxr" type="text"
+                                   class="form-control" ng-model="fields.txn_fxr"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="dscrp_cod" translate="pages.fm.ITEM_DETAIL_LIST.DSCRP_COD">
+                             	  摘要代码
+                            </label>
+                            <input id="dscrp_cod" name="dscrp_cod" type="text"
+                                   class="form-control" ng-model="fields.dscrp_cod"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="txn_unit" translate="pages.fm.ITEM_DETAIL_LIST.TXN_UNIT">
+                             	  单位
+                            </label>
+                            <input id="txn_unit" name="txn_unit" type="text"
+                                   class="form-control" ng-model="fields.txn_unit"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                </div>
+                <!--column 2-->
+               	<div class="col-lg-4">
+                	<div>
+                        <div class="form-group">
+                            <label for="txn_date_t" translate="pages.fm.TRAD_LIST.TRAD_BUSN_DATE">
+                             	   交易日期
+                            </label>
+                            <input id="txn_date_t" name="txn_date_t" type="text"
+                                   class="form-control" ng-model="fields.txn_date_t"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="doc_type" translate="pages.fm.ITEM_DETAIL_LIST.DOC_TYPE">
+                             	  凭证种类
+                            </label>
+                            <input id="doc_type" name="doc_type" type="text"
+                                   class="form-control" ng-model="fields.doc_type"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="txn_amt" translate="pages.fm.ITEM_DETAIL_LIST.TXN_AMT">
+                             	  交易金额
+                            </label>
+                            <input id="txn_amt" name="txn_amt" type="text"
+                                   class="form-control" ng-model="fields.txn_amt"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="opr_nbr" translate="pages.fm.ITEM_DETAIL_LIST.OPR_NBR">
+                             	   交易操作员号
+                            </label>
+                            <input id="opr_nbr" name="opr_nbr" type="text"
+                                   class="form-control" ng-model="fields.opr_nbr"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="val_date" translate="pages.fm.ITEM_DETAIL_LIST.VAL_DATE">
+                             	   起息日
+                            </label>
+                            <input id="val_date" name="val_date" type="text"
+                                   class="form-control" ng-model="fields.val_date"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="second_amt" translate="pages.fm.ITEM_DETAIL_LIST.SECOND_AMT">
+                             	 本位币金额
+                            </label>
+                            <input id="second_amt" name="second_amt" type="text"
+                                   class="form-control" ng-model="fields.second_amt"
+                                    readonly="readonly">
+
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="txn_seq_nbr" translate="pages.fm.ITEM_DETAIL_LIST.TXN_SEQ_NBR">
+                             	  当日明细序号
+                            </label>
+                            <input id="txn_seq_nbr" name="txn_seq_nbr" type="text"
+                                   class="form-control" ng-model="fields.txn_seq_nbr"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                </div>
+                <!--column 3-->
+                <div class="col-lg-4">
+                    <div>
+                        <div class="form-group">
+                            <label for="txn_type" translate="pages.fm.TRAD_LIST.TRAD_TXN_TYPE">
+                             	   交易类型
+                            </label>
+                            <input id="txn_type" name="txn_type" type="text"
+                                   class="form-control" ng-model="fields.txn_type"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="form-group">
+                            <label for="doc_nbr" translate="pages.fm.ITEM_DETAIL_LIST.DOC_NBR">
+                             	   凭证号码
+                            </label>
+                            <input id="doc_nbr" name="doc_nbr" type="text"
+                                   class="form-control" ng-model="fields.doc_nbr"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="dc_cod" translate="pages.fm.ITEM_DETAIL_LIST.DC_COD">
+                             	  借贷别
+                            </label>
+                            <input id="dc_cod" name="dc_cod" type="text"
+                                   class="form-control" ng-model="fields.dc_cod"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="rchr_nbr" translate="pages.fm.ITEM_DETAIL_LIST.RCHR_NBR">
+                             	   复核员号
+                            </label>
+                            <input id="rchr_nbr" name="rchr_nbr" type="text"
+                                   class="form-control" ng-model="fields.rchr_nbr"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="recon_nbr" translate="pages.fm.ITEM_DETAIL_LIST.RECON_NBR">
+                             	  销账编号
+                            </label>
+                            <input id="recon_nbr" name="recon_nbr" type="text"
+                                   class="form-control" ng-model="fields.recon_nbr"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="second_bal" translate="pages.fm.ITEM_DETAIL_LIST.SECOND_BAL">
+                             	本位币余额
+                            </label>
+                            <input id="second_bal" name="second_bal" type="text"
+                                   class="form-control" ng-model="fields.second_bal"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="form-group">
+                            <label for="doc_end_no" translate="pages.fm.ITEM_DETAIL_LIST.DOC_END_NO">
+                             	  凭证止号
+                            </label>
+                            <input id="doc_end_no" name="doc_end_no" type="text"
+                                   class="form-control" ng-model="fields.doc_end_no"
+                                    readonly="readonly">
+                        </div>
+                    </div>
+                </div>
+				</div>
+                <!--按钮-->
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="form-group">
+
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" style="width:100px;margin-top:10px;margin-left: 650px"
+                                        ng-click="cancelItem()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

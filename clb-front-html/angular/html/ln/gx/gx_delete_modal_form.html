@@ -1,0 +1,144 @@
+<!-- This page has been included in org_mgt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.org.ORG_MGMT_FORM_TITLES.ORG_MGMT_FORM_TITLE_DELETE_ORG"></div>
+        <div class="panel-body" id="editOrgPanel">
+            <div class="well b bg-warning bg text-dark lt wrapper-sm m-t">
+                <strong>{{"pages.sm.org.ORG_MGMT_NOTIFICATION_TEXTS.ORG_MGMT_NOTIFICATION_I18N" | translate}}</strong>
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <form name="formEditOrg" id="formEditOrg" class="form-validation">
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <!-- Organization basic info -->
+                    <div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="pages.ln.GX_DELETE_FORM_INPUTS.LOAN_CONTRACT_NUMBER">
+                                    	贷款合同号
+                                </label>
+                                <input id="lncntrct_cntrct_no" name="lncntrct_cntrct_no" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.lncntrct_cntrct_no" 
+                                       readonly>
+                            </div>
+                             <div class="form-group">
+                                <label for="orgPer"
+                                       translate="pages.ln.GX_DELETE_FORM_INPUTS.LOAN_AMOUNT">
+                                                                                                                                         贷款金额
+                                </label>
+                                <input id="gxcapply_loan_amt" name="gxcapply_loan_amt" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.gxcapply_loan_amt"  
+                                       readonly>
+                            </div>
+                        </div>
+
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="isEnabled"
+                                       translate="pages.ln.GX_DELETE_FORM_INPUTS.POST_DATE_INTEREST_RATE">
+                                    	展期后利率
+                                </label>
+                                <input id="gxcapply_extend_rate" name="gxcapply_extend_rate" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.gxcapply_extend_rate"  
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="isEnabled"
+                                       translate="pages.ln.GX_DELETE_FORM_INPUTS.EXHIBITION_FEE">
+                                    	展期手续费
+                                </label>
+                                <input id="gxcapply_extend_fee" name="gxcapply_extend_fee" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.gxcapply_extend_fee"  
+                                       readonly>
+                            </div>
+                         </div>
+                         <div class="col-lg-3">
+                             <div class="form-group">
+                                <label for="companyId"
+                                       translate="pages.ln.GX_DELETE_FORM_INPUTS.APPLICATION_STATUS">
+                                       	展期申请簿状态
+                                </label>
+                                <select ui-jq="chosen"
+                                        id="gxcapply_loan_ext_sts"
+                                        name="gxcapply_loan_ext_sts"
+                                        class="form-control"
+                                        data-placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}"
+                                        ng-model="fields.gxcapply_loan_ext_sts">
+                                    <option value></option>
+                                    <option ng-repeat="item in company" value="{{item.companyInfoId}}">
+                                        {{item.companyName}}
+                                    </option>
+                                </select>
+                            </div>
+                          </div>
+                           <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="companyId"
+                                       translate="pages.ln.GX_DELETE_FORM_INPUTS.APPLICATION_DATE">
+                                    	申请日期
+                                </label>
+                                 <div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" 
+                                               ng-model="fields.gxcapply_apply_date" 
+                                               id="gxcapply_apply_date"	name="gxcapply_apply_date" readonly
+                                               close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" disabled ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-danger btn-addon" id="btnSave"
+                                        ng-click="remove()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+                                    <i class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose"
+                                        ng-click="cancel()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

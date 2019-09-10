@@ -1,0 +1,174 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_EXPLAIN">
+        </div>
+        <div class="panel-body" id="customerEventPanel">
+        
+            <div class="well b bg-light lt wrapper-sm m-t" translate="pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_PROMPT">
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+             <form name="formCustomerTaleFilter" id="formCustomerTaleFilter">
+             	<fieldset ng-disabled="isFormDisabled">
+                 <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-lg-5">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="ctale_func" >
+                                	{{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_UPDATE' | translate}}
+                                   	<span style="color:red" ng-hide="change_func">*</span>
+                                </label>
+                                <div class="col-lg-7">
+    	                                <ui-select
+                                           id="ctale_func"
+                                           ng-model="selectedCtaleFunc.item"
+                                           on-select="ctaleFuncSelectOnChange()"
+                                           ng-required="true"
+                                           ng-change="selectChange()"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in ctale_funcs | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="ctale_title_modal">
+                                	    {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_TITLE' | translate}}
+                                	 <span style="color:red" ng-hide="change_title_modal">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="ctale_title" name="ctale_title" type="text" class="form-control" 
+                                    	   ng-model="fields.ctaleTitle" 
+                                           placeholder="{{'pages.rm.CTALE.CTALE_MGMT_PLACEHOLDERS.CTALE_MGMT_PLACEHOLDER_TITLE' | translate}}">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="ctale_mark">
+                                	   {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_MARK' | translate}}
+                                	 <span style="color:red" ng-hide="change_mark">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="ctale_mark" name="ctale_mark" type="text" class="form-control" ng-model="fields.ctaleMark"
+                                           placeholder="{{'pages.rm.CTALE.CTALE_MGMT_PLACEHOLDERS.CTALE_MGMT_PLACEHOLDER_MARK' | translate}}"
+                                           >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="update_user">
+                                	    {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_USER' | translate}}
+                                	 <span style="color:red" ng-hide="change_user">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="update_user" name="update_user" type="text" class="form-control" ng-model="fields.updateUser"
+                                           placeholder="{{'pages.rm.CTALE.CTALE_MGMT_PLACEHOLDERS.CTALE_MGMT_PLACEHOLDER_USER' | translate}}"
+                                           >
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-5">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="ctale_cus_num">
+                              		  {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_NUMBER' | translate}}
+                              		 <span style="color:red" ng-hide="change_cus_num">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="ctale_cus_num" name="ctale_cus_num" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.CTALE.CTALE_MGMT_PLACEHOLDERS.CTALE_MGMT_PLACEHOLDER_NUMBER' | translate}}"
+                                           ng-model="fields.ctaleCusNum" >
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label">
+                         		           {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_HPN_DATE' | translate}}
+                         		    <span style="color:red" ng-hide="change_hpn_date">*</span>     
+                                </label>
+                                <div ng-controller="AvailDateCtrl" class="col-lg-7">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="fields.ctaleHpnDate" id="ctale_hpn_date" name="ctale_hpn_date"
+                                               is-open="opened" datepicker-options="dateOptions" close-text="Close" 
+                                               placeholder="{{'pages.rm.CTALE.CTALE_MGMT_PLACEHOLDERS.CTALE_MGMT_PLACEHOLDER_HPN_DATE' | translate}}"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label">
+                         		           {{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_UPDATE_TIME' | translate}}
+                                </label>
+                                <div ng-controller="AvailDateCtrl" class="col-lg-7">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}" 
+                                               ng-model="fields.updateTime" id="updateTime" name="updateTime"
+                                               is-open="opened" datepicker-options="dateOptions" close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+				<div class="row">
+					<div class="col-lg-6"></div>
+                    <div class="col-lg-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="custEventBtn" ng-click="customerEvent()">
+                                 	    {{'pages.rm.BCUST.BCUST_BUTTONS.BCUST_BUTTON_EDIT' | translate}}
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" ng-click="clear()">
+                                	       {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+                                        <i class="glyphicon glyphicon-repeat"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" ng-click="cancel()">
+                                	      {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+                </fieldset>    
+           </form>
+        </div>
+    </div>
+</div>

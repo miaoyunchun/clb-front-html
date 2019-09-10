@@ -1,0 +1,999 @@
+<!-- This page has been included in org_mgt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.cp.TITLE.ORGANIZATION_DETAIL"></div>
+        <div class="panel-body" id="addOrgPanel">
+            <div class="well b bg-light lt wrapper-sm m-t">
+                {{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <form name="formAddOrganization" id="formAddOrganization" class="form-validation">
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <!-- Organization basic info -->
+                    <div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="org_id"
+                                       translate="pages.cp.ORG_TABLE.ORG_ID">
+                                    Org #
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="org_id" name="org_id" type="text"
+                                       class="form-control text-uppercase"
+                                       ng-model="org_id" ng-maxlength="3"
+                                       required readonly="readonly">
+
+                            </div>
+
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="org_name"
+                                       translate="pages.cp.ORG_TABLE.ORG_NAME">
+                                    Org Name
+                                </label>
+                                <span style="color:red">*</span>
+                                <input id="org_name" name="org_name" type="text"
+                                       class="form-control"
+                                       ng-model="org_name" ng-maxlength="40"
+                                       required readonly="readonly">
+                            </div>
+                        </div>
+
+                        <!-- Column 3 process_with_system的下拉框-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="process_with_system"
+                                       translate="pages.cp.ORG_TABLE.PROCESS_WITH_SYSTEM">
+                                    Process With System
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="process_with_system"
+                                        name="process_with_system"
+                                        class="form-control"
+                                        ng-model="process_with_system" ng-required="true">
+                                    <option ng-repeat="x in PWSs" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Column 4 process_status的下拉框-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="process_status"
+                                       translate="pages.cp.ORG_TABLE.PROCESS_STATUS">
+                                    Process Status
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="process_status"
+                                        name="process_status"
+                                        class="form-control"
+                                        ng-model="process_status" ng-required="true">
+                                    <option ng-repeat="x in PSs" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Column 5 work_0f_week下拉框-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="work_of_week"
+                                       translate="pages.cp.ORG_TABLE.WORK_OF_WEEK">
+                                    Work Of Week
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="work_of_week"
+                                        name="work_of_week"
+                                        class="form-control"
+                                        ng-model="work_of_week" ng-required="true">
+                                    <option ng-repeat="days in workDays" value="{{days.value}}">{{days.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Column 6 eom_eoy_flag下拉框-->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="eom_eoy_flag"
+                                       translate="pages.cp.ORG_TABLE.EOM_EOY_FLAG">
+                                    EOM_EOY_FLAG
+                                </label>
+                                <span style="color:red">*</span>
+                                <select ui-jq="chosen"
+                                        id="eom_eoy_flag"
+                                        name="eom_eoy_flag"
+                                        class="form-control"
+                                        ng-model="eom_eoy_flag" ng-required="true">
+                                    <option ng-repeat="x in flags" value="{{x.value}}">
+                                        {{x.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!--Column 7 当前执行日期,使用日期插件-->
+                        <div class="col-lg-3">
+                            <label for="curr_proc_date"
+                                   translate="pages.cp.ORG_TABLE.CURR_PROC_DATE">
+                                CURR_PROC_DATE
+                            </label>
+                            <span style="color:red">*</span>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="curr_proc_date"
+                                           is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                           id="curr_proc_date"	name="curr_proc_date"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Column 8 上次执行日期,使用日期插件-->
+                        <div class="col-lg-3">
+                            <label for="last_proc_date"
+                                   translate="pages.cp.ORG_TABLE.LAST_PROC_DATE">
+                                LAST_PROC_DATE
+                            </label>
+                            <span style="color:red">*</span>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="last_proc_date"
+                                           is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                           id="last_proc_date"	name="last_proc_date"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!--Column 9 下次执行日期,使用日期插件-->
+                        <div class="col-lg-3">
+                            <label for="next_proc_date"
+                                   translate="pages.cp.ORG_TABLE.NEXT_PROC_DATE">
+                                NEXT_PROC_DATE
+                            </label>
+                            <span style="color:red">*</span>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="next_proc_date"
+                                           is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                           id="next_proc_date"	name="next_proc_date"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Column 10 记账日期,使用日期插件-->
+                        <div class="col-lg-3">
+                            <label for="accr_thru_date"
+                                   translate="pages.cp.ORG_TABLE.ACCR_THRU_DATE">
+                                ACCR_THRU_DATE
+                            </label>
+                            <span style="color:red">*</span>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="accr_thru_date"
+                                           is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                           id="accr_thru_date"	name="accr_thru_date"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!--Column 11 上次记账日期,使用日期插件-->
+                        <div class="col-lg-3">
+                            <label for="last_accr_date"
+                                   translate="pages.cp.ORG_TABLE.LAST_ACCR_DATE">
+                                LAST_ACCR_DATE
+                            </label>
+                            <span style="color:red">*</span>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="last_accr_date"
+                                           is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                           id="last_accr_date"	name="last_accr_date"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!--Column 12 上次维护日期,使用日期插件-->
+                        <div class="col-lg-3">
+                            <label for="last_maint_date"
+                                   translate="pages.cp.ORG_TABLE.LAST_MAINT_DATE">
+                                LAST_MAINT_DATE
+                            </label>
+                            <span style="color:red">*</span>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="last_maint_date"
+                                           is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                           id="last_maint_date"	name="last_maint_date"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--public holiday 1-30-->
+                    <div class="row">
+                        <!--column 2-->
+                        <div class="col-lg-2">
+                            <label for="public_holiday1"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY1">
+                                PUBLIC_HOLIDAY1
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday1"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday1"	name="public_holiday1"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday2"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY2">
+                                PUBLIC_HOLIDAY2
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday2"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday2"	name="public_holiday2"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday3"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY3">
+                                PUBLIC_HOLIDAY3
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday3"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday3"	name="public_holiday3"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday4"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY4">
+                                PUBLIC_HOLIDAY4
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday4"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday4"	name="public_holiday4"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday5"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY5">
+                                PUBLIC_HOLIDAY5
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday5"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday5"	name="public_holiday5"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday6"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY6">
+                                PUBLIC_HOLIDAY6
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday6"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday6"	name="public_holiday6"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="row">
+                        <!--column 3-->
+                        <div class="col-lg-2">
+                            <label for="public_holiday7"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY7">
+                                PUBLIC_HOLIDAY7
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday7"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday7"	name="public_holiday7"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday8"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY8">
+                                PUBLIC_HOLIDAY8
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday8"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday8"	name="public_holiday8"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday9"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY9">
+                                PUBLIC_HOLIDAY9
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday9"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday9"	name="public_holiday9"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday10"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY10">
+                                PUBLIC_HOLIDAY10
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday10"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday10"	name="public_holiday10"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday11"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY11">
+                                PUBLIC_HOLIDAY11
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday11"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday11"	name="public_holiday11"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday12"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY12">
+                                PUBLIC_HOLIDAY12
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday12"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday12"	name="public_holiday12"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="row">
+                        <!--column 4-->
+                        <div class="col-lg-2">
+                            <label for="public_holiday13"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY13">
+                                PUBLIC_HOLIDAY13
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday13"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday13"	name="public_holiday13"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday14"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY14">
+                                PUBLIC_HOLIDAY14
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday14"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday14"	name="public_holiday14"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday15"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY15">
+                                PUBLIC_HOLIDAY15
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday15"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday15"	name="public_holiday15"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday16"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY16">
+                                PUBLIC_HOLIDAY16
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday16"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday16"	name="public_holiday16"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday17"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY17">
+                                PUBLIC_HOLIDAY17
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday17"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday17"	name="public_holiday17"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday18"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY18">
+                                PUBLIC_HOLIDAY18
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday18"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday18"	name="public_holiday18"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="row">
+                        <!--column 5-->
+                        <div class="col-lg-2">
+                            <label for="public_holiday19"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY19">
+                                PUBLIC_HOLIDAY19
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday19"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday19"	name="public_holiday19"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday20"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY20">
+                                PUBLIC_HOLIDAY20
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday20"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday20"	name="public_holiday20"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday21"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY21">
+                                PUBLIC_HOLIDAY21
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday21"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday21"	name="public_holiday21"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday22"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY22">
+                                PUBLIC_HOLIDAY22
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday22"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday22"	name="public_holiday22"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday23"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY23">
+                                PUBLIC_HOLIDAY23
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday23"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday23"	name="public_holiday23"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday24"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY24">
+                                PUBLIC_HOLIDAY24
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday24"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday24"	name="public_holiday24"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                    <div class="row">
+                        <!--column 6-->
+                        <div class="col-lg-2">
+                            <label for="public_holiday25"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY25">
+                                PUBLIC_HOLIDAY25
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday25"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday25"	name="public_holiday25"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday26"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY26">
+                                PUBLIC_HOLIDAY26
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday26"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday26"	name="public_holiday26"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday27"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY27">
+                                PUBLIC_HOLIDAY27
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday27"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday27"	name="public_holiday27"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday28"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY28">
+                                PUBLIC_HOLIDAY28
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday28"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday28"	name="public_holiday28"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday29"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY29">
+                                PUBLIC_HOLIDAY29
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday29"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday29"	name="public_holiday29"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <label for="public_holiday30"
+                                   translate="pages.cp.ORG_TABLE.PUBLIC_HOLIDAY30">
+                                PUBLIC_HOLIDAY30
+                            </label>
+                            <div ng-controller="DateCtrl" >
+                                <div class="input-group">
+                                    <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                           ng-model="public_holiday30"
+                                           is-open="opened" datepicker-options="dateOptions"
+                                           id="public_holiday30"	name="public_holiday30"
+                                           close-text="Close" readonly="readonly"/>
+
+                                    <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="form-group">
+
+                                <div class="col-lg-2"></div>
+                                <div class="col-lg-2">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" style="width:100px;margin-top:10px;margin-left: 650px"
+                                            ng-click="cancel()">
+                                        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

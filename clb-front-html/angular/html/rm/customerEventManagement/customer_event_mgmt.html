@@ -1,0 +1,170 @@
+
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="modal-body wrapper-lg no-padder" ng-controller="CustomerEventPageCtrl">
+
+
+
+    <div class="panel panel-default m-b-none">
+        <!--标题-->
+        <div class="bg-light lter b-b wrapper-md">
+            <h1 class="m-n font-thin h3" translate="pages.rm.CTALE.CTALE_MGMT">客户事件管理</h1>
+        </div>
+
+
+        <div class="panel-body" >
+
+            <div class="well b bg-light lt wrapper-sm m-t" translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_QUERYCONTENT">
+            </div>
+
+
+            <form name="formCustomerEventFilter" id="formCustomerEventFilter">
+                 <div class="row">
+                     <!-- Column 1 -->
+                     <div class="col-lg-3" >
+                         <div class="form-group">
+                             <label for="ctale_cus_num">
+                                 	 {{'pages.rm.CTALE.CTALE_MGMT_COLUMN_TITLES.CTALE_MGMT_COLUMN_TITLE_CUST_NUMBER' | translate}}
+                                 	<span style="color:red">*</span>
+                             </label>
+
+                             <input id="ctale_cus_num" name="ctale_cus_num" type="text" ng-maxlength="19" class="form-control" required
+                             		placeholder="{{'pages.rm.CTALE.CTALE_MGMT_PLACEHOLDERS.CTALE_MGMT_PLACEHOLDER_NUMBER' | translate}}">
+                         </div>
+
+                     </div>
+                     <div class="col-lg-3" >
+                         <div class="form-group">
+                             <label for="ctale_title">
+                                 	{{'pages.rm.CTALE.CTALE_MGMT_COLUMN_TITLES.CTALE_MGMT_COLUMN_TITLE_TALE_TITLE' | translate}}
+                             </label>
+
+                             <input id="ctale_title" name="ctale_title" type="text" class="form-control"
+                            		placeholder="{{'pages.rm.CTALE.CTALE_MGMT_PLACEHOLDERS.CTALE_MGMT_PLACEHOLDER_TITLE' | translate}}">
+                         </div>
+
+                     </div>
+                     
+                     <div class="col-lg-3">
+                     	<div class="form-group">
+                     	    <label for="ctale_hpn_date">
+                      		      {{'pages.rm.CTALE.CTALE_MGMT_COLUMN_TITLES.CTALE_MGMT_COLUMN_TITLE_HPN_DATE' | translate}}
+                             </label>
+                             <div ng-controller="AvailDateCtrl">
+                                 <div class="input-group">
+                                     <input id="ctale_hpn_date" name="ctale_hpn_date" type="text" class="form-control" datepicker-popup="{{format}}"
+                                            ng-model="fields.hpnDate" close-text="Close"
+                                            is-open="opened" datepicker-options="dateOptions"
+                                            placeholder="{{'pages.rm.CTALE.CTALE_MGMT_PLACEHOLDERS.CTALE_MGMT_PLACEHOLDER_HPN_DATE' | translate}}"/>
+                                     <span class="input-group-btn">
+                                         <button type="button" class="btn btn-default" ng-click="open($event)">
+                                             <i class="glyphicon glyphicon-calendar"></i>
+                                         </button>
+                                     </span>
+                                 </div>
+                             </div>
+                     	</div>
+                     </div>
+                 </div>
+
+                <div class="col-lg-4">
+                    <div class="form-group">
+                          <div class="col-lg-3">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnQuery" style="width:150px;margin-top: 10px;
+                                		margin-left: 1450px" ng-click="queryCustomerEvent()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SEARCH' | translate}}
+                                    <i class="fa fa-search"></i>
+                                </button>
+                          </div>
+
+                          <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnReset" style="width:150px;margin-top: 10px;margin-left: 1500px"
+                                        type="reset">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                          </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Action buttons -->
+    <div class="row" id="CustomerEventTable" name="CustomerEventTable">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">
+                    <!-- See this controller in add_per_customer_modal_ctrl.js -->
+                    <span ng-controller="customerEventModalInstanceCtrl">
+                        <!--维护客户事件modal框-->
+                        <script type="text/ng-template" id="customerEventModal.html">
+                            <div ng-include="'html/rm/customerEventManagement/customer_event_modal_form.html'"></div>
+                        </script>
+
+                        <!--添加客户事件按钮-->
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="customerEvent" ng-click="showCustomerEventPopup()">
+                         		{{'pages.rm.CTALE.CTALE_MGMT_COLUMN_TITLES.CTALE_MGMT_COLUMN_TITLE_MAINTENANCE' | translate}}
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+                    
+                    <span>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="deleteBusCustomer" ng-click="customerNextPopup()"
+                        		ng-hide="isTableHidden">
+                            	{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_NEXT_PAGE' | translate}}
+                            <i class="glyphicon glyphicon-share-alt"></i>
+                        </button>
+                    </span>
+   		
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    
+	<!-- 列表 -->
+	<div class="panel-body" ng-hide="isTableHidden" ng-controller="customerEventDetailModalCtrl">
+          <div class="table-responsive" >
+               <table class="table table table-striped table-bordered table-hover table-condensed">
+					<caption translate="pages.rm.CTALE.CTALE_MGMT_COLUMN_TITLES.CTALE_MGMT_COLUMN_TITLE_LIST">客户事件列表</caption>
+					<thead>
+						<tr>
+							<th translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_SEQUENCE">序号</th>
+							<th translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_PCUST_NUM">客户编号</th>
+							<th translate="pages.rm.CTALE.CTALE_MGMT_COLUMN_TITLES.CTALE_MGMT_COLUMN_TITLE_TALE_TITLE">信息标题</th>
+							<th translate="pages.rm.CTALE.CTALE_MGMT_COLUMN_TITLES.CTALE_MGMT_COLUMN_TITLE_HPN_DATE">发生日期</th>
+							<th translate="pages.rm.CTALE.CTALE_MGMT_COLUMN_TITLES.CTALE_MGMT_COLUMN_TITLE_VIEW">查看</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="x in CustomerEvents">
+							<td>{{$index + 1}}</td>
+							<td>{{x.ctaleqo_cus_num}}</td>
+							<td>{{x.ctaleqo_title}}</td>
+							<td>{{x.hpn_date}}</td>
+							<td>
+								<span>
+                        			<!--维护客户事件modal框-->
+		                       		<script type="text/ng-template" id="customerEventDetailModal.html">
+                            			<div ng-include="'html/rm/customerEventManagement/customer_event_modal_detail_inf.html'"></div>
+                        			</script>
+                       				<!--详情客户事件按钮-->
+                       				<button class="btn m-b-xs btn-sm btn-default btn-addon" id="customerEvent" ng-click="getInformation($index)"
+                       						translate="pages.rm.CTALE.CTALE_BUTTONS.CTALE_BUTTON_VIEW">
+                         		 			 详细信息
+                        			</button>
+                    			</span>
+							</td>
+						</tr>
+					</tbody>
+			</table>
+        </div>
+   </div>
+</div>
+
+
+

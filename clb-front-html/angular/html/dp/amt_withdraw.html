@@ -1,0 +1,256 @@
+<!-- This page has been included in org_mgmt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder"  >
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.dp.DP_AMT_WITHDRAW">
+        </div>
+        <div class="panel-body" ng-controller="AmtWithdrawController">
+        <!-- toaster directive -->
+		<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+            <div class="well b bg-light lt wrapper-sm m-t">
+                {{"pages.sm.ORG_MGMT_NOTIFICATION_TEXTS.ORG_MGMT_NOTIFICATION_I18N" | translate}}
+            </div>
+
+           
+            
+			<!-- 取款表单 -->
+            <form name="formWithdrawAmt1" id="formWithdrawAmt1" class="form-validation">
+	 			<!-- alert -->
+		            <div class="m-b-md">
+		                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+		                </alert>
+		            </div>
+                <fieldset ng-disabled="isFormDisabled">
+                <div class="col-lg-6">
+					<div class="form-horizontal">
+						<div class="form-group">
+							<label class="col-lg-5 control-label" for="orgNbr"
+							translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_CARD_NUMBER"> 客户卡号 </label>
+							<div class="col-lg-7">
+								<input id="card_no" name="card_no" type="text"
+								class="form-control text-uppercase"
+								ng-model="fields.card_no">
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-lg-4" >
+					<div class="col-lg-4">
+						<button class="btn m-b-xs btn-default btn-success btn-addon" id="btnNext" style="width:130px;margin-left:80px" ng-click="query()" ng-disabled="formWithdrawAmt1.$invalid">
+                                    {{'pages.dp.DP_MGMT_BUTTONS.DP_MGMT_BUTTON_NEXT' | translate}}
+                                    <i class="fa fa-share"></i>
+                    	</button>
+					</div>
+				</div>
+
+                    <!-- A hidden row for hidden fields -->
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgCreateUser"></label>
+                                <input type="text" class="form-control" id="orgCreateUser"
+                                       name="gx.orgCreateUser"
+                                       ng-model="fields.orgCreateUser">
+                            </div>
+                        </div>
+                    </div>
+  					
+                </fieldset>
+            </form>
+            
+            <!-- 取款信息表单 -->
+            <form name="formWithdrawAmt2" id="formWithdrawAmt2" style="display:none" class="form-validation">
+	 			<!-- alert -->
+		            <div class="m-b-md">
+		                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+		                </alert>
+		            </div>
+                <fieldset ng-disabled="isFormDisabled">
+                    <!-- Organization basic info -->
+                    <div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-4" >
+                            <div class="form-group" >
+                                <label for="custType"
+                                       translate="客户类型">
+                                       	客户类型
+                                </label>
+                                <input id="custType" name="custType" type="text"
+                                       class="form-control"  readonly required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="idType"
+                                       translate="证件类型">
+                                    	证件类型
+                                </label>
+                               <input id="idType" name="idType"  type="text" readonly
+                                       class="form-control" required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="idNumber"
+                                       translate="证件号码">
+                                    	证件号码
+                                </label>
+                               <input id="idNumber" name="idNumber" type="text"
+                                       class="form-control" readonly required>
+                            </div>
+                        </div>
+                    </div>
+
+					<div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-4" >
+                            <div class="form-group" >
+                                <label for="custName"
+                                       translate="客户姓名">
+                                       	客户姓名
+                                </label>
+                                <input id="custName" name="custName" type="text"
+                                       class="form-control"  readonly required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="acctType"
+                                       translate="产品号码">
+                                    	产品号码
+                                </label>
+                               <input id="prodId" name="prodId"  type="text" readonly
+                                       class="form-control"  required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="idType"
+                                       translate="产品名称">
+                                    	产品名称
+                                </label>
+                               <input id="prodName" name="prodName" type="text"
+                                       class="form-control" readonly
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-4" >
+                            <div class="form-group" >
+                                <label for="nowDate"
+                                       translate="当前日期">
+                                       	当前日期
+                                </label>
+                                <input id="nowDate" name="nowDate" type="text"
+                                       class="form-control" readonly required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="nowBalance"
+                                       translate="当前余额">
+                                    	当前余额
+                                </label>
+                               <input id="nowBalance" name="nowBalance"  type="text" readonly
+                                       class="form-control"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="nowInterest"
+                                       translate="当前利息">
+                                    	当前利息
+                                </label>
+                               <input id="nowInterest" name="nowInterest" type="text"
+                                       class="form-control" readonly
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+					
+					<div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-4" >
+                            <div class="form-group" >
+                                <label for="amtWithdraw"
+                                       translate="取款金额">
+                                       	取款金额
+                                </label>
+                                <input id="amtWithdraw" name="amtWithdraw" type="text"
+                                       class="form-control"  required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="cardPassword"
+                                       translate="取款密码">
+                                    	取款密码
+                                </label>
+                               <input id="cardPassword" name="cardPassword"  type="password" 
+                                       class="form-control"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- A hidden row for hidden fields -->
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgCreateUser"></label>
+                                <input type="text" class="form-control" id="orgCreateUser"
+                                       name="gx.orgCreateUser"
+                                       ng-model="fields.orgCreateUser">
+                            </div>
+                        </div>
+                    </div>
+  					
+                    <div class="row" >
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2"  >
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:150px" id="btnNext"  ng-click="next()" ng-disabled="formWithdrawAmt2.$invalid">
+                                        
+                                    {{'pages.dp.DP_MGMT_BUTTONS.DP_MGMT_BUTTON_NEXT' | translate}}
+                                    <i class="fa fa-share"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClear" style="width:150px" 
+                                        ng-click="cancel()">
+                                    {{'pages.dp.DP_MGMT_BUTTONS.DP_MGMT_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            
+        </div>
+    </div>
+</div>

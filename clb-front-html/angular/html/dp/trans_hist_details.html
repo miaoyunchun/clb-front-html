@@ -1,0 +1,208 @@
+<!-- This page has been included in org_mgt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.org.ORG_MGMT_FORM_TITLES.ORG_MGMT_FORM_TITLE_EDIT_ORG"></div>
+        <div class="panel-body" id="editOrgPanel">
+            <div class="well b bg-warning bg text-dark lt wrapper-sm m-t">
+                <strong>{{"pages.sm.org.ORG_MGMT_NOTIFICATION_TEXTS.ORG_MGMT_NOTIFICATION_I18N" | translate}}</strong>
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <form name="formEditOrg" id="formEditOrg" class="form-validation">
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <!-- Organization basic info -->
+                    <div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="交易流水号">
+                                    	交易流水号
+                                </label>
+                                <input id="trans_no" name="trans_no" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.trans_no" 
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="交易码">
+                                    	交易码
+                                </label>
+                                <input id="trans_code" name="trans_code" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.trans_code" 
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="交易描述">
+                                    	交易描述
+                                </label>
+                                <input id="trans_desc" name="trans_desc" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.trans_desc" 
+                                       readonly>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgPer"
+                                       translate="交易顺序号">
+                                                                                                                                        交易顺序号
+                                </label>
+                                <input id="trans_sequence" name="trans_sequence" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.trans_sequence"  
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="orgPer"
+                                       translate="交易前金额">
+                                                                                                                                        交易前金额
+                                </label>
+                                <input id="before_trans_amt" name="before_amt" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.before_amt"  
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyId"
+                                       translate="交易日期">
+                                    	交易日期
+                                </label>
+                                 <div ng-controller="AvailDateCtrl" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="fields.trans_date" placeholder="{{placeholders.availDate}}"
+                                               id="trans_date"	name="trans_date" readonly
+                                               is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                               close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" disabled ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="isEnabled"
+                                       translate="交易账户">
+                                    	交易账户
+                                </label>
+                                <input id="trans_acct" name="trans_acct" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.trans_acct"  
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="isEnabled"
+                                       translate="交易金额">
+                                    	交易金额
+                                </label>
+                                <input id="trans_amt" name="trans_amt" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.trans_amt"  
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="isEnabled"
+                                       translate="交易时间">
+                                    	交易时间
+                                </label>
+                                <input id="trans_time" name="trans_time" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.trans_time"  
+                                       readonly>
+                            </div>
+                        </div>
+
+                        <!-- Column 4 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="companyId"
+                                       translate="交易卡号">
+                                       	交易卡号
+                                </label>
+                                <select ui-jq="chosen"
+                                        id="trans_card_no"
+                                        name="trans_card_no"
+                                        class="form-control"
+                                        data-placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}"
+                                        ng-model="fields.trans_card_no">
+                                    <option value></option>
+                                    <option ng-repeat="item in company" value="{{item.companyInfoId}}">
+                                        {{item.companyName}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyId"
+                                       translate="交易后金额">
+                                    	交易后金额	
+                                </label>
+                                <input id="after_trans_amt" name="after_amt" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.after_amt"  
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyId"
+                                       translate="备注">
+                                    	备注	
+                                </label>
+                                <input id="trans_remark" name="trans_remark" type="text"
+                                       class="form-control text-uppercase"
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.trans_remark"  
+                                       readonly>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2" style="float:right">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose"
+                                        ng-click="cancel()">
+                                    {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

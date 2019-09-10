@@ -1,0 +1,184 @@
+<!--记账分录明细查询网页-->
+
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="modal-body wrapper-lg no-padder" ng-controller="fmAccountingListPageCtrl">
+
+    <div class="panel panel-default m-b-none">
+
+        <!--标题-->
+        <div class="bg-light lter b-b wrapper-md">
+            <h1 class="m-n font-thin h3" translate="pages.fm.TITLES.ACCTING_LIST_QUERY">记账分录明细查询</h1>
+        </div>
+
+        <div class="panel-body" >
+            <div class="well b bg-light lt wrapper-sm m-t" translate="pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N">
+            </div>
+        </div>
+
+        <!--搜索条件的表格-->
+        <form name="formAcctingDetailFilter" id="formAcctingDetailFilter">
+
+            <div class="row">
+
+                <!--交易流水号-->
+                <div class="col-lg-3">
+                    <label for="tran_jour"
+                           translate="pages.fm.ACCT_DETAIL.TRAN_JOUR">
+                        tran jour
+                    </label>
+
+                    <input id="tran_jour" name="param_tran_jour" type="text"
+                           class="form-control"
+                           ng-model="fields.param_tran_jour" ng-minlength="19" ng-maxlength="19"
+                           required placeholder='{{"pages.fm.PLACEHOLDERS.TRAN_JOUR" | translate}}'>
+                </div>
+
+                <!--交易代号-->
+                <div class="col-lg-3">
+                    <label for="tran_id"
+                           translate="pages.fm.ACCT_DETAIL.TRAN_ID">
+                        tran id
+                    </label>
+
+                    <input id="tran_id" name="param_tran_id" type="text"
+                           class="form-control"
+                           ng-model="fields.param_tran_id" ng-minlength="19" ng-maxlength="19"
+                           required placeholder='{{"pages.fm.PLACEHOLDERS.TRAN_ID" | translate}}'>
+                </div>
+
+                <!--交易日期-->
+                <div class="col-lg-3">
+                    <label for="tran_date"
+                           translate="pages.fm.ACCT_DETAIL.TRAN_DATE">
+                        tran date
+                    </label>
+                    <div ng-controller="DateCtrl" >
+                        <div class="input-group">
+                            <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                   ng-model="param_tran_date"
+                                   is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                   id="tran_date"	name="param_tran_date"
+                                   close-text="Close"/>
+
+                            <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--按钮-->
+            <div class="row">
+                <div class="form-group">
+
+                    <div class="col-lg-10"> </div>
+                    <!--<div class="col-lg-2"> </div>-->
+                    <div class="col-lg-1">
+                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnQuery" style="width:100px" ng-click="queryAcctDetail()">
+                            {{'pages.cp.ORG_MGT_FIELDS.QUERY_BUTTON' | translate}}
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-lg-1">
+                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnReset" style="width:100px"
+                                ng-click="clearFilterTable()">
+                            {{'pages.cp.ORG_MGT_FIELDS.RESET_BUTTON' | translate}}
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+        <!-- Action buttons -->
+        <div class="row" id="orgTable" name="orgTable">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading font-bold">
+
+
+
+                        <span ng-controller="acctDetailModalCtrl">
+                        <!--产品詳情的modal框-->
+                            <script type="text/ng-template" id="acctingListDetailModal.html">
+                                <div ng-include="'html/fm/billing_entries_detail_modal.html'"></div>
+                            </script>
+
+
+                            <!--产品詳情的按钮-->
+                            <button class="btn m-b-xs btn-sm btn-default btn-addon" ng-click="showAcctDetailModal()">
+                            {{'pages.cp.ORG_MGT_FIELDS.ORG_MGMT_BUTTON_DETAIL' | translate}}
+                                 <i class="fa fa-bell-o"></i>
+                            </button>
+
+                        </span>
+                    </div>
+
+
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table ui-jq="dataTable" ui-options="{{fmAcctDetailDataTableParms}}" class="table display" id="tblAcctDetail">
+                                <thead>
+                                <tr>
+                                    <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_SEQUENCE">
+                                        seq
+                                    </th>
+                                    <th translate="pages.fm.ACCT_DETAIL.TRAN_JOUR">
+                                        tran jour
+                                    </th>
+                                    <th translate="pages.fm.ACCT_DETAIL.TRAN_SEQ">
+                                        tran seq
+                                    </th>
+                                    <th translate="pages.fm.ACCT_DETAIL.TRAN_ID">
+                                        tran id
+                                    </th>
+                                    <th translate="pages.fm.ACCT_DETAIL.COND_SEQ">
+                                        cond seq
+                                    </th>
+                                    <th translate="pages.fm.ACCT_DETAIL.TRAN_DATE">
+                                        tran date
+                                    </th>
+                                    <th translate="pages.fm.ACCT_DETAIL.TRAN_TIME">
+                                        tran time
+                                    </th>
+                                    <th translate="pages.fm.ACCT_DETAIL.DC_FLAG">
+                                        dc flag
+                                    </th>
+                                    <th translate="pages.fm.ACCT_DETAIL.ACCT_ITEM">
+                                        acct item
+                                    </th>
+                                    <th translate="pages.fm.ACCT_DETAIL.ACCT_ORG">
+                                        acct org
+                                    </th>
+                                    <th translate="pages.fm.ACCT_DETAIL.TRAN_AMT">
+                                        tran amt
+                                    </th>
+                                    <th translate="pages.fm.ACCT_DETAIL.ITEM_SEQ">
+                                        item seq
+                                    </th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

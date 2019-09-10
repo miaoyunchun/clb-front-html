@@ -1,0 +1,346 @@
+<!-- This page has been included in org_mgt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.ln.LN_CHECK"></div>
+        <div class="panel-body" id="editOrgPanel">
+            <div class="well b bg-warning bg text-dark lt wrapper-sm m-t">
+                <strong>{{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}</strong>
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <form name="formLoanCheck" id="formLoanCheck" class="form-validation">
+
+                <fieldset ng-disabled="isFormDisabled">
+
+                    <!-- Organization basic info -->
+                    <div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.APPLICATION_ACCOUNT">
+                                    	申请单账号
+                                </label>
+                                <input id="lncappf_id" name="lncappf_id" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.lncappf_id" required
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.DOCUMENT_TYPE">
+                                    	证件类型
+                                </label>
+                                <input id="lncappf_cust_type" name="lncappf_cust_type" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.lncappf_cust_type" required
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.CUSTOMER_SALARY">
+                                    	客户工资
+                                </label>
+                                <input id="salary" name="salary" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.salary" required
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.LOAN_TYPE">
+                                    	贷款类型	
+                                </label>
+                                <input id="loan_documention" name="loan_documention" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.loan_documention"  required
+                                       readonly>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="orgPer"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.APPLICATION_STATUS">
+                                    	申请单状态
+                                </label>
+                                <input id="lncappf_status" name="lncappf_status" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.lncappf_status"  required
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="orgPer"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.DOCUMENT_NUMBER">
+                                                                                                                                       证件号码	
+                                </label>
+                                <input id="lncappf_cust_no" name="lncappf_cust_no" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.lncappf_cust_no"  required
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="orgPer"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.CONSUMPTION_LEVEL">
+                                                                                                                                        消费水平
+                                </label>
+                                <input id="consumption_level" name="consumption_level" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.consumption_level"  required
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="orgPer"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.COMPANY_NAME">
+                                    	公司名称
+                                </label>
+                                <input id="company_name" name="company_name" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}" required
+                                       ng-model="fields.company_name"  
+                                       readonly>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="isEnabled"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.APPLICATION_AMOUNT">
+                                    	申请金额
+                                </label>
+                                <input id="lncappf_amt" name="lncappf_amt" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.lncappf_amt"  required
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="isEnabled"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.CUSTOMER_BIRTHDAY">
+                                    	客户生日
+                                </label>
+                                <input id="birth" name="birth" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.birth"  required
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="isEnabled"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.JOB">
+                                    	工作
+                                </label>
+                                <input id="job" name="job" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.job"  required
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="isEnabled"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.LISTING_SIGN">
+                                    	上市标志
+                                </label>
+                                <input id="listed_company_mark" name="listed_company_mark" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.listed_company_mark"  required
+                                       readonly>
+                            </div>
+                        </div>
+
+                        <!-- Column 4 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="companyId"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.CUSTOMER_NAME">
+                                       	客户姓名
+                                </label>
+                                <input id="name" name="name" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.name"  required 
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyId"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.HIGHEST_DEGREE">
+                                    	最高学历
+                                </label>
+                                <input id="high_degree" name="high_degree" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.high_degree"  required
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyId"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.CREDIT_RATING">
+                                    	信用等级	
+                                </label>
+                                <input id="quality_level" name="quality_level" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.quality_level"  required
+                                       readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="companyId"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.COMPANY_SIZE">
+                                    	公司规模	
+                                </label>
+                                <input id="company_scale" name="company_scale" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.company_scale"  
+                                       readonly>
+                            </div>
+                        </div>
+                    </div>
+                    
+					<div class="row" style="display:none" id="hidden_div">
+					<!-- comlumn1 -->
+						<div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.INSPECTOR_NUMBER">
+                                    	检验员编号
+                                </label>
+                                <input id="lncappf_intchk_id" name="lncappf_intchk_id" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.lncappf_intchk_id" required >
+                            </div>
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.INSPECTION_OPINION">
+                                    	检验意见
+                                </label>
+                                <input id="lncappf_intchk_comment" name="lncappf_intchk_comment" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.lncappf_intchk_comment" required >
+                            </div>
+                        </div>
+                        <!-- comlumn2 -->
+						<div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.INSPECTION_RESULT">
+                                    	检验结果
+                                </label>
+                                <ui-select
+                                      id="lncappf_intchk_result"
+                                      ng-model="selectedlncappfIntchkResult.item"
+                                      on-select="lncappfIntchkResultSelectOnChange()"
+                                      ng-required="true"
+                                      theme="bootstrap">
+                                  <ui-select-match
+                                          placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                      {{$select.selected.value}}
+                                  </ui-select-match>
+                                  <ui-select-choices repeat="item in lncappfIntchkResult | filter: $select.search">
+                                      <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                  </ui-select-choices>
+                                  <ui-select-no-choice>
+                                      {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                      translate }}
+                                  </ui-select-no-choice>
+                               </ui-select>
+                                <!-- <input id="lncappf_intchk_result" name="lncappf_intchk_result" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.lncappf_intchk_result" required > -->
+                            </div>
+                        </div>
+                        <!-- comlumn3 -->
+						<div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.REASON_EXPLANATION">
+                                    	原因说明
+                                </label>
+                                <ui-select
+                                      id="lncappf_intchk_rej_reason"
+                                      ng-model="selectedlncappfIntchkRejReason.item"
+                                      on-select="lncappfIntchkRejReasonSelectOnChange()"
+                                      ng-required="true"
+                                      theme="bootstrap">
+                                  <ui-select-match
+                                          placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                      {{$select.selected.value}}
+                                  </ui-select-match>
+                                  <ui-select-choices repeat="item in lncappfIntchkRejReason | filter: $select.search">
+                                      <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                  </ui-select-choices>
+                                  <ui-select-no-choice>
+                                      {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                      translate }}
+                                  </ui-select-no-choice>
+                               </ui-select>
+                                
+                            </div>
+                        </div>
+                        <!-- comlumn4 -->
+						<div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="orgCode"
+                                       translate="pages.ln.LOAN_CHECK_MODAL_FORM_INPUTS.AVAILABLE_CREDIT">
+                                    	可用额度
+                                </label>
+                                <input id="lncappf_final_limit" name="lncappf_final_limit" type="text"
+                                       class="form-control "
+                                       placeholder="{{ placeholders.orgNoRule }}"
+                                       ng-model="fields.lncappf_final_limit" required >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2"  id="div_check">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon"  id="btnSave"  ng-click="add()" >
+                                    {{'填写审核' | translate}}
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2" style="display:none" id="div_commit" >
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnCommit" 
+                                        ng-click="commit()" ng-disabled="formLoanCheck.$invalid">
+                                    {{'提交审核' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClear" 
+                                        ng-click="cancel()">
+                                    {{'pages.ln.GX_MGMT_BUTTON.GX_MGMT_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

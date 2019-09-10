@@ -1,0 +1,189 @@
+<!-- This page has been included in org_mgmt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder"  >
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.dp.DP_INTRA_TRANSFER">
+        </div>
+        <div class="panel-body" ng-controller="AcctTransferController">
+        <!-- toaster directive -->
+		<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+            <div class="well b bg-light lt wrapper-sm m-t">
+                {{"pages.sm.ORG_MGMT_NOTIFICATION_TEXTS.ORG_MGMT_NOTIFICATION_I18N" | translate}}
+            </div>
+
+           
+            
+			<!-- 行内转账表单1 -->
+            <form name="formAcctTransfer1" id="formAcctTransfer1" class="form-validation">
+	 			<!-- alert -->
+		            <div class="m-b-md">
+		                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+		                </alert>
+		            </div>
+                <fieldset ng-disabled="isFormDisabled">
+                    <!-- Organization basic info -->
+                    <div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-4" >
+                            <div class="form-group" >
+                                <label for="outCardNo"
+                                       translate="转出卡号">
+                                       	转出卡号
+                                </label>
+                                <input id="outCardNo" name="outCardNo" type="text"
+                                       class="form-control" ng-blur="blur()" ng-minlength="15" ng-maxlength="19"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="custName"
+                                       translate="客户名称">
+                                    	客户名称
+                                </label>
+                               <input id="custName" name="custName"  type="text" readonly
+                                       class="form-control"  
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="transAmt"
+                                       translate="转出金额">
+                                    	转出金额
+                                </label>
+                               <input id="transAmt" name="transAmt" type="text"
+                                       class="form-control" ng-model="fields.idType" 
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+
+					<div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-4" >
+                            <div class="form-group" >
+                                <label for="inCardNo"
+                                       translate="转入卡号">
+                                       	转入卡号
+                                </label>
+                                <input id="inCardNo" name="inCardNo" type="text"
+                                       class="form-control" ng-model="fields.idNumber"
+                                       ng-minlength="15" ng-maxlength="19" required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="cardPwd"
+                                       translate="卡片密码">
+                                    	卡片密码
+                                </label>
+                               <input id="cardPwd" name="cardPwd"  type="password" 
+                                       class="form-control text-uppercase" ng-minlength="6" ng-maxlength="8"
+                                       ng-model="fields.card_pwd" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- A hidden row for hidden fields -->
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgCreateUser"></label>
+                                <input type="text" class="form-control" id="orgCreateUser"
+                                       name="gx.orgCreateUser"
+                                       ng-model="fields.orgCreateUser">
+                            </div>
+                        </div>
+                    </div>
+  					
+                    <div class="row" >
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2"  >
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:130px" id="btnNext"  ng-click="next()" ng-disabled="formAcctTransfer1.$invalid">
+                                    {{'转账' | translate}}
+                                    <i class="fa fa-share"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClear" style="width:130px" 
+                                        ng-click="cancel()">
+                                    {{'pages.dp.DP_MGMT_BUTTONS.DP_MGMT_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            
+            <!-- 行内转账表单2 -->
+            <form name="formAcctTransfer2" id="formAcctTransfer2" style="display: none" class="form-validation">
+	 			<!-- alert -->
+		            <div class="m-b-md">
+		                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+		                </alert>
+		            </div>
+                <fieldset ng-disabled="isFormDisabled">
+                    <!-- Organization basic info -->
+                    <div class="col-lg-6">
+						<div class="form-horizontal">
+							<div class="form-group">
+							<label class="col-lg-5 control-label" for="card_no"
+							translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_CARD_NUMBER"> 客户卡号 </label>
+							<div class="col-lg-7">
+								<input id="card_nbr" name="card_nbr" type="text"
+								class="form-control text-uppercase"
+								ng-model="fields.card_nbr">
+							</div>
+							<label class="col-lg-5 control-label" for="card_no"
+							translate="pages.dp.DP_ACCT_BALANCE"> 账户余额 </label>
+							<div class="col-lg-7">
+								<input id=acctBal name="acctBal" type="text"
+								class="form-control text-uppercase"
+								ng-model="fields.acctBal"  required>
+							</div>
+							</div>
+						</div>
+					</div>
+
+                    <!-- A hidden row for hidden fields -->
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgCreateUser"></label>
+                                <input type="text" class="form-control" id="orgCreateUser"
+                                       name="gx.orgCreateUser"
+                                       ng-model="fields.orgCreateUser">
+                            </div>
+                        </div>
+                    </div>
+  					
+                    <div class="row" >
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClear" style="width:130px;margin-top:75px" 
+                                        ng-click="return()">
+                                    {{'返回' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

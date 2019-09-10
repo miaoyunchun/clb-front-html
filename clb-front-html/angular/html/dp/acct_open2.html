@@ -1,0 +1,404 @@
+<!-- This page has been included in org_mgmt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder"  >
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.dp.DP_ACCT_OPEN2_TITLES">
+        </div>
+        <div class="panel-body" ng-controller="ShowCustInfoController">
+        <!-- toaster directive -->
+		<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+            <div class="well b bg-light lt wrapper-sm m-t">
+                {{"pages.sm.ORG_MGMT_NOTIFICATION_TEXTS.ORG_MGMT_NOTIFICATION_I18N" | translate}}
+            </div>
+
+           
+            
+			<!-- 存款开户客户信息表单 -->
+            <form name="formCustInfo" id="formCustInfo" class="form-validation">
+	 			<!-- alert -->
+		            <div class="m-b-md">
+		                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+		                </alert>
+		            </div>
+                <fieldset ng-disabled="isFormDisabled">
+                    <!-- Organization basic info -->
+                    <div class="row">
+
+                        <!-- Column 1 -->
+                        <div class="col-lg-3" >
+                            <div class="form-group" >
+                                <label for="loanNbr"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_CUSTOMER_TYPE">
+                                       	客户类型
+                                </label>
+                                <input id="custType" name="cust_type" type="text"
+                                       class="form-control" ng-model="fields.custType" readonly
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="ctryCode"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_COUNTRY_CODE">
+                                    	国家代码
+                                </label>
+                               <input id="ctryCode" name="ctryCode"  type="text" readonly
+                                       class="form-control" value="CN"  
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="idType"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_ID_TYPE">
+                                    	证件类型
+                                </label>
+                               <input id="idType" name="cust_id_type" type="text" 
+                                       class="form-control" ng-model="fields.idType" 
+                                       readonly required>
+                            </div>
+                        </div>
+                        <!-- Column 4 -->
+                        <div class="col-lg-3">
+                            <div class="form-group" >
+                                <label for="idNumber"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_ID_NUMBER">
+                                       	证件号码
+                                </label>
+                                <input id="idNumber" name="cust_id_no" type="text"
+                                       class="form-control" ng-model="fields.idNumber"
+                                       readonly required>
+                            </div>
+                        </div>
+                    </div>
+
+					<div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-3" >
+                            <div class="form-group">
+                                <label for="acctType"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_ACCOUNT_TYPE">
+                                    	开户类型
+                                </label>
+                               <input id="acctType" name="acctType"  type="text" readonly
+                                       class="form-control" value="存款业务"  
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="idType"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_CUSTOMER_LEVEL">
+                                    	客户级别
+                                </label>
+                               <input id="custLevel" name="custLevel" type="text"
+                                       class="form-control" ng-model="fields.custLevel" readonly
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="sex"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_SEX">
+                                    	性别
+                                </label>
+                               <input id="sex" name="cust_gender" type="text"
+                                       class="form-control" ng-model="fields.sex"
+                                       required>
+                            </div>
+                        </div>
+                        
+                        <!-- Column 4 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="nationality"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_NATIONALITY">
+                                    	国籍
+                                </label>
+                               <input id="nationality" name="cust_nationality" type="text"
+                                       class="form-control" ng-model="fields.nationality"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-3" >
+                            <div class="form-group">
+                                <label for="name"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_CUST_NAME">
+                                    	姓名
+                                </label>
+                               <input id="name" name="cust_name"  type="text" 
+                                       class="form-control" ng-model="fields.name"  
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="city"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_CUST_CITY">
+                                    	城市
+                                </label>
+                               <input id="city" name="cust_city" type="text"
+                                       class="form-control" ng-model="fields.city"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="address"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_CUST_ADDRESS">
+                                    	地址
+                                </label>
+                               <input id="address" name="cust_address" type="text"
+                                       class="form-control" ng-model="fields.address"
+                                       required>
+                            </div>
+                        </div>
+                        
+                        <!-- Column 4 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="postCode"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_POST_CODE">
+                                    	邮编
+                                </label>
+                               <input id="postCode" name="cust_post_code" type="text"
+                                       class="form-control" ng-model="fields.postCode"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-3" >
+                            <div class="form-group">
+                                <label for="phoneNo"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_PHONE_NUMBER">
+                                    	电话
+                                </label>
+                               <input id="phoneNo" name="cust_phone_number"  type="text" 
+                                       class="form-control" ng-model="fields.phoneNo"  
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="cellPhoneNo"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_CELLPHONE_NUMBER">
+                                    	手机
+                                </label>
+                               <input id="cellPhoneNo" name="cust_hand_phone" type="text"
+                                       class="form-control" ng-model="fields.cellPhoneNo"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="prodName"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_PRODUCT_NAME">
+                                    	产品名称
+                                </label>
+                               <input id="prodName" name="prodName" type="text"
+                                       class="form-control" ng-model="fields.prodName"
+                                       required>
+                            </div>
+                        </div>
+                        
+                        <!-- Column 4 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="prodCycle"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_PRODUCT_CYCLE">
+                                    	产品周期
+                                </label>
+                               <input id="prodCycle" name="product_id" type="text"
+                                       class="form-control" ng-model="fields.prodCycle" ng-blur="blur()"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-3" >
+                            <div class="form-group">
+                                <label for="currency"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_CURRENCY">
+                                    	币种
+                                </label>
+                               <input id="currency" name="ccy"  type="text" readonly
+                                       class="form-control" ng-model="fields.currency"  
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="subjectNo"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_SUBJECT_NUMBER">
+                                    	科目编号
+                                </label>
+                               <input id="subjectNo" name="subject_no" type="text" readonly
+                                       class="form-control" ng-model="fields.subjectNo"
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="openDate"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_PRODUCT_START_DATE">
+                                    	产品开户日
+                                </label>
+                                <div ng-controller="AvailDateCtrl" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="fields.openDate" id="openDate"  name="prod_spec_date" 
+                                               is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                               readonly close-text="Close"/>
+                                              
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default"  ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                        
+                        <!-- Column 4 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="endDate"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_PRODUCT_END_DATE">
+                                    	产品到期日
+                                </label>
+                                <div>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="fields.endDate"  
+                                               id="endDate"  name="prod_end_date" 
+                                               is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                               readonly close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default"  ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                      </div>
+                        
+                        <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-3" >
+                            <div class="form-group">
+                                <label for="org"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_ASSOCIATED_ORGANIZATION">
+                                    	关联机构
+                                </label>
+                               <input id="org" name="associate_org_id"  type="text"  readonly
+                                       class="form-control" ng-model="fields.org"  
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="operator"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_ACCT_OPEN_OPERATOR">
+                                    	开户操作员
+                                </label>
+                               <input id="operator" name="operator" type="text" readonly
+                                       class="form-control" 
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="firstAmt"
+                                       translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_ACCT_INITIAL_AMOUNT">
+                                    	账户初始金额
+                                </label>
+                               <input id="firstAmt" name="money_add" type="text"
+                                       class="form-control" ng-model="fields.firstAmt"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- A hidden row for hidden fields -->
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgCreateUser"></label>
+                                <input type="text" class="form-control" id="orgCreateUser"
+                                       name="gx.orgCreateUser"
+                                       ng-model="fields.orgCreateUser">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="email"></label>
+                                <input type="text" class="form-control" id="email"
+                                       name="email"
+                                       ng-model="fields.email">
+                            </div>
+                        </div>
+                    </div>
+  					
+                    <div class="row" >
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2"  >
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:150px" id="btnNext"  ng-click="next(idType,idNumber,acctNbr,prodCycle)" ng-disabled="formCustInfo.$invalid">
+                                        
+                                    {{'pages.dp.DP_MGMT_BUTTONS.DP_MGMT_BUTTON_NEXT' | translate}}
+                                    <i class="fa fa-share"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnBack" style="width:150px" 
+                                        ng-click="goback()">
+                                    {{'pages.dp.DP_MGMT_BUTTONS.DP_MGMT_BUTTON_RETURN' | translate}}
+                                    <i class="fa  fa-reply"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

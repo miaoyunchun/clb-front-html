@@ -1,0 +1,152 @@
+
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="modal-body wrapper-lg no-padder" ng-controller="BusinessCustomerPageCtrl">
+
+
+
+    <div class="panel panel-default m-b-none">
+        <!--标题-->
+        <div class="bg-light lter b-b wrapper-md">
+            <h1 class="m-n font-thin h3" translate="pages.rm.BCUST.BCUST_MGMT">对公客户管理</h1>
+        </div>
+        <div class="panel-body" >
+
+            <div class="well b bg-light lt wrapper-sm m-t" 
+            	 translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_QUERYCONTENT">请填写数据
+            </div>
+            <form name="formBusCustomerFilter" id="formBusCustomerFilter">
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-3" >
+                            <div>
+                                <label for="bcust_name" translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_NAME">
+                                    	 客户姓名查询
+                                </label>
+                                <input id="bcust_name" name="bcust_name" type="text" class="form-control"
+                                	placeholder="{{'pages.rm.PCUST.PCUST_MGMT_PLACEHOLDERS.PCUST_MGMT_PLACEHOLDER_NAME' | translate}}">
+                            </div>
+                        </div>
+                        <div class="col-lg-3" >
+                            <div>
+                                <label for="bcust_license" translate="pages.rm.BCUST.BCUST_MGMT_COLUMN_TITLES.BCUST_MGMT_COLUMN_TITLE_LICENSE_NUMBER">
+                                    	营业执照编号
+                                </label>
+                                <input id="bcust_license" name="bcust_license" type="text" class="form-control" readonly="readonly"\
+                                		placeholder="{{'pages.rm.BCUST.BCUST_MGMT_COLUMN_TITLES.BCUST_MGMT_COLUMN_TITLE_LICENSE_NUMBER' | translate}}">
+                            </div>
+                        </div>
+                    </div>
+                <div class="col-lg-4">
+                   <div class="form-group">
+                         <div class="col-lg-3">
+                               <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnQuery" style="width:150px;margin-top: 10px;margin-left: 1450px" ng-click="queryBusCustomer()">
+                                   {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SEARCH' | translate}}
+                                   <i class="fa fa-search"></i>
+                               </button>
+                         </div>
+                         <div class="col-lg-2">
+                               <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnReset" style="width:150px;margin-top: 10px;margin-left: 1500px"
+                                       type="reset">
+                                   {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+                                   <i class="fa fa-times"></i>
+                               </button>
+                         </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="row" id="BusCustomerTable" name="BusCustomerTable">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">
+                    <span ng-controller="AddBusCustomerModalInstanceCtrl">
+                        <!--添加新机构modal框-->
+                        <script type="text/ng-template" id="addBusCustomerModal.html">
+                            <div ng-include="'html/rm/businessCustomerManagement/add_bus_customer_modal_form.html'"></div>
+                        </script>
+
+                        <!--添加新的机构按钮-->
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="addBusCustomer" ng-click="showAddBusCustomerPopup()">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+                    <span ng-controller="EditBusCustomerModalInstanceCtrl">
+                        <!--修改机构的modal框-->
+                        <script type="text/ng-template" id="editBusCustomerModal.html">
+                            <div ng-include="'html/rm/businessCustomerManagement/edit_bus_customer_modal_form.html'"></div>
+                        </script>
+                        <!--修改机构按钮-->
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="editBusCustomer" ng-click="showEditBusCustomerPopup()">
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_EDIT' | translate}}
+                            <i class="fa fa-pencil-square-o"></i>
+                        </button>
+                    </span>
+                    <span>
+                        <!--删除机构的modal框-->
+                        <script type="text/ng-template" id="DeleteBusCustomerModal.html">
+                            <div ng-include="'html/rm/businessCustomerManagement/delete_bus_customer_modal_form.html'"></div>
+                        </script>
+                        <!--删除机构按钮-->
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="deleteBusCustomer" ng-click="deleteBusCustomerPopup()"disabled>
+                            {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_REMOVE' | translate}}
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </span>
+                     <span>
+                        <!--详细信息的modal框-->
+                        <script type="text/ng-template" id="DetailPerCustomerModal.html">
+                            
+                        </script>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="detailPerCustomer" ng-click="detailPerCustomerPopup()"disabled>
+                            {{'pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_DETAIL' | translate}}
+                            <i class="glyphicon glyphicon-list-alt"></i>
+                        </button>
+                    </span>
+                    <span>
+                        <!--下一页-->
+                        <script type="text/ng-template" id="PerCustomerNext">
+                        </script>
+                        <!--下一页按钮-->
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="perCustomerNext" ng-click="busCustomerNextPopup()" ng-hide="isTableHidden">
+                          	  {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_NEXT_PAGE' | translate}}
+                            <i class="glyphicon glyphicon-share-alt"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" ng-hide="isTableHidden">
+          <div class="table-responsive" >
+               <table class="table table table-striped table-bordered table-hover table-condensed">
+					<caption>客户姓名查询</caption>
+					<thead>
+						<tr>
+							<th translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_SEQUENCE">序号</th>
+							<th translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_PCUST_NUM">客户编号</th>
+							<th translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_CUST_NAME">姓名</th>
+							<th translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_PCUST_ORG_ID">关联机构号</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="x in BusCustomers">
+							<td>{{$index + 1}}</td>
+							<td>{{x.number}}</td>
+							<td>{{x.name}}</td>
+							<td>{{x.org_id}}</td>
+						</tr>
+					</tbody>
+			</table>
+        </div>
+   </div>
+    
+</div>
+
+
+

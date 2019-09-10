@@ -1,0 +1,180 @@
+<!--科目管理页面-->
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="modal-body wrapper-lg no-padder" ng-controller="fmSubjectsMgtPageCtrl">
+
+    <div class="panel panel-default m-b-none">
+        <!--标题-->
+        <div class="bg-light lter b-b wrapper-md">
+            <h1 class="m-n font-thin h3" translate="pages.fm.SUBJECT_MGT">Subjects Management</h1>
+        </div>
+
+        <div class="panel-body" >
+            <div class="well b bg-light lt wrapper-sm m-t" translate="pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N">
+            </div>
+        </div>
+        <!--搜索科目的条件表格-->
+        <form name="formSubjectFilter" id="formSubjectFilter">
+            <div class="row">
+                <!--科目编号-->
+                <div class="col-lg-3">
+                    <label for="item_key"
+                           translate="pages.fm.SUBJECTS.ITEM_KEY">
+                        Item Key
+                    </label>
+
+                    <input id="item_key" name="param_item_key" type="text"
+                           class="form-control"
+                           ng-model="fields.param_item_key" ng-minlength="8" ng-maxlength="8"
+                           required placeholder='{{"pages.fm.PLACEHOLDERS.ITEM_KEY" | translate}}'>
+                </div>
+                <!--科目级别-->
+                <div class="col-lg-3">
+                    <label for="param_item_level"
+                           translate="pages.fm.SUBJECTS.ITEM_LEVEL">
+                        Item Level
+                    </label>
+                    <ui-select
+                            id="param_item_level"
+                            name="param_item_level"
+                            ng-model="selectedParamItemLevel.item"
+                            on-select="paramItemLevelSelectOnChange()"
+                            ng-required="true"
+                            theme="bootstrap">
+                        <ui-select-match
+                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                            {{$select.selected.value}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="item in paramItemLevel | filter: $select.search">
+                            <span ng-bind-html="item.value | highlight: $select.search"></span>
+                        </ui-select-choices>
+                        <ui-select-no-choice>
+                            {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                            translate }}
+                        </ui-select-no-choice>
+                    </ui-select>
+
+                </div>
+
+            </div>
+
+            <!--查询按钮，重置按钮-->
+            <div class="row">
+                <div class="form-group">
+
+
+                    <div class="col-lg-10"> </div>
+                    <!--<div class="col-lg-2"> </div>-->
+                    <div class="col-lg-1">
+                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnQuery" style="width:100px" ng-click="querySub()">
+                            {{'pages.cp.ORG_MGT_FIELDS.QUERY_BUTTON' | translate}}
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <div class="col-lg-1">
+                        <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnReset" style="width:100px" type="reset"
+                                ng-click="clearTable()">
+                            {{'pages.cp.ORG_MGT_FIELDS.RESET_BUTTON' | translate}}
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- Action buttons -->
+    <div class="row" id="orgTable" name="orgTable">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">
+                    <!-- See this controller in add_org_modal_ctrl.js -->
+                    <span ng-controller="AddSubjectModalCtrl">
+                        <!--添加新产品modal框-->
+                        <script type="text/ng-template" id="addSubjectModal.html">
+                            <div ng-include="'html/fm/subjectMgt/subject_add_modal.html'"></div>
+                        </script>
+
+                        <!--添加新产品按钮-->
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="addProduct" ng-click="showAddSubjectModal()">
+                            {{'pages.cp.ORG_MGT_FIELDS.ORG_MGMT_BUTTON_ADD' | translate}}
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+
+                    <span ng-hide="isTableHidden" ng-controller="EditSubjectModalCtrl">
+                        <!--修改产品信息的modal框-->
+                        <script type="text/ng-template" id="editSubjectModal.html">
+                            <div ng-include="'html/fm/subjectMgt/subject_edit_modal.html'"></div>
+                        </script>
+
+
+                        <!--修改产品信息按钮-->
+                            <button class="btn m-b-xs btn-sm btn-default btn-addon" id="editSubject" ng-click="showEditSubjectModal()">
+                                {{'pages.cp.ORG_MGT_FIELDS.ORG_MGMT_BUTTON_EDIT' | translate}}
+                                <i class="fa fa-pencil-square-o"></i>
+                            </button>
+
+                    </span>
+
+                    <span  ng-hide="isTableHidden" ng-controller="SubjectDetailModalCtrl">
+                        <!--产品詳情的modal框-->
+                        <script type="text/ng-template" id="subjectDetailModal.html">
+                            <div ng-include="'html/fm/subjectMgt/subject_detail_modal.html'"></div>
+                        </script>
+
+
+                        <!--产品詳情的按钮-->
+                            <button class="btn m-b-xs btn-sm btn-default btn-addon" id="subjectDetail" ng-click="showSubjectDetailModal()">
+                            {{'pages.cp.ORG_MGT_FIELDS.ORG_MGMT_BUTTON_DETAIL' | translate}}
+                            <i class="fa fa-bell-o"></i>
+                        </button>
+
+                    </span>
+                </div>
+
+
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table ui-jq="dataTable" ui-options="{{fmSubDataTableParms}}" class="table display" id="tblSubjects">
+                            <thead>
+                            <tr>
+                                <th translate="pages.sm.org.ORG_MGMT_COLUMN_TITLES.ORG_MGMT_COLUMN_TITLE_SEQUENCE">
+                                    seq
+                                </th>
+                                <th translate="pages.fm.SUBJECTS.ITEM_KEY">
+                                    Item Key
+                                </th>
+                                <th translate="pages.fm.SUBJECTS.ITEM_LEVEL">
+                                    Item Level
+                                </th>
+                                <th translate="pages.fm.SUBJECTS.ITEM_NAME">
+                                    Item Name
+                                </th>
+                                <th translate="pages.fm.SUBJECTS.ITEM_START_DATE">
+                                    Item Start Date
+                                </th>
+
+                                <th translate="pages.fm.SUBJECTS.ITEM_END_DATE">
+                                    Item End Date
+                                </th>
+
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,122 @@
+<!-- This page has been included in org_mgmt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder"  >
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.dp.DP_BALANCE_QUERY">
+        </div>
+        <div class="panel-body" ng-controller="BalanceQueryController">
+        <!-- toaster directive -->
+		<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+            <div class="well b bg-light lt wrapper-sm m-t">
+                {{"pages.sm.ORG_MGMT_NOTIFICATION_TEXTS.ORG_MGMT_NOTIFICATION_I18N" | translate}}
+            </div>
+
+           
+            
+			<!-- 取款表单 -->
+            <form name="formQueryBalance1" id="formQueryBalance1" class="form-validation">
+	 			<!-- alert -->
+		            <div class="m-b-md">
+		                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+		                </alert>
+		            </div>
+                <fieldset ng-disabled="isFormDisabled">
+                <div class="col-lg-6">
+					<div class="form-horizontal">
+						<div class="form-group">
+							<label class="col-lg-5 control-label" for="card_no"
+							translate="pages.dp.DP_ACCT_OPEN_FIELDS.DP_ACCT_FIELD_CARD_NUMBER"> 客户卡号 </label>
+							<div class="col-lg-7">
+								<input id="card_no" name="card_no" type="text"
+								class="form-control text-uppercase"
+								ng-model="fields.card_no">
+							</div>
+							<label class="col-lg-5 control-label" for="card_no"
+							translate="pages.dp.DP_TRANS_HIST_FIELDS.DP_CARD_PIN"> 卡片密码 </label>
+							<div class="col-lg-7">
+								<input id="card_pwd" name="card_pwd" type="password"
+								class="form-control text-uppercase"
+								ng-model="fields.card_pwd" ng-minlength="6" ng-maxlength="8" required>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-lg-4" >
+					<div class="col-lg-4">
+						<button class="btn m-b-xs btn-default btn-success btn-addon" id="btnNext" style="width:130px;margin-left:80px;margin-top: 35px" ng-click="query()" ng-disabled="formQueryBalance1.$invalid">
+                                    {{'pages.dp.DP_MGMT_BUTTONS.DP_MGMT_BUTTON_NEXT' | translate}}
+                                    <i class="fa fa-share"></i>
+                    	</button>
+					</div>
+				</div>
+
+                    <!-- A hidden row for hidden fields -->
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgCreateUser"></label>
+                                <input type="text" class="form-control" id="orgCreateUser"
+                                       name="gx.orgCreateUser"
+                                       ng-model="fields.orgCreateUser">
+                            </div>
+                        </div>
+                    </div>
+  					
+                </fieldset>
+            </form>
+            
+            <!-- 账户余额信息表单 -->
+            <form name="formQueryBalance2" id="formQueryBalance2" style="display: none" class="form-validation">
+	 			<!-- alert -->
+		            <div class="m-b-md">
+		                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+		                </alert>
+		            </div>
+                <fieldset ng-disabled="isFormDisabled">
+                    <!-- Organization basic info -->
+                    <div class="col-lg-6">
+					<div class="form-horizontal">
+						<div class="form-group">
+							<label class="col-lg-5 control-label" for="card_no"
+							translate="pages.dp.DP_ACCT_BALANCE"> 账户余额 </label>
+							<div class="col-lg-7">
+								<input id="acctBal" name="acctBal" type="text"
+								class="form-control text-uppercase"
+								ng-model="fields.acctBal"  required>
+							</div>
+						</div>
+					</div>
+				</div>
+                    
+                    <!-- A hidden row for hidden fields -->
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgCreateUser"></label>
+                                <input type="text" class="form-control" id="orgCreateUser"
+                                       name="gx.orgCreateUser"
+                                       ng-model="fields.orgCreateUser">
+                            </div>
+                        </div>
+                    </div>
+  					
+                    <div class="row" >
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-4"></div>
+                            <div class="col-lg-4">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClear" style="width:130px;margin-left:95px" 
+                                        ng-click="return()">
+                                    {{'pages.dp.DP_MGMT_BUTTONS.DP_MGMT_BUTTON_RETURN' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            
+        </div>
+    </div>
+</div>

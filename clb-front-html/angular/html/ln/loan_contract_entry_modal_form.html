@@ -1,0 +1,311 @@
+<!-- This page has been included in org_mgt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+	<div class="panel panel-default m-b-none">
+		<div class="panel-heading font-bold"
+			translate="pages.ln.LN_CONTRACT_ENTRY"></div>
+		<div class="panel-body" id="editOrgPanel">
+			<div class="well b bg-warning bg text-dark lt wrapper-sm m-t">
+				<strong>{{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N"
+					| translate}}</strong>
+			</div>
+
+			<!-- alert -->
+			<div class="m-b-md">
+				<alert ng-repeat="alert in alerts" type="{{alert.type}}"
+					close="closeAlert($index)">{{alert.msg}} </alert>
+			</div>
+
+			<form name="formLoanContractEntry" id="formLoanContractEntry"
+				class="form-validation">
+
+				<fieldset ng-disabled="isFormDisabled">
+
+					<!-- Organization basic info -->
+					<div class="row">
+
+						<!-- Column 1 -->
+						<input style="display:none" id="lncntrct_loan_no" name="lncntrct_loan_no" type="text"
+									  ng-model="fields.lncntrct_loan_no" >
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.DOCUMENT_TYPE"> 证件类型 </label> <input
+									id="lncappf_cust_type" name="lncappf_cust_type" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.orgNoRule }}"
+									ng-model="fields.lncappf_cust_type" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.CONTRACT_FORM"> 合同形态</label> <input
+									id="lncntrct_cntrct_shape" name="lncntrct_cntrct_shape" type="text" class="form-control "
+									placeholder="{{ placeholders.lncntrct_cntrct_shape }}"
+									ng-model="fields.lncntrct_cntrct_shape" required >
+							</div>
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.CREDIT_LINE"> 授信额度 </label> <input
+									id="lncntrct_credit_limit" name="lncntrct_credit_limit" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_credit_limit }}"
+									ng-model="fields.lncntrct_credit_limit" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.INTEREST_SETTLE_DATE"> 结息日期 </label> <input
+									id="lncntrct_intst_settlement_date" name="lncntrct_intst_settlement_date" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_intst_settlement_date }}"
+									ng-model="fields.lncntrct_intst_settlement_date" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.PERIODS"> 期数 </label> <input
+									id="lncntrct_no_of_installment" name="lncntrct_no_of_installment" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_no_of_installment }}"
+									ng-model="fields.lncntrct_no_of_installment" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.REPAY_DATE"> 起始还本日期 </label> <input
+									id="lncntrct_strt_payback_date" name="lncntrct_strt_payback_date" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_strt_payback_date }}"
+									ng-model="fields.lncntrct_strt_payback_date" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.APPLICATION_NUMBER"> 申请书号</label> <input
+									id="lncntrct_loan_app_id" name="lncntrct_loan_app_id" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_loan_app_id }}"
+									ng-model="fields.lncntrct_loan_app_id" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.FLOATING_COEFFICIENT"> 正常利率浮动系数 </label> <input
+									id="lncntrct_raten_flu_mod" name="lncntrct_raten_flu_mod" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_raten_flu_mod }}"
+									ng-model="fields.lncntrct_raten_flu_mod"  readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.OVERDUE_RATE"> 逾期执行利率 </label> <input
+									id="lncntrct_execo_rat" name="lncntrct_execo_rat" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_execo_rat }}"
+									ng-model="fields.lncntrct_execo_rat"  readonly>
+							</div>
+						</div>
+
+						<!-- Column 2 -->
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.DOCUMENT_NUMBER"> 证件号码 </label> <input
+									id="lncappf_cust_no" name="lncappf_cust_no" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.orgNoRule }}"
+									ng-model="fields.lncappf_cust_no" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="isEnabled" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.CONTRACT_STATUS"> 合同状态 </label> <input
+									id="lncntrct_cntrct_status" name="lncntrct_cntrct_status" type="text" class="form-control "
+									placeholder="{{ placeholders.lncntrct_cntrct_status }}"
+									ng-model="fields.lncntrct_cntrct_status" required>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.LOAN_WHEREABOUTS"> 贷款款项去向 </label> <input
+									id="lncntrct_loan_use" name="lncntrct_loan_use" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_loan_use }}"
+									ng-model="fields.lncntrct_loan_use" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.DATE_OPENED"> 开户日期 </label> <input
+									id="lncntrct_open_date" name="lncntrct_open_date" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_open_date }}"
+									ng-model="fields.lncntrct_open_date" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.REPAYMENT_METHOD"> 还款方式</label> <input
+									id="lncntrct_repay_way" name="lncntrct_repay_way" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_repay_way }}"
+									ng-model="fields.lncntrct_repay_way" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.BENCHMARK_INTEREST_RATE_TYPE"> 基准利率类型 </label> <input
+									id="lncntrct_intst_rate_tye" name="lncntrct_intst_rate_tye" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_intst_rate_tye }}"
+									ng-model="fields.lncntrct_intst_rate_tye"  readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.LOAN_OFFICER"> 信贷员ID </label> <input
+									id="lncntrct_loan_officer_id" name="lncntrct_loan_officer_id" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_loan_officer_id }}"
+									ng-model="fields.lncntrct_loan_officer_id"   readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.NORMAL_EXECUTION_RATE"> 正常执行利率 </label> <input
+									id="lncntrct_execn_rate" name="lncntrct_execn_rate" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_execn_rate }}"
+									ng-model="fields.lncntrct_execn_rate"  readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.PRODUCT_NAME"> 产品名称 </label> <input
+									id="product_name" name="product_name" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.product_name }}"
+									ng-model="fields.product_name" required readonly>
+							</div>
+						</div>
+
+						<!-- Column 3 -->
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="isEnabled" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.ACCOUNT_CODE"> 客户账号 </label> <input
+									id="lncntrct_cust_no" name="lncntrct_cust_no" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_cust_no }}"
+									ng-model="fields.lncntrct_cust_no" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.CURRENT_PERIOD"> 当前期数 </label> <input
+									id="lncntrct_curr_install" name="lncntrct_curr_install" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_curr_install }}"
+									ng-model="fields.lncntrct_curr_install" required>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.LOAN_CARD_NUMBER"> 放款卡号 </label> <input
+									id="lncntrct_drdw_card_no" name="lncntrct_drdw_card_no" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_drdw_card_no }}"
+									ng-model="fields.lncntrct_drdw_card_no" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.INTEREST_DATE"> 起息日期 </label> <input
+									id="lncntrct_intst_strt_date" name="lncntrct_intst_strt_date" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_intst_strt_date }}"
+									ng-model="fields.lncntrct_intst_strt_date" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.CONTRACT_LOAN_AMOUNT(PRINCIPAL)"> 合同贷款金额（本金） </label> <input
+									id="lncntrct_cntrct_amount" name="lncntrct_cntrct_amount" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_cntrct_amount }}"
+									ng-model="fields.lncntrct_cntrct_amount"  readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.BENCHMARK_INTEREST"> 基准利率 </label> <input
+									id="lncntrct_intst_rate" name="lncntrct_intst_rate" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_intst_rate }}"
+									ng-model="fields.lncntrct_intst_rate" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.INTEREST_CHANGE"> 利率变更方式 </label> <input
+									id="lncntrct_raten_effe_way" name="lncntrct_raten_effe_way" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_raten_effe_way }}"
+									ng-model="fields.lncntrct_raten_effe_way" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.OVERDUE_RATE_MODE"> 逾期利率浮动方式 </label> <input
+									id="lncntrct_rateo_flu_way" name="lncntrct_rateo_flu_way" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_rateo_flu_way }}"
+									ng-model="fields.lncntrct_rateo_flu_way" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.PRODUCT_TYPE"> 产品类型 </label> <input
+									id="lncntrct_prod_type" name="lncntrct_prod_type" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_prod_type }}"
+									ng-model="fields.lncntrct_prod_type" required readonly>
+							</div>
+						</div>
+
+						<!-- Column 4 -->
+						<div class="col-lg-3">
+							<div class="form-group">
+								<label for="orgCode" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.CUSTOMER_NAME"> 客户名称 </label> <input
+									id="lncntrct_cust_name" name="lncntrct_cust_name" type="text" class="form-control "
+									placeholder="{{ placeholders.lncntrct_cust_name }}"
+									ng-model="fields.lncntrct_cust_name" required >
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.CURRENCY"> 币种号 </label> <input
+									id="lncntrct_ccy_type" name="lncntrct_ccy_type" type="text" class="form-control "
+									placeholder="{{ placeholders.lncntrct_ccy_type }}" required
+									ng-model="fields.lncntrct_ccy_type">
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.INTEREST_SETTLEMENT"> 结息方式</label> <input
+									id="lncntrct_intst_settlement" name="lncntrct_intst_settlement" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_intst_settlement }}"
+									ng-model="fields.lncntrct_intst_settlement" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.END_DATE"> 到期日期 </label> <input
+									id="lncntrct_expiration_date" name="lncntrct_expiration_date" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_expiration_date }}"
+									ng-model="fields.lncntrct_expiration_date" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.ASSOCIATION_CARD_NUMBER"> 关联卡号 </label> <input
+									id="lncntrct_relate_card_no" name="lncntrct_relate_card_no" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_relate_card_no }}"
+									ng-model="fields.lncntrct_relate_card_no" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.EFFECTIVE_DATE"> 生效日期 </label> <input
+									id="lncntrct_effective_date" name="lncntrct_effective_date" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_effective_date }}"
+									ng-model="fields.lncntrct_effective_date" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.NORMAL_FLOAT_MODE"> 正常利率浮动方式 </label> <input
+									id="lncntrct_raten_flu_way" name="lncntrct_raten_flu_way" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_raten_flu_way }}"
+									ng-model="fields.lncntrct_raten_flu_way" required readonly>
+							</div>
+							<div class="form-group">
+								<label for="orgPer" translate="pages.ln.LOAN_CONTRACT_ENTRY_MODAL_FORM_INPUTS.OVERDUE_FLOAT_COEFFICIENT"> 逾期利率浮动系数 </label> <input
+									id="lncntrct_rateo_flu_mod" name="lncntrct_rateo_flu_mod" type="text"
+									class="form-control "
+									placeholder="{{ placeholders.lncntrct_rateo_flu_mod }}"
+									ng-model="fields.lncntrct_rateo_flu_mod"  readonly>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-lg-6"></div>
+							<div class="col-lg-2"></div>
+							<div class="col-lg-2" id="div_check">
+								<button class="btn m-b-xs btn-default btn-success btn-addon"
+									id="btnSave" ng-click="add()" ng-disabled="formLoanContractEntry.$invalid">
+									{{'pages.ln.GX_MGMT_BUTTON.GX_MGMT_BUTTON_ENTRY' | translate}} <i class="fa fa-plus"></i>
+								</button>
+							</div>
+							<div class="col-lg-2">
+								<button class="btn m-b-xs btn-default btn-success btn-addon"
+									id="btnClear" ng-click="cancel()">
+									{{'pages.ln.GX_MGMT_BUTTON.GX_MGMT_BUTTON_CANCEL' | translate}}
+									<i class="fa fa-times"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>

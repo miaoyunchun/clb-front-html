@@ -1,0 +1,404 @@
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <!--modal框标题-->
+        <div class="panel-heading font-bold"
+             translate="pages.fm.TRAD_LIST.TITLES_TRAD_ADD"></div>
+
+
+        <div class="panel-body" id="editSubPanel">
+
+            <div class="well b bg-light lt wrapper-sm m-t">
+                {{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+
+            <form name="formAddTradingItem" id="formAddTradingItem" class="form-validation">
+
+               <fieldset ng-disabled="isFormDisabled">
+
+                    <!--column 1-->
+                    <div class="row">
+                    	<div class="col-lg-4">
+                        <div>
+                            <div class="form-group">
+                                <label for="txn_jour">
+                                 	   {{'pages.fm.TRAD_LIST.TRAD_TXN_JOUR' | translate}}
+                                 	 <span style="color:red">*</span>
+                                </label>
+                                <input id="txn_jour1" name="txn_jour" type="text"
+                                       class="form-control" ng-model="fields.txn_jour"
+                                       ng-blur="ifExisted()" ng-maxlength="19" ng-minlength="19" required
+                                       placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.TXN_JOUR' | translate}}">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="form-group">
+                                <label for="txn_type">
+                                 	   {{'pages.fm.TRAD_LIST.TRAD_TXN_TYPE' | translate}}
+                                 	 <span style="color:red">*</span>
+                                </label>
+     			                	<ui-select
+                                           id="txn_type_add"
+                                           ng-model="selectedTxnType.item"
+                                           on-select="txnTypeSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in txn_type_adds | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="form-group">
+                                <label for="ser_name">
+                                 	{{'pages.fm.TRAD_LIST.TRAD_SER_NAME' | translate}}
+                                 	 <span style="color:red">*</span>
+                                </label>
+                                <input id="ser_name" name="ser_name" type="text"
+                                       class="form-control" ng-model="fields.ser_name"
+                                       ng-maxlength="19" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.SER_NAME' | translate}}">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="busn_date">
+                                 	  {{'pages.fm.TRAD_LIST.TRAD_BUSN_DATE' | translate}}
+                                 	  <span style="color:red">*</span>
+                                </label>
+                                <div ng-controller="AvailDateCtrl">
+	                                 <div class="input-group">
+	                                     <input id="busn_date" name="busn_date" type="text" class="form-control" datepicker-popup="{{format}}"
+	                                            ng-model="fields.busn_date" close-text="Close"
+	                                            is-open="opened" datepicker-options="dateOptions"
+	                                            placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.BUSN_DATE' | translate}}"/>
+	                                     <span class="input-group-btn">
+	                                         <button type="button" class="btn btn-default" ng-click="open($event)">
+	                                             <i class="glyphicon glyphicon-calendar"></i>
+	                                         </button>
+	                                     </span>
+	                                 </div>
+                            	</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="cpu_date">
+                                 	   {{'pages.fm.TRAD_LIST.TRAD_CPU_DATE' | translate}}
+                                 	   <span style="color:red">*</span>
+                                </label>
+                                <input id="cpu_date" name="cpu_date" type="text"
+                                       class="form-control" ng-model="fields.cpu_date"
+                                       ng-maxlength="10" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.CPU_DATE' | translate}}">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="form-group">
+                                <label for="cpu_time">
+                                 	 {{'pages.fm.TRAD_LIST.TRAD_CPU_TIME' | translate}}
+                                 	 <span style="color:red">*</span>
+                                </label>
+                                <input id="cpu_time" name="cpu_time" type="text" ng-maxlength="9"
+                                       class="form-control" ng-model="fields.cpu_time" required
+                                       placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.CPU_TIME' | translate}}">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="txn_terminal">
+                                 	  {{'pages.fm.TRAD_LIST.TRAD_TXN_TERMINAL' | translate}}
+                                 	  <span style="color:red">*</span>
+                                </label>
+                                <input id="txn_terminal" name="txn_terminal" type="text" ng-maxlength="15"
+                                       class="form-control" ng-model="fields.txn_terminal" required
+                                       placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.TXN_TERMINAL' | translate}}">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="txn_auth_flg">
+                                 	  {{'pages.fm.TRAD_LIST.TRAD_AUTH_FLG' | translate}}
+                                 	  <span style="color:red">*</span>
+                                </label>
+     			                	<ui-select
+                                           id="txn_auth_flg"
+                                           ng-model="selectedTxnAuthFlg.item"
+                                           on-select="txnAuthFlgSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in txn_auth_flgs | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+                            </div>
+                        </div>
+                    </div>
+                    <!--column 2-->
+                   	<div class="col-lg-4">
+                    	<div>
+                            <div class="form-group">
+                                <label for="auth_typ">
+                                 	   {{'pages.fm.TRAD_LIST.TRAD_AUTH_TYP' | translate}}
+                                 	   <span style="color:red">*</span>
+                                </label>
+ 			                	    <ui-select
+                                           id="auth_typ"
+                                           ng-model="selectedAuthTyp.item"
+                                           on-select="authTypSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in auth_typs | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_ec_flg">
+                                 	  {{'pages.fm.TRAD_LIST.TRAD_TXL_EC_FLG' | translate}}
+                                 	  <span style="color:red">*</span>
+                                </label>
+     			                	<ui-select
+                                           id="txl_ec_flg"
+                                           ng-model="selectedTxlEcFlg.item"
+                                           on-select="txlEcFlgSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in txl_ec_flgs | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_ec_log_no">
+                                 	  {{'pages.fm.TRAD_LIST.TRAD_EC_LOG_NO' | translate}}
+                                 	  <span style="color:red">*</span>
+                                </label>
+                                <input id="txl_ec_log_no" name="txl_ec_log_no" type="text"
+                                       class="form-control" ng-model="fields.txl_ec_log_no"
+                                       ng-maxlength="19" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.EC_LOG_NO' | translate}}">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_ar_log_no">
+                                 	   {{'pages.fm.TRAD_LIST.TRAD_AR_LOG_NO' | translate}}
+                                 	   <span style="color:red">*</span>
+                                </label>
+                                <input id="txl_ar_log_no" name="txl_ar_log_no" type="text"
+                                       class="form-control" ng-model="fields.txl_ar_log_no"
+                                       ng-maxlength="19" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.AR_LOG_NO' | translate}}">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_account_no">
+                                 	   {{'pages.fm.TRAD_LIST.TRAD_ACCOUNT_NO' | translate}}
+                                 	   <span style="color:red">*</span>
+                                </label>
+                                <input id="txl_account_no" name="txl_account_no" type="text"
+                                       class="form-control" ng-model="fields.txl_account_no"
+                                       ng-maxlength="28" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.ACCOUNT_NO' | translate}}">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_oppo_account_no">
+                                 	{{'pages.fm.TRAD_LIST.TRAD_OPPO_ACCOUNT_NO' | translate}}
+                                 	 <span style="color:red">*</span>
+                                </label>
+                                <input id="txl_oppo_account_no" name="txl_oppo_account_no" type="text"
+                                       class="form-control" ng-model="fields.txl_oppo_account_no"
+                                       ng-maxlength="28" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.OPPO_ACCOUNT_NO' | translate}}">
+
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_tx_type">
+                                 	  {{'pages.fm.TRAD_LIST.TRAD_TXN_TYPE' | translate}}
+                                 	  <span style="color:red">*</span>
+                                </label>
+                                <input id="txl_tx_type" name="txl_tx_type" type="text"
+                                       class="form-control" ng-model="fields.txl_tx_type"
+                                       ng-maxlength="1" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.TXN_TYPE' | translate}}">
+                            </div>
+                        </div>
+                    </div>
+                    <!--column 3-->
+                    <div class="col-lg-4">
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_doc_type">
+                                 	  {{'pages.fm.TRAD_LIST.TRAD_DOC_TYPE' | translate}}
+                                 	  <span style="color:red">*</span>
+                                </label>
+                                <input id="txl_doc_type" name="txl_doc_type" type="text"
+                                       class="form-control" ng-model="fields.txl_doc_type"
+                                       ng-maxlength="1" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.DOC_TYPE' | translate}}">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_book_code">
+                                 	 {{'pages.fm.TRAD_LIST.TRAD_BOOK_CODE' | translate}}
+                                 	  <span style="color:red">*</span>
+                                </label>
+                                <input id="txl_book_code" name="txl_book_code" type="text"
+                                       class="form-control" ng-model="fields.txl_book_code"
+                                       ng-maxlength="3" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.BOOK_CODE' | translate}}">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_tx_amt1">
+                                 	   {{'pages.fm.TRAD_LIST.TXL_TX_AMT1' | translate}}
+                                 	   <span style="color:red">*</span>
+                                </label>
+                                <input id="txl_tx_amt1" name="txl_tx_amt1" type="text"
+                                       class="form-control" ng-model="fields.txl_tx_amt1"
+                                       ng-maxlength="16" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.TX_AMT1' | translate}}">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_tx_amt2">
+                                 	  {{'pages.fm.TRAD_LIST.TXL_TX_AMT2' | translate}}
+                                 	  <span style="color:red">*</span>
+                                </label>
+                                <input id="txl_tx_amt2" name="txl_tx_amt2" type="text"
+                                       class="form-control" ng-model="fields.txl_tx_amt2"
+                                       ng-maxlength="16" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.TX_AMT2' | translate}}">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_24h_ec_flg">
+                                 	{{'pages.fm.TRAD_LIST.TRAD_24HEC_FLG' | translate}}
+                                 	<span style="color:red">*</span>
+                                </label>
+    			                	<ui-select
+                                           id="txl_24h_ec_flg"
+                                           ng-model="selectedTxl24hEcFlg.item"
+                                           on-select="txl24hEcFlgSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in txl_24h_ec_flgs | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_inp_area_len">
+                                 	 {{'pages.fm.TRAD_LIST.TRAD_AREA_LEN' | translate}}
+                                 	  <span style="color:red">*</span>
+                                </label>
+                                <input id="txl_inp_area_len" name="txl_inp_area_len" type="text"
+                                       class="form-control" ng-model="fields.txl_inp_area_len"
+                                       ng-maxlength="4" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.AREA_LEN' | translate}}">
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group">
+                                <label for="txl_data_area">
+                                 	  {{'pages.fm.TRAD_LIST.TRAD_TRAD_AREA' | translate}}
+                                 	  <span style="color:red">*</span>
+                                </label>
+                                <input id="txl_data_area" name="txl_data_area" type="text"
+                                       class="form-control" ng-model="fields.txl_data_area"
+                                       ng-maxlength="600" required placeholder="{{'pages.fm.TRAD_LIST.PLACEHOLDERS.TRAD_AREA' | translate}}">
+                            </div>
+                        </div>
+                    </div>
+				</div>
+                    <!--按钮-->
+                    <div class="row">
+                         <div class="form-group">
+                           	<div class="col-lg-6"></div>
+                           	<div class="col-lg-6">
+                            	<div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="addBtn" ng-click="addTradItem()"
+                                    	    ng-disabled="formAddTradingItem.$invalid">
+                                 	  		{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" ng-click="resetAddForm()">
+                                	        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+                                        <i class="glyphicon glyphicon-repeat"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" ng-click="cancelAdd()">
+                                	        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

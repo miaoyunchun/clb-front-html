@@ -1,0 +1,42 @@
+<div class="container w-xxl w-auto-xs" ng-controller="SigninFormController" ng-init="app.settings.container = false;">
+    <a href class="navbar-brand block m-t">{{app.name}}</a>
+    <div class="m-b-lg">
+        <form name="form" class="form-validation">
+            <div class="text-danger wrapper text-center" ng-show="authError">
+                {{authError}}
+            </div>
+            <div class="list-group list-group-sm">
+                <div class="list-group-item">
+                    <input placeholder="{{ 'pages.common.COMMON_FIELDS.COMMON_FIELD_USERNAME' | translate }}"
+                           class="form-control no-border" ng-model="user.username" required>
+                </div>
+                <div class="list-group-item">
+                    <input type="password"
+                           placeholder="{{ 'pages.common.COMMON_FIELDS.COMMON_FIELD_PASSWORD' | translate }}"
+                           class="form-control no-border" ng-model="user.password" required>
+                </div>
+                <div class="list-group-item">
+                    <ui-select id="langSelector"
+                               ng-model="selectedLang.langId"
+                               theme="bootstrap"
+                               on-select="onLangTypeSelected($item, $model)"
+                               reset-search-input="false">
+                        <ui-select-match
+                                placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                            {{$select.selected.langName}}
+                        </ui-select-match>
+                        <ui-select-choices repeat="lang.langId as lang in arrLangs | filter: $select.search">
+                            <div ng-bind-html="lang.langName | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary btn-block" ng-click="login()"
+                    ng-disabled='form.$invalid'>{{ 'pages.common.COMMON_BUTTONS.COMMON_BUTTON_LOGIN' | translate }}
+            </button>
+        </form>
+    </div>
+    <div class="text-center" ng-include="'tpl/blocks/page_footer.html'">
+        {% include 'blocks/page_footer.html' %}
+    </div>
+</div>

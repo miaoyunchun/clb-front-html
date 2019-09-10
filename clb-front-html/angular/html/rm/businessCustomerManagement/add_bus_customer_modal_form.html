@@ -1,0 +1,529 @@
+<!-- This page has been included in bus_customer_mgmt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_EXPLAIN">对公客户开立</div>
+        <div class="panel-body" id="addBusCustomerPanel">
+        
+            <div class="well b bg-light lt wrapper-sm m-t" translate="pages.rm.PCUST.PCUST_MGMT_FORM_INPUTS.PCUST_MGMT_FORM_INPUT_PROMPT">
+             	   红星为必输项
+            </div>
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+             <form name="formAddBusCustomerFilter" id="formAddBusCustomerFilter" class="form-validation">
+             	<fieldset ng-disabled="isFormDisabled">
+                 <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-lg-4">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_org_id">
+                                	    {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_INORG' | translate}}
+                                	 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_org_id" name="bcust_org_id" type="text" class="form-control" 
+                                    	   ng-model="fields.bcustOrgId" ng-maxlength="3" ng-minlength="3" required
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_ORG_ID' | translate}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_org_number">
+                              		  {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_ORG_CODE' | translate}}
+                              		 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_org_number" name="bcust_org_number" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_ORG_NUMBER' | translate}}"
+                                           ng-model="fields.orgNumber" ng-maxlength="31" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_license">
+                              		 {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_LICENSE' | translate}}
+                              		 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_license" name="bcust_license" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_LICENSE' | translate}}"
+                                           ng-model="fields.bcustLicense" ng-maxlength="15" ng-minlength="15" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_indust_type">
+                              		{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_INDUST_TYPE' | translate}}
+                              		<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_indust_type" name="bcust_indust_type" type="text" class="form-control" 
+                                           ng-model="fields.industType" ng-maxlength="4" ng-minlength="4"  required
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_INDUST_TYPE' | translate}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_region_lvl" >
+                                   	 {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_REGION_LVL' | translate}}
+                                   	<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+										<ui-select
+                                           id="bcust_region_lvl"
+                                           ng-model="selectedBcustRegionLvl.item"
+                                           on-select="bcustRegionLvlSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in bcust_region_lvls | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_address">
+                                	 {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_ADDRESS' | translate}}
+                                	 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_address" name="bcust_address" type="text" class="form-control" ng-model="fields.bcustAddress"
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_ADDRESS2' | translate}}"
+                                           ng-maxlength="40" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_loan_nbr">
+                              		{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_LOAN_NBR' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_loan_nbr" name="bcust_loan_nbr" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_LOAN_NBR' | translate}}"
+                                           ng-model="fields.loanNbr" ng-maxlength="19" ng-minlength="19">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_law_repter">
+                              		 {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_LAW_REPTER' | translate}}
+                              		<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_law_repter" name="bcust_law_repter" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_LAW_REPTER' | translate}}"
+                                           ng-model="fields.lawRepter" ng-maxlength="19" ng-minlength="19" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_buss_repter">
+                              		{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_BUSS_REPTER' | translate}}
+                              		<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_buss_repter" name="bcust_buss_repter" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_BUSS_REPTER' | translate}}"
+                                           ng-model="fields.bussRepter" ng-maxlength="19" ng-minlength="19" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_regi_cap">
+                              		{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_REGI_CAP' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_regi_cap" name="bcust_regi_cap" type="text" class="form-control" 
+                                           ng-model="fields.regiCap" ng-maxlength="19">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_cred_assess">
+                              		 {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_CRED_ASSESS' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_cred_assess" name="bcust_cred_assess" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_CRED_ASSESS' | translate}}"
+                                           ng-model="fields.credAssess" ng-maxlength="30">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_maker">
+                              		  {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_MAKER' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_maker" name="bcust_maker" type="text" class="form-control"
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_MAKER' | translate}}"
+                                           ng-model="fields.bcustMaker" ng-maxlength="9">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-4">
+                        <div class="form-horizontal">
+                        	<div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_name">
+                                	    {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_NAME' | translate}}
+                                	 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_name" name="bcust_name" type="text" class="form-control" 
+                                    	   ng-model="fields.bcustName" ng-maxlength="60" required
+                                    	   placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_NAME' | translate}}">
+                                </div>
+                            </div>
+                        	<div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_tel_nbr">
+                              		{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_TEL_NBR' | translate}}
+                              		<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_tel_nbr" name="bcust_tel_nbr" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_TEL_NBR' | translate}}"
+                                           ng-model="fields.telNbr" ng-maxlength="20" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_fax_nbr">
+                              		  {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_FAX_NBR' | translate}}
+                              		 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_fax_nbr" name="bcust_fax_nbr" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_FAX_NBR' | translate}}"
+                                           ng-model="fields.bcustFaxNbr" ng-maxlength="20" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_bus_scope">
+                              		 {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_SCOPE' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_bus_scope" name="bcust_bus_scope" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_SCOPE' | translate}}"
+                                           ng-model="fields.busScope" ng-maxlength="60">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_area" >
+                                   	{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_AREA' | translate}}
+                                   	<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+     	                                <ui-select
+                                           id="bcust_area"
+                                           ng-model="selectedBcustArea.item"
+                                           on-select="bcustAreaSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in bcust_areas | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_address2">
+                                	 {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_ADDRESS2' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_address2" name="bcust_address2" type="text" class="form-control" 
+                                    	   ng-model="fields.bcustAddress2" ng-maxlength="40"
+                                    	   placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_ADDRESS2' | translate}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_fx_nbr">
+                              		  {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_FX_NBR' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_fx_nbr" name="bcust_fx_nbr" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_FX_NBR' | translate}}"
+                                           ng-model="fields.fxNbr" ng-maxlength="20" ng-minlength="20">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_auth_repter">
+                              		{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_AUTH_REPTER' | translate}}
+                              		<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_auth_repter" name="bcust_auth_repter" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_BUSS_REPTER' | translate}}"
+                                           ng-model="fields.authRepter" ng-maxlength="19" ng-minlength="19" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_approve_name">
+                              		{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_APPROVE_NAME' | translate}}
+                              		<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_approve_name" name="bcust_approve_name" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_APPROVE_NAME' | translate}}"
+                                           ng-model="fields.approveName" ng-maxlength="10" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_regi_ccy" >
+                                	{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_REGI_CCY' | translate}}
+                                   	<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+     	                                <ui-select
+                                           id="bcust_regi_ccy"
+                                           ng-model="selectedBcustRegiCcy.item"
+                                           on-select="bcustRegiCcySelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in bcust_regi_ccys | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_psw_ind" >
+                                	{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_PSW_IND' | translate}}
+                                   	<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+     	                                <ui-select
+                                           id="bcust_psw_ind"
+                                           ng-model="selectedBcustPswInd.item"
+                                           on-select="bcustPswIndSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in bcust_psw_inds | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					<!-- Column 3 -->
+                    <div class="col-lg-4">
+                        <div class="form-horizontal">
+                        	 <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_ename">
+                              		  {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_ENAME' | translate}}
+                              		 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_ename" name="bcust_ename" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_ENAME' | translate}}"
+                                           ng-model="fields.bcustEname" ng-maxlength="60" required>
+                                </div>
+                            </div>
+                        	<div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_email">
+                              		{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_EMAIL' | translate}}
+                              		<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_email" name="bcust_email" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_EMAIL' | translate}}"
+                                           ng-model="fields.bcustEmail" ng-maxlength="30" required>
+                                </div>
+                            </div>
+                        	<div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_zip_code">
+                              		 {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_ZIP_CODE' | translate}}
+                              		 <span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_zip_code" name="bcust_zip_code" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_ZIP_CODE' | translate}}"
+                                           ng-model="fields.zipCode" ng-maxlength="6" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_ownshp_type">
+                              		 {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_OWNSHP_TYPE' | translate}}
+                              		<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_ownshp_type" name="bcust_ownshp_type" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_OWNSHP_TYPE' | translate}}"
+                                           ng-model="fields.ownshpType" ng-maxlength="3" ng-minlength="3"  required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label">
+                               		{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_EXPDATE' | translate}}
+                         		   <span style="color:red">*</span>
+                                </label>
+                                <div ng-controller="AvailDateCtrl" class="col-lg-7">
+                                    <div class="input-group">
+                                        <input id="bcust_lcs_expdate" name="bcust_lcs_expdate" type="text" class="form-control" 
+                                        	   datepicker-popup="{{format}}" ng-model="fields.bcustLcsExpdate" 
+                                        	   placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_EXPDATE' | translate}}"
+                                               is-open="opened" datepicker-options="dateOptions" required
+                                               close-text="Close" />
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        	<div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_address3">
+                                	    {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_ADDRESS3' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_address3" name="bcust_address3" type="text" class="form-control" 
+                                    	   ng-model="fields.bcustAddress3" ng-maxlength="40"
+                                    	   placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_ADDRESS2' | translate}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_loan_card">
+                              		  {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_LOAN_CARD' | translate}}
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_loan_card" name="bcust_loan_card" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_LOAN_CARD' | translate}}"
+                                           ng-model="fields.loanCard" ng-maxlength="19" ng-minlength="19">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_fin_repter">
+                              		{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_FIN_REPTER' | translate}}
+                              		<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_fin_repter" name="bcust_fin_repter" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_BUSS_REPTER' | translate}}"
+                                           ng-model="fields.finRepter" ng-maxlength="19" ng-minlength="19" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_rank">
+                              		{{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_BCUST_RANK' | translate}}
+                              		<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+                                    <input id="bcust_rank" name="bcust_rank" type="text" class="form-control" value="1"
+                                           placeholder="1" ng-model="fields.bcustRank" ng-maxlength="1" required>
+                                </div>
+                            </div>
+                        	<div class="form-group">
+                                <label class="col-lg-5 control-label" for="bcust_stk_hldr_ind" >
+                                   	 {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_STK_HLDR_IND' | translate}}
+                                   	<span style="color:red">*</span>
+                                </label>
+                                <div class="col-lg-7">
+    	                                <ui-select
+                                           id="bcust_stk_hldr_ind"
+                                           ng-model="selectedBcustStkHldrInd.item"
+                                           on-select="bcustStkHldrIndSelectOnChange()"
+                                           ng-required="true"
+                                           theme="bootstrap">
+                                       <ui-select-match
+                                               placeholder="{{'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_SELECT' | translate}}">
+                                           {{$select.selected.value}}
+                                       </ui-select-match>
+                                       <ui-select-choices repeat="item in bcust_stk_hldr_inds | filter: $select.search">
+                                           <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                       </ui-select-choices>
+                                       <ui-select-no-choice>
+                                           {{ 'pages.common.COMMON_PLACEHOLDERS.COMMON_PLACEHOLDER_NO_RECORD' |
+                                           translate }}
+                                       </ui-select-no-choice>
+                                   </ui-select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-5 control-label">
+                         		     {{'pages.rm.BCUST.BCUST_MGMT_FORM_INPUTS.BCUST_MGMT_FORM_INPUT_LST_MN_DATE' | translate}}
+                                </label>
+                                <div ng-controller="AvailDateCtrl" class="col-lg-7">
+                                    <div class="input-group">
+                                        <input id="bcust_lst_mn_date" name="bcust_lst_mn_date" type="text" class="form-control" 
+                                        	   datepicker-popup="{{format}}" ng-model="fields.bcustLstMnDate"
+                                        	   placeholder="{{'pages.rm.BCUST.BCUST_MGMT_PLACEHOLDERS.BCUST_MGMT_PLACEHOLDER_LST_MN_DATE' | translate}}"
+                                               is-open="opened" datepicker-options="dateOptions" required
+                                               close-text="Close"/>
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>  
+                <!-- 按钮 -->
+                <div class="row">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                           	<div class="col-lg-6"></div>
+                           	<div class="col-lg-6">
+	                             <div class="col-lg-4">
+	                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="addBtn" ng-click="addBusCustomer()"
+	                                		ng-disabled="formAddBusCustomerFilter.$invalid">
+	                             	    	{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+	                                    <i class="fa fa-plus"></i>
+	                                </button>
+	                            </div>
+	                            <div class="col-lg-4">
+	                                <button class="btn m-b-xs btn-default btn-success btn-addon" ng-click="clear()">
+	                            	        {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+	                                    <i class="glyphicon glyphicon-repeat"></i>
+	                                </button>
+	                            </div>
+	                            <div class="col-lg-4">
+	                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" ng-click="cancel()">
+	                            	      {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+	                                    <i class="fa fa-times"></i>
+	                                </button>
+	                            </div>
+
+                           </div>
+                      </div>
+                  </div>
+              </div>  
+              </fieldset>
+           </form>
+        </div>
+    </div>
+</div>

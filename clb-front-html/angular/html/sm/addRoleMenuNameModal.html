@@ -1,0 +1,65 @@
+<div class="modal-body wrapper-lg no-padder">
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.sm.role.ROLE_MGMT_FORM_TITLES.ROLE_MGMT_FORM_TITLE_ADD_ROLE_MENU_NAME">
+        </div>
+        <div class="panel-body" id="addRolePanel">
+            <div class="well b bg-warning bg lt text-dark wrapper-sm m-t">
+                <strong>{{"pages.common.COMMON_NOTIFICATION_TEXTS.COMMON_NOTIFICATION_I18N" | translate}}</strong>
+            </div>
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+            
+	        <form name="formAddUser" id="formAddUser" class="form-validation" novalidate>
+		        <div class="row">
+		            <div class="col-lg-4">
+			            
+			                <p class="text-right">{{roleName}}</p>
+			            
+		            </div>
+		            <div class="col-lg-4">
+		        <!--      <input type="checkbox" ng-model="select_all" ng-change="selectAll(select_all)" />全选 -->
+		            </div>
+		         
+		        </div>
+		        
+		         <div class="row">
+			     
+					
+		        </div> 
+		        <div class="row">
+		        <div class="col-lg-4"></div>
+		        <div class="col-lg-4">
+		          <ul id="tree" class="ztree" style="width:260px; overflow:auto;"></ul>
+		        </div>
+		           
+		        </div>
+		    
+		        <div class="row">
+		              <div class="form-group">
+		                  <div class="col-lg-6"></div>
+		                  <div class="col-lg-2"></div>
+		                  <div class="col-lg-2">
+		                      <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnSave"
+		                              ng-click="add()" ng-disabled="formAddUser.$invalid">
+		                          {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SUBMIT' | translate}}
+		                          <i class="fa fa-plus"></i>
+		                      </button>
+		                  </div>
+		                  <div class="col-lg-2">
+		                      <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose"
+		                              ng-click="cancel()">
+		                          {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+		                          <i class="fa fa-times"></i>
+		                      </button>
+		                  </div>
+		              </div>
+		          </div>
+	          </form>
+          
+       </div>   
+</div>
+</div>

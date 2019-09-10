@@ -1,0 +1,150 @@
+
+<!-- toaster directive -->
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+
+<div class="modal-body wrapper-lg no-padder" ng-controller="CustomerRelationPageCtrl">
+
+
+
+    <div class="panel panel-default m-b-none">
+        <!--标题-->
+        <div class="bg-light lter b-b wrapper-md">
+            <h1 class="m-n font-thin h3" translate="pages.rm.CREAL.CREAL_MGMT">客户关系列表</h1>
+        </div>
+        <div class="panel-body" >
+
+            <div class="well b bg-light lt wrapper-sm m-t" translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_QUERYCONTENT">
+            </div>
+
+            <form name="formCustomerRelationFilter" id="formCustomerRelationFilter">
+                <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-lg-3" >
+                        <div>
+                            <label for="creal_cus_num">
+                                	 {{'pages.rm.CTALE.CTALE_MGMT_COLUMN_TITLES.CTALE_MGMT_COLUMN_TITLE_CUST_NUMBER' | translate}}
+                                	 <span style="color:red">*</span>
+                            </label>
+
+                            <input id="creal_cus_num" name="creal_cus_num" type="text" class="form-control"
+                            	placeholder="{{'pages.rm.CRDMN.CRDMN_MGMT_PLACEHOLDERS.CRDMN_MGMT_PLACEHOLDER_CUST_NUMBER' | translate}}">
+                        </div>
+                    </div>
+                    <div class="col-lg-3" >
+                        <div>
+                            <label for="creal_retype" translate="pages.rm.CREAL.CREAL_MGMT_COLUMN_TITLES.CREAL_MGMT_COLUMN_TITLE_RETYPE">
+                                	关联类型1
+                            </label>
+                            <input id="creal_retype" name="creal_retype" type="text" class="form-control"
+                            	placeholder="{{'pages.rm.CREAL.CREAL_MGMT_PLACEHOLDERS.CREAL_MGMT_PLACEHOLDER_CUST_RETYPE' | translate}}">
+                        </div>
+                    </div>
+                    <div class="col-lg-3" >
+                        <div>
+                            <label for="creal_rel_cus" translate="pages.rm.CREAL.CREAL_MGMT_COLUMN_TITLES.CREAL_MGMT_COLUMN_TITLE_REL_CUS">
+                                	关系客户号
+                            </label>
+                            <input id="creal_rel_cus" name="creal_rel_cus" type="text" class="form-control"
+                            	placeholder="{{'pages.rm.CREAL.CREAL_MGMT_PLACEHOLDERS.CREAL_MGMT_PLACEHOLDER_CUST_NUMBER' | translate}}">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                   <div class="form-group">
+                         <div class="col-lg-3">
+                               <button class="btn m-b-xs btn-default btn-success btn-addon" id="queryCustomerRelationBtn" style="width:150px;
+                                   	   margin-top: 10px;margin-left: 1450px" ng-click="queryCustomerRelationInf()">
+                                   {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_SEARCH' | translate}}
+                                   <i class="fa fa-search"></i>
+                               </button>
+                         </div>
+
+                         <div class="col-lg-2">
+                             <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnReset" style="width:150px;
+                             		   margin-top: 10px;margin-left: 1500px"
+                                     type="reset">
+                                 {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CLEAR' | translate}}
+                                 <i class="fa fa-times"></i>
+                             </button>
+                         </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="row" id="CustomerRelationTable" name="CustomerRelationTable">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading font-bold">
+                    <span ng-controller="addCustomerRelationModalInstanceCtrl">
+                        <!--添加客户关系的modal框-->
+                        <script type="text/ng-template" id="addCustomerRelationModal.html">
+                            <div ng-include="'html/rm/customerRelationManagement/add_customer_rela_modal_form.html'"></div>
+                        </script>
+
+                        <!--添加客户关系的按钮-->
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="showAddCustomerRela" ng-click="showAddCustomerRelaPopup()">
+                         		  {{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_ADD' | translate}}
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </span>
+                    
+                    <span>
+                        <button class="btn m-b-xs btn-sm btn-default btn-addon" id="customerRelationNext" ng-click="customerRelationNextPopup()"
+                        		ng-hide="isTableHidden">
+                            	{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_NEXT_PAGE' | translate}}
+                            <i class="glyphicon glyphicon-share-alt"></i>
+                        </button>
+                    </span>
+   		
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    
+    <!-- 列表 -->
+	<div class="panel-body" ng-hide="isTableHidden" ng-controller="customerRelationDetailModalCtrl">
+          <div class="table-responsive" >
+               <table class="table table table-striped table-bordered table-hover table-condensed">
+					<caption translate="pages.rm.CRDMN.CRDMN_MGMT">客户事件列表</caption>
+					<thead>
+						<tr>
+							<th translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_SEQUENCE">序号1</th>
+							<th translate="pages.rm.PCUST.PCUST_MGMT_COLUMN_TITLES.PCUST_MGMT_COLUMN_TITLE_PCUST_NUM">客户编号1</th>
+							<th translate="pages.rm.CREAL.CREAL_MGMT_COLUMN_TITLES.CREAL_MGMT_COLUMN_TITLE_RETYPE">关系类型1</th>
+							<th translate="pages.rm.CREAL.CREAL_MGMT_COLUMN_TITLES.CREAL_MGMT_COLUMN_TITLE_CUS">关系客户1</th>
+							<th translate="pages.rm.CTALE.CTALE_MGMT_COLUMN_TITLES.CTALE_MGMT_COLUMN_TITLE_VIEW">查看1</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="x in CustomerRelations">
+							<td>{{$index + 1}}</td>
+							<td>{{x.crealqo_cus_num}}</td>
+							<td>{{x.crealqo_retype}}</td>
+							<td>{{x.crealqo_rel_cus}}</td>
+							<td>
+								<span>
+                        			<!--客户关系详情modal框-->
+		                       		<script type="text/ng-template" id="customerRelationDetailModal.html">
+                            			<div ng-include="'html/rm/customerRelationManagement/customer_relation_modal_detail.html'"></div>
+                        			</script>
+                       				<!--详情客户关系按钮-->
+                       				<button class="btn m-b-xs btn-sm btn-default btn-addon" ng-click="getRelationInformation($index)"
+                       					 id="customerEvent" translate="pages.rm.CREAL.CREAL_BUTTONS.CREAL_BUTTON_DETAIL">
+                         		 			客户关系详细信息1
+                        			</button>
+                    			</span>
+							</td>
+						</tr>
+					</tbody>
+			</table>
+        </div>
+   </div>
+</div>
+
+
+

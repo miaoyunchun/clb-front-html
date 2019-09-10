@@ -1,0 +1,227 @@
+<!-- This page has been included in org_mgmt.html so no need to specify the controller here -->
+<div class="modal-body wrapper-lg no-padder"  >
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.ln.GX_MGMT_FORM_TITLES.GX_MGMT_FORM_TITLE_APPLY_EXTENSION">
+        </div>
+        <div class="panel-body" ng-controller="QueryContractCtrl">
+        <!-- toaster directive -->
+		<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<!--             <div class="well b bg-light lt wrapper-sm m-t"> -->
+<!--                 {{"pages.sm.ORG_MGMT_NOTIFICATION_TEXTS.ORG_MGMT_NOTIFICATION_I18N" | translate}} -->
+<!--             </div> -->
+
+           
+            
+			<!-- 展期申请表单 -->
+            <form name="formApplyExtension" id="formApplyExtension" class="form-validation" ng-controller="FirstController">
+	 			<!-- alert -->
+		            <div class="m-b-md">
+		                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+		                </alert>
+		            </div>
+                <fieldset ng-disabled="isFormDisabled">
+                    <!-- Organization basic info -->
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-lg-3" >
+                            <div class="form-group" >
+                                <label for="loanNbr"
+                                       translate="pages.ln.GX_MGMT_FIELDS.CONTRACT_NBR">
+                                       	合同编号
+                                </label>
+                                <input id="loanNbr" name="lncntrct_cntrct_no" type="text"
+                                       class="form-control"  ng-blur="blur()"
+                                       ng-model="fields.loanNbr"  ng-minlength="6" 
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 2 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="auditCustId"
+                                       translate="pages.ln.GX_MGMT_FIELDS.CUSTOMER_NBR">
+                                    	客户号
+                                </label>
+                               <input id="auditCustId" name="gxcapply_id"  type="text" readonly
+                                       class="form-control"
+                                       ng-model="fields.auditCustId"   
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 3 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="loanAccount"
+                                       translate="pages.ln.GX_MGMT_FIELDS.ACCOUNT_NBR">
+                                    	账户号
+                                </label>
+                               <input id="loanAccount" name="gxcapply_loan_acct" type="text"
+                               		   readonly
+                                       class="form-control"
+                                       ng-model="fields.loanAccount" ng-minlength="6" 
+                                       required>
+                            </div>
+                        </div>
+
+                        <!-- Column 4 -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="custName"
+                                       translate="pages.ln.GX_MGMT_FIELDS.CUSTOMER_NAME">
+                                    	客户姓名
+                                </label>
+                                <input id="custName" name="gxcapply_cust_name" type="text"
+                                	   readonly
+                                       class="form-control"
+                                       ng-model="fields.custName" 
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Name and description -->
+                    <div class="row">
+                        <!-- Name and description in Simplified Chinese -->
+                        <div   class="col-lg-3">
+                            <div class="form-group">
+                            <label for="loanDueDate"
+                                       translate="pages.ln.GX_MGMT_FIELDS.BEFORE_EXTENSION_LOAN_DUEDATE">
+                                    	展期前贷款到期日
+                                </label>
+                                <div ng-controller="AvailDateCtrl" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="fields.loanDueDate" placeholder="{{placeholders.availDate}}"
+                                               id="loanDueDate"	name="gxcapply_loan_due_date" readonly
+                                               is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                               close-text="Close"/>
+                                              
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" disabled ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="prodType"
+                                       translate="pages.ln.GX_MGMT_FIELDS.BEFORE_EXTENSION_PRO_TYPE">
+                                    	展期前产品类型
+                                </label>
+                                <input type="text" class="form-control" id="prodType"
+                                       name="gxcapply_extend_type" readonly
+                                       ng-model="fields.prodType"  required>
+                            </div>
+                        </div>
+
+                        <!-- Name and description in Traditional Chinese -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="loanAmt"
+                                       translate="pages.ln.GX_MGMT_FIELDS.LOAN_AMOUNT">
+                                   		贷款金额
+                                </label>
+                                <input type="text" class="form-control" id="loanAmt"
+                                       name="gxcapply_loan_amt"	readonly
+                                       ng-minlength="1" ng-model="fields.loanAmt" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="extendDate"
+                                       translate="pages.ln.GX_MGMT_FIELDS.AFTER_EXTENSION_DUEDATE">
+                                    	展期后到期日
+                                </label>
+                                <div ng-controller="AvailDateCtrl" >
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" datepicker-popup="{{format}}"
+                                               ng-model="fields.extendDate" placeholder="{{placeholders.availDate}}"
+                                               is-open="opened" datepicker-options="dateOptions" ng-required="true"
+                                                id="extendDate"	name="gxcapply_extend_date"
+                                               close-text="Close"/>
+                                                
+                                        <span class="input-group-btn">
+                                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Name and description in English -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="extendFee"
+                                       translate="pages.ln.GX_MGMT_FIELDS.EXTENSION_FEE">
+                                    	展期手续费
+                                </label>
+                                <input id="extendFee" name="gxcapply_extend_fee" type="text"
+                                       class="form-control"
+                                       ng-model="fields.extendFee" ng-minlength="3" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="extendRate"
+                                       translate="pages.ln.GX_MGMT_FIELDS.EXTENSION_RATE">
+                                     	 展期后利率
+                                </label>
+                                <input type="text" class="form-control" id="extendRate"
+                                       name="gxcapply_extend_rate"
+                                       ng-model="fields.extendRate" ng-minlength="1" required>
+                            </div>
+                        </div>
+                        
+                        <!-- Name and description in English -->
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label for="remark"
+                                       translate="pages.ln.GX_MGMT_FIELDS.REMARK">
+                                   		 备注
+                                </label>
+                                <input id="remark" name="gxcapply_remark" type="text"
+                                       class="form-control"
+                                       ng-model="fields.remark" ng-minlength="1" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- A hidden row for hidden fields -->
+                    <div class="row" style="display: none">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="orgCreateUser"></label>
+                                <input type="text" class="form-control" id="orgCreateUser"
+                                       name="gx.orgCreateUser"
+                                       ng-model="fields.orgCreateUser">
+                            </div>
+                        </div>
+                    </div>
+  					
+                    <div class="row" >
+                        <div class="form-group">
+                            <div class="col-lg-6"></div>
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-2"  >
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" style="width:180px" id="btnSave"  ng-click="add()" ng-disabled="formApplyExtension.$invalid">
+                                        
+                                    {{'pages.ln.GX_MGMT_BUTTON.GX_MGMT_BUTTON_APPLY' | translate}}
+                                    <i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClear" style="width:180px"
+                                        ng-click="cancel()">
+                                    {{'pages.ln.GX_MGMT_BUTTON.GX_MGMT_BUTTON_CANCEL' | translate}}
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

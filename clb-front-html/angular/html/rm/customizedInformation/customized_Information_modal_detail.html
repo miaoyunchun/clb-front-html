@@ -1,0 +1,122 @@
+
+<div class="modal-body wrapper-lg no-padder">
+
+    <div class="panel panel-default m-b-none">
+        <div class="panel-heading font-bold"
+             translate="pages.rm.CRDMN.CRDMN_BUTTONS.CRDMN_BUTTON_DETAIL">自定义信息内容</div>
+        <div class="panel-body" id="addPerCustomerPanel">
+
+            <!-- alert -->
+            <div class="m-b-md">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
+                </alert>
+            </div>
+             <form name="formCustomizedInformationFilter" id="formCustomizedInformationFilter">
+             	<fieldset ng-disabled="isFormDisabled">
+             	<div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-lg-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="crdmn_number">
+                                	{{'pages.rm.CTALE.CTALE_MGMT_FORM_INPUTS.CTALE_MGMT_FORM_INPUT_NUMBER' | translate}}
+                                </label>
+                                <div class="col-lg-8">
+                                    <input id="crdmn_number" name="crdmn_number" type="text" class="form-control" 
+                                    	   ng-model="fields.crdmnNumber" readonly="true" 
+                                    	   placeholder="{{'pages.rm.CRDMN.CRDMN_MGMT_PLACEHOLDERS.CRDMN_MGMT_PLACEHOLDER_CUST_NUMBER' | translate}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="crdmn_defined_desc">
+                              		 {{'pages.rm.CRDMN.CRDMN_MGMT_FORM_INPUTS.CRDMN_MGMT_FORM_INPUT_DEFINED_DESC' | translate}}
+                                </label>
+                                <div class="col-lg-8">
+                                    <input id="crdmn_defined_desc" name="crdmn_defined_desc" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.CRDMN.CRDMN_MGMT_PLACEHOLDERS.CRDMN_MGMT_PLACEHOLDER_DEFINED_DESC' | translate}}"
+                                           ng-model="fields.crdmnDefinedDesc">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="crdmn_defined_content">
+                              		 {{'pages.rm.CRDMN.CRDMN_MGMT_FORM_INPUTS.CRDMN_MGMT_FORM_INPUT_DEFINED_CONTENT' | translate}}
+                                </label>
+                                <div class="col-lg-8">
+                                    <input id="crdmn_defined_content" name="crdmn_defined_content" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.CRDMN.CRDMN_MGMT_PLACEHOLDERS.CRDMN_MGMT_PLACEHOLDER_DEFINED_CONTENT' | translate}}"
+                                           ng-model="fields.crdmnDefinedContent">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="col-lg-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="crdmn_defined_titl">
+                              		 {{'pages.rm.CRDMN.CRDMN_MGMT_FORM_INPUTS.CRDMN_MGMT_FORM_INPUT_DEFINED_TITL' | translate}}
+                                </label>
+                                <div class="col-lg-8">
+                                    <input id="crdmn_defined_titl" name="crdmn_defined_titl" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.CRDMN.CRDMN_MGMT_PLACEHOLDERS.CRDMN_MGMT_PLACEHOLDER_DEFINED_TITL' | translate}}"
+                                           ng-model="fields.crdmnDefinedTitl" readonly="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="update_time">
+                              		{{'pages.rm.CRDMN.CRDMN_MGMT_FORM_INPUTS.CRDMN_MGMT_FORM_INPUT_UPDATE_TIME' | translate}}
+                                </label>
+                                <div class="col-lg-8">
+                                    <input id="update_time" name="update_time" type="text" class="form-control" 
+                                           placeholder="上次维护时间" ng-model="fields.updateTime" readonly="true">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-4 control-label" for="update_user">
+                              		{{'pages.rm.CRDMN.CRDMN_MGMT_FORM_INPUTS.CRDMN_MGMT_FORM_INPUT_UPDATE_USER' | translate}}
+                                </label>
+                                <div class="col-lg-8">
+                                    <input id="update_user" name="update_user" type="text" class="form-control" 
+                                           placeholder="{{'pages.rm.CRDMN.CRDMN_MGMT_PLACEHOLDERS.CRDMN_MGMT_PLACEHOLDER_CRDMN_MGMT_PLACEHOLDER_UPDATE_USER' | translate}}"
+                                           ng-model="fields.updateUser" readonly="true">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 </div>
+                   <!-- 按钮 -->
+                   <div class="row">
+                       <div class="form-horizontal"> 
+                           <div class="form-group">
+                              	<div class="col-lg-6"></div>
+                              	<div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="editBtn" ng-click="editCustomizedInformation()"
+                                    	    ng-disabled="formAddPerCustomerFilter.$invalid">
+                                 	  		{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_EDIT' | translate}}
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" ng-click="deleteCustomizedInformation()"
+                                    		id="deleteBtn">
+                                	       	{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_REMOVE' | translate}}
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button class="btn m-b-xs btn-default btn-success btn-addon" id="btnClose" ng-click="cancel()">
+                                	      	{{'pages.common.COMMON_BUTTONS.COMMON_BUTTON_CANCEL' | translate}}
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </div>
+                              </div>
+                         </div>
+                     </div>
+                 </div>
+                 </fieldset>
+             </form>
+        </div>
+    </div>
+</div>
